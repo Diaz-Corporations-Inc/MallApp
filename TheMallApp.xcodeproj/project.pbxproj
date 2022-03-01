@@ -3,18 +3,55 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		039A94FA428A60C6C20ED570 /* Pods_TheMallApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B763058785DFFB68D13D809 /* Pods_TheMallApp.framework */; };
+		0429BD2E27BB72AB0030DED2 /* StoreDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0429BD2D27BB72AB0030DED2 /* StoreDetailsVC.swift */; };
+		0444336F27C6070600D5C015 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444336E27C6070600D5C015 /* UserModel.swift */; };
+		0444337827C607C600D5C015 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444337727C607C600D5C015 /* ApiManager.swift */; };
+		0444338027C6094700D5C015 /* ReachabilityNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444337F27C6094700D5C015 /* ReachabilityNetwork.swift */; };
+		0444339627C60C6600D5C015 /* ApiUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444339527C60C6600D5C015 /* ApiUrls.swift */; };
 		045D96C527A924650071275A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96C427A924650071275A /* AppDelegate.swift */; };
 		045D96C727A924650071275A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96C627A924650071275A /* SceneDelegate.swift */; };
-		045D96C927A924650071275A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96C827A924650071275A /* ViewController.swift */; };
+		045D96C927A924650071275A /* FirstVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96C827A924650071275A /* FirstVC.swift */; };
 		045D96CC27A924650071275A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045D96CA27A924650071275A /* Main.storyboard */; };
 		045D96CE27A924670071275A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045D96CD27A924670071275A /* Assets.xcassets */; };
 		045D96D127A924670071275A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045D96CF27A924670071275A /* LaunchScreen.storyboard */; };
 		045D96DC27A924670071275A /* TheMallAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96DB27A924670071275A /* TheMallAppTests.swift */; };
 		045D96E727A924670071275A /* TheMallAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96E627A924670071275A /* TheMallAppUITests.swift */; };
+		048BF02F27C11C3F006AE5AF /* ListingTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */; };
+		048BF03427C1262E006AE5AF /* abc.mov in Resources */ = {isa = PBXBuildFile; fileRef = 048BF03327C1262E006AE5AF /* abc.mov */; };
+		04935C6127C8B71B0007E7F4 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */; };
+		04935C6627C8E3370007E7F4 /* BaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04935C6527C8E3370007E7F4 /* BaseClass.swift */; };
+		049570A227B27AB900CE5E23 /* BrowseAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570A127B27AB900CE5E23 /* BrowseAllVC.swift */; };
+		049570A727B2825300CE5E23 /* BrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570A627B2825300CE5E23 /* BrowseCell.swift */; };
+		049570AF27B3967B00CE5E23 /* DealsOfDayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570AE27B3967B00CE5E23 /* DealsOfDayVC.swift */; };
+		049570B727B39B0F00CE5E23 /* OldDealCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570B627B39B0F00CE5E23 /* OldDealCollCell.swift */; };
+		049570BC27B39B1E00CE5E23 /* PromoCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570BB27B39B1E00CE5E23 /* PromoCollCell.swift */; };
+		049570C127B39B2A00CE5E23 /* DealsCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570C027B39B2A00CE5E23 /* DealsCollCell.swift */; };
+		049570FD27B3F84300CE5E23 /* CartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570FC27B3F84300CE5E23 /* CartVC.swift */; };
+		0495710527B4ECC700CE5E23 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495710427B4ECC700CE5E23 /* ProfileVC.swift */; };
+		0495710A27B4F03200CE5E23 /* ProTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495710927B4F03200CE5E23 /* ProTableCell.swift */; };
+		0495711227B62EE700CE5E23 /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */; };
+		0495711D27B68C2F00CE5E23 /* FavoutiteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */; };
+		04AFB49F27BA4A2E00DDA79F /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */; };
+		A7DEA4194C2EF033DF00F981 /* Pods_TheMallApp_TheMallAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321E81A07253D74AF1A8D6C7 /* Pods_TheMallApp_TheMallAppUITests.framework */; };
+		BD6C7490EB74D06444BC7126 /* Pods_TheMallAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F72D956845F51EE8C9EB2BE /* Pods_TheMallAppTests.framework */; };
+		FA21857D27AC05B0003FFCAF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21857C27AC05AF003FFCAF /* LoginVC.swift */; };
+		FA21857F27AC05D3003FFCAF /* SignUPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21857E27AC05D3003FFCAF /* SignUPVC.swift */; };
+		FA21858127AC05F4003FFCAF /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21858027AC05F4003FFCAF /* ForgotPasswordVC.swift */; };
+		FA21858327AC0603003FFCAF /* OTPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21858227AC0603003FFCAF /* OTPVC.swift */; };
+		FA21858527AC0659003FFCAF /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21858427AC0659003FFCAF /* ResetPasswordVC.swift */; };
+		FA2CB63027B0FF2F0078414D /* PicFavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB62F27B0FF2F0078414D /* PicFavouriteCell.swift */; };
+		FA2CB63227B0FF3C0078414D /* Shopscell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB63127B0FF3C0078414D /* Shopscell.swift */; };
+		FA2CB63427B157D00078414D /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB63327B157D00078414D /* TabBarVC.swift */; };
+		FA9E9EE227AD48C5001FA74A /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE127AD48C5001FA74A /* ResetPassword.swift */; };
+		FA9E9EE427AEA97B001FA74A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE327AEA97A001FA74A /* HomeVC.swift */; };
+		FA9E9EE627B0F7B5001FA74A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE527B0F7B5001FA74A /* Splash.swift */; };
+		FA9E9EE827B0F83D001FA74A /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE727B0F83D001FA74A /* LocationVC.swift */; };
+		FA9E9EEA27B0F915001FA74A /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE927B0F915001FA74A /* MapTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +72,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0429BD2D27BB72AB0030DED2 /* StoreDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailsVC.swift; sourceTree = "<group>"; };
+		0444336E27C6070600D5C015 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		0444337727C607C600D5C015 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		0444337F27C6094700D5C015 /* ReachabilityNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityNetwork.swift; sourceTree = "<group>"; };
+		0444339527C60C6600D5C015 /* ApiUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrls.swift; sourceTree = "<group>"; };
 		045D96C127A924650071275A /* TheMallApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMallApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		045D96C427A924650071275A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045D96C627A924650071275A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		045D96C827A924650071275A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		045D96C827A924650071275A /* FirstVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVC.swift; sourceTree = "<group>"; };
 		045D96CB27A924650071275A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		045D96CD27A924670071275A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		045D96D027A924670071275A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +91,53 @@
 		045D96E227A924670071275A /* TheMallAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheMallAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		045D96E627A924670071275A /* TheMallAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMallAppUITests.swift; sourceTree = "<group>"; };
 		045D96E827A924670071275A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTypeVC.swift; sourceTree = "<group>"; };
+		048BF03327C1262E006AE5AF /* abc.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = abc.mov; sourceTree = "<group>"; };
+		04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
+		04935C6527C8E3370007E7F4 /* BaseClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClass.swift; sourceTree = "<group>"; };
+		049570A127B27AB900CE5E23 /* BrowseAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAllVC.swift; sourceTree = "<group>"; };
+		049570A627B2825300CE5E23 /* BrowseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCell.swift; sourceTree = "<group>"; };
+		049570AE27B3967B00CE5E23 /* DealsOfDayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealsOfDayVC.swift; sourceTree = "<group>"; };
+		049570B627B39B0F00CE5E23 /* OldDealCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldDealCollCell.swift; sourceTree = "<group>"; };
+		049570BB27B39B1E00CE5E23 /* PromoCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollCell.swift; sourceTree = "<group>"; };
+		049570C027B39B2A00CE5E23 /* DealsCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealsCollCell.swift; sourceTree = "<group>"; };
+		049570FC27B3F84300CE5E23 /* CartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVC.swift; sourceTree = "<group>"; };
+		0495710427B4ECC700CE5E23 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		0495710927B4F03200CE5E23 /* ProTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProTableCell.swift; sourceTree = "<group>"; };
+		0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsVC.swift; sourceTree = "<group>"; };
+		0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoutiteVC.swift; sourceTree = "<group>"; };
+		04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVC.swift; sourceTree = "<group>"; };
+		289F0AA747DC94265D6579A8 /* Pods-TheMallApp-TheMallAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallApp-TheMallAppUITests.release.xcconfig"; path = "Target Support Files/Pods-TheMallApp-TheMallAppUITests/Pods-TheMallApp-TheMallAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		301A3B5F21433CE620D466A2 /* Pods-TheMallApp-TheMallAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallApp-TheMallAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-TheMallApp-TheMallAppUITests/Pods-TheMallApp-TheMallAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		321E81A07253D74AF1A8D6C7 /* Pods_TheMallApp_TheMallAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMallApp_TheMallAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B763058785DFFB68D13D809 /* Pods_TheMallApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMallApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D813828FA525E86A08F41BE /* Pods-TheMallAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallAppTests.release.xcconfig"; path = "Target Support Files/Pods-TheMallAppTests/Pods-TheMallAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		6A630C270CC70CB6C3281FC7 /* Pods-TheMallApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallApp.debug.xcconfig"; path = "Target Support Files/Pods-TheMallApp/Pods-TheMallApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6F72D956845F51EE8C9EB2BE /* Pods_TheMallAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMallAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9ECC18EF4D47BE627F86456 /* Pods-TheMallApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallApp.release.xcconfig"; path = "Target Support Files/Pods-TheMallApp/Pods-TheMallApp.release.xcconfig"; sourceTree = "<group>"; };
+		B58D1B6969C8E77FC245B2FD /* Pods-TheMallAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallAppTests.debug.xcconfig"; path = "Target Support Files/Pods-TheMallAppTests/Pods-TheMallAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA21857327AA66AC003FFCAF /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
+		FA21857427AA66AC003FFCAF /* SFPRODISPLAYREGULAR.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYREGULAR.OTF; sourceTree = "<group>"; };
+		FA21857527AA66AD003FFCAF /* SFPRODISPLAYSEMIBOLDITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYSEMIBOLDITALIC.OTF; sourceTree = "<group>"; };
+		FA21857627AA66AD003FFCAF /* SFPRODISPLAYTHINITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYTHINITALIC.OTF; sourceTree = "<group>"; };
+		FA21857727AA66AD003FFCAF /* SFPRODISPLAYBLACKITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYBLACKITALIC.OTF; sourceTree = "<group>"; };
+		FA21857827AA66AD003FFCAF /* SFPRODISPLAYHEAVYITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYHEAVYITALIC.OTF; sourceTree = "<group>"; };
+		FA21857927AA66AD003FFCAF /* SFPRODISPLAYMEDIUM.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYMEDIUM.OTF; sourceTree = "<group>"; };
+		FA21857A27AA66AE003FFCAF /* SFPRODISPLAYLIGHTITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYLIGHTITALIC.OTF; sourceTree = "<group>"; };
+		FA21857B27AA66AE003FFCAF /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFPRODISPLAYULTRALIGHTITALIC.OTF; sourceTree = "<group>"; };
+		FA21857C27AC05AF003FFCAF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		FA21857E27AC05D3003FFCAF /* SignUPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPVC.swift; sourceTree = "<group>"; };
+		FA21858027AC05F4003FFCAF /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		FA21858227AC0603003FFCAF /* OTPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVC.swift; sourceTree = "<group>"; };
+		FA21858427AC0659003FFCAF /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
+		FA2CB62F27B0FF2F0078414D /* PicFavouriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicFavouriteCell.swift; sourceTree = "<group>"; };
+		FA2CB63127B0FF3C0078414D /* Shopscell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopscell.swift; sourceTree = "<group>"; };
+		FA2CB63327B157D00078414D /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		FA9E9EE127AD48C5001FA74A /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
+		FA9E9EE327AEA97A001FA74A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		FA9E9EE527B0F7B5001FA74A /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
+		FA9E9EE727B0F83D001FA74A /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		FA9E9EE927B0F915001FA74A /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				039A94FA428A60C6C20ED570 /* Pods_TheMallApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD6C7490EB74D06444BC7126 /* Pods_TheMallAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +161,58 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7DEA4194C2EF033DF00F981 /* Pods_TheMallApp_TheMallAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0444336D27C606EC00D5C015 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0444336E27C6070600D5C015 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0444337627C607B000D5C015 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				0444337727C607C600D5C015 /* ApiManager.swift */,
+				0444339527C60C6600D5C015 /* ApiUrls.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		04463AE127BA23B0000F2782 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E9EE527B0F7B5001FA74A /* Splash.swift */,
+				045D96C827A924650071275A /* FirstVC.swift */,
+				FA21857C27AC05AF003FFCAF /* LoginVC.swift */,
+				FA21857E27AC05D3003FFCAF /* SignUPVC.swift */,
+				FA21858027AC05F4003FFCAF /* ForgotPasswordVC.swift */,
+				FA21858227AC0603003FFCAF /* OTPVC.swift */,
+				FA21858427AC0659003FFCAF /* ResetPasswordVC.swift */,
+				FA9E9EE127AD48C5001FA74A /* ResetPassword.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		04463AE327BA2409000F2782 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E9EE327AEA97A001FA74A /* HomeVC.swift */,
+				FA9E9EE727B0F83D001FA74A /* LocationVC.swift */,
+				049570A127B27AB900CE5E23 /* BrowseAllVC.swift */,
+				FA2CB63327B157D00078414D /* TabBarVC.swift */,
+				049570FC27B3F84300CE5E23 /* CartVC.swift */,
+				0495710427B4ECC700CE5E23 /* ProfileVC.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		045D96B827A924650071275A = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +220,8 @@
 				045D96DA27A924670071275A /* TheMallAppTests */,
 				045D96E527A924670071275A /* TheMallAppUITests */,
 				045D96C227A924650071275A /* Products */,
+				B78733194A450358E494241C /* Pods */,
+				165484D76D45FFD27EE29C48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,12 +238,17 @@
 		045D96C327A924650071275A /* TheMallApp */ = {
 			isa = PBXGroup;
 			children = (
+				0444337627C607B000D5C015 /* Api */,
+				0444336D27C606EC00D5C015 /* Model */,
+				048BF03327C1262E006AE5AF /* abc.mov */,
+				FA21857227AA669C003FFCAF /* Font */,
+				FA21857127AA6215003FFCAF /* Views */,
+				FA21857027AA6207003FFCAF /* Controllers */,
 				045D96C427A924650071275A /* AppDelegate.swift */,
 				045D96C627A924650071275A /* SceneDelegate.swift */,
-				045D96C827A924650071275A /* ViewController.swift */,
-				045D96CA27A924650071275A /* Main.storyboard */,
+				0444337F27C6094700D5C015 /* ReachabilityNetwork.swift */,
+				04935C6527C8E3370007E7F4 /* BaseClass.swift */,
 				045D96CD27A924670071275A /* Assets.xcassets */,
-				045D96CF27A924670071275A /* LaunchScreen.storyboard */,
 				045D96D227A924670071275A /* Info.plist */,
 			);
 			path = TheMallApp;
@@ -128,6 +272,94 @@
 			path = TheMallAppUITests;
 			sourceTree = "<group>";
 		};
+		04935C5F27C8B6810007E7F4 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				049570AE27B3967B00CE5E23 /* DealsOfDayVC.swift */,
+				0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */,
+				0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */,
+				04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */,
+				0429BD2D27BB72AB0030DED2 /* StoreDetailsVC.swift */,
+				048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */,
+				04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */,
+			);
+			path = other;
+			sourceTree = "<group>";
+		};
+		049570F527B3A6DD00CE5E23 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E9EE927B0F915001FA74A /* MapTableCell.swift */,
+				FA2CB62F27B0FF2F0078414D /* PicFavouriteCell.swift */,
+				FA2CB63127B0FF3C0078414D /* Shopscell.swift */,
+				049570A627B2825300CE5E23 /* BrowseCell.swift */,
+				049570B627B39B0F00CE5E23 /* OldDealCollCell.swift */,
+				049570BB27B39B1E00CE5E23 /* PromoCollCell.swift */,
+				049570C027B39B2A00CE5E23 /* DealsCollCell.swift */,
+				0495710927B4F03200CE5E23 /* ProTableCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		165484D76D45FFD27EE29C48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B763058785DFFB68D13D809 /* Pods_TheMallApp.framework */,
+				321E81A07253D74AF1A8D6C7 /* Pods_TheMallApp_TheMallAppUITests.framework */,
+				6F72D956845F51EE8C9EB2BE /* Pods_TheMallAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B78733194A450358E494241C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A630C270CC70CB6C3281FC7 /* Pods-TheMallApp.debug.xcconfig */,
+				A9ECC18EF4D47BE627F86456 /* Pods-TheMallApp.release.xcconfig */,
+				301A3B5F21433CE620D466A2 /* Pods-TheMallApp-TheMallAppUITests.debug.xcconfig */,
+				289F0AA747DC94265D6579A8 /* Pods-TheMallApp-TheMallAppUITests.release.xcconfig */,
+				B58D1B6969C8E77FC245B2FD /* Pods-TheMallAppTests.debug.xcconfig */,
+				4D813828FA525E86A08F41BE /* Pods-TheMallAppTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA21857027AA6207003FFCAF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04935C5F27C8B6810007E7F4 /* other */,
+				04463AE327BA2409000F2782 /* Tab */,
+				04463AE127BA23B0000F2782 /* Auth */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FA21857127AA6215003FFCAF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				049570F527B3A6DD00CE5E23 /* Cell */,
+				045D96CA27A924650071275A /* Main.storyboard */,
+				045D96CF27A924670071275A /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FA21857227AA669C003FFCAF /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				FA21857727AA66AD003FFCAF /* SFPRODISPLAYBLACKITALIC.OTF */,
+				FA21857327AA66AC003FFCAF /* SFPRODISPLAYBOLD.OTF */,
+				FA21857827AA66AD003FFCAF /* SFPRODISPLAYHEAVYITALIC.OTF */,
+				FA21857A27AA66AE003FFCAF /* SFPRODISPLAYLIGHTITALIC.OTF */,
+				FA21857927AA66AD003FFCAF /* SFPRODISPLAYMEDIUM.OTF */,
+				FA21857427AA66AC003FFCAF /* SFPRODISPLAYREGULAR.OTF */,
+				FA21857527AA66AD003FFCAF /* SFPRODISPLAYSEMIBOLDITALIC.OTF */,
+				FA21857627AA66AD003FFCAF /* SFPRODISPLAYTHINITALIC.OTF */,
+				FA21857B27AA66AE003FFCAF /* SFPRODISPLAYULTRALIGHTITALIC.OTF */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +367,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045D96EB27A924670071275A /* Build configuration list for PBXNativeTarget "TheMallApp" */;
 			buildPhases = (
+				61DB1CA7ABFAFCA3D4342647 /* [CP] Check Pods Manifest.lock */,
 				045D96BD27A924650071275A /* Sources */,
 				045D96BE27A924650071275A /* Frameworks */,
 				045D96BF27A924650071275A /* Resources */,
+				60CA390B8DE5735709477B89 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +386,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045D96EE27A924670071275A /* Build configuration list for PBXNativeTarget "TheMallAppTests" */;
 			buildPhases = (
+				475C512186039135A4D140AF /* [CP] Check Pods Manifest.lock */,
 				045D96D327A924670071275A /* Sources */,
 				045D96D427A924670071275A /* Frameworks */,
 				045D96D527A924670071275A /* Resources */,
@@ -170,9 +405,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045D96F127A924670071275A /* Build configuration list for PBXNativeTarget "TheMallAppUITests" */;
 			buildPhases = (
+				B644B7815F5C9736C6961454 /* [CP] Check Pods Manifest.lock */,
 				045D96DE27A924670071275A /* Sources */,
 				045D96DF27A924670071275A /* Frameworks */,
 				045D96E027A924670071275A /* Resources */,
+				2D8B7887595C1761AF6877F8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -234,6 +471,7 @@
 				045D96D127A924670071275A /* LaunchScreen.storyboard in Resources */,
 				045D96CE27A924670071275A /* Assets.xcassets in Resources */,
 				045D96CC27A924650071275A /* Main.storyboard in Resources */,
+				048BF03427C1262E006AE5AF /* abc.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +491,150 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2D8B7887595C1761AF6877F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheMallApp-TheMallAppUITests/Pods-TheMallApp-TheMallAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheMallApp-TheMallAppUITests/Pods-TheMallApp-TheMallAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheMallApp-TheMallAppUITests/Pods-TheMallApp-TheMallAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		475C512186039135A4D140AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheMallAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60CA390B8DE5735709477B89 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheMallApp/Pods-TheMallApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheMallApp/Pods-TheMallApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheMallApp/Pods-TheMallApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61DB1CA7ABFAFCA3D4342647 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheMallApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B644B7815F5C9736C6961454 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheMallApp-TheMallAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		045D96BD27A924650071275A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045D96C927A924650071275A /* ViewController.swift in Sources */,
+				0444337827C607C600D5C015 /* ApiManager.swift in Sources */,
+				0495710A27B4F03200CE5E23 /* ProTableCell.swift in Sources */,
+				FA2CB63227B0FF3C0078414D /* Shopscell.swift in Sources */,
+				049570C127B39B2A00CE5E23 /* DealsCollCell.swift in Sources */,
+				0495711D27B68C2F00CE5E23 /* FavoutiteVC.swift in Sources */,
+				045D96C927A924650071275A /* FirstVC.swift in Sources */,
+				0429BD2E27BB72AB0030DED2 /* StoreDetailsVC.swift in Sources */,
+				04935C6627C8E3370007E7F4 /* BaseClass.swift in Sources */,
+				04935C6127C8B71B0007E7F4 /* ChangePasswordVC.swift in Sources */,
+				049570BC27B39B1E00CE5E23 /* PromoCollCell.swift in Sources */,
+				FA9E9EE627B0F7B5001FA74A /* Splash.swift in Sources */,
+				049570A227B27AB900CE5E23 /* BrowseAllVC.swift in Sources */,
+				0444339627C60C6600D5C015 /* ApiUrls.swift in Sources */,
+				0495711227B62EE700CE5E23 /* ProductDetailsVC.swift in Sources */,
+				FA9E9EE427AEA97B001FA74A /* HomeVC.swift in Sources */,
+				049570B727B39B0F00CE5E23 /* OldDealCollCell.swift in Sources */,
 				045D96C527A924650071275A /* AppDelegate.swift in Sources */,
+				0444336F27C6070600D5C015 /* UserModel.swift in Sources */,
+				FA2CB63027B0FF2F0078414D /* PicFavouriteCell.swift in Sources */,
+				049570A727B2825300CE5E23 /* BrowseCell.swift in Sources */,
+				049570FD27B3F84300CE5E23 /* CartVC.swift in Sources */,
+				0495710527B4ECC700CE5E23 /* ProfileVC.swift in Sources */,
+				FA21858127AC05F4003FFCAF /* ForgotPasswordVC.swift in Sources */,
+				FA9E9EE827B0F83D001FA74A /* LocationVC.swift in Sources */,
+				FA9E9EE227AD48C5001FA74A /* ResetPassword.swift in Sources */,
+				FA9E9EEA27B0F915001FA74A /* MapTableCell.swift in Sources */,
+				048BF02F27C11C3F006AE5AF /* ListingTypeVC.swift in Sources */,
+				049570AF27B3967B00CE5E23 /* DealsOfDayVC.swift in Sources */,
+				FA21858327AC0603003FFCAF /* OTPVC.swift in Sources */,
+				04AFB49F27BA4A2E00DDA79F /* StoreVC.swift in Sources */,
+				FA21857D27AC05B0003FFCAF /* LoginVC.swift in Sources */,
+				FA21857F27AC05D3003FFCAF /* SignUPVC.swift in Sources */,
+				0444338027C6094700D5C015 /* ReachabilityNetwork.swift in Sources */,
 				045D96C727A924650071275A /* SceneDelegate.swift in Sources */,
+				FA2CB63427B157D00078414D /* TabBarVC.swift in Sources */,
+				FA21858527AC0659003FFCAF /* ResetPasswordVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,18 +807,21 @@
 		};
 		045D96EC27A924670071275A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A630C270CC70CB6C3281FC7 /* Pods-TheMallApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8XR9GPSS6Y;
 				INFOPLIST_FILE = TheMallApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mspl.TheMallApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TheMallApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Themallapp_Dis;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -452,18 +829,21 @@
 		};
 		045D96ED27A924670071275A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9ECC18EF4D47BE627F86456 /* Pods-TheMallApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8XR9GPSS6Y;
 				INFOPLIST_FILE = TheMallApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = mspl.TheMallApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TheMallApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Themallapp_Dis;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -471,6 +851,7 @@
 		};
 		045D96EF27A924670071275A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B58D1B6969C8E77FC245B2FD /* Pods-TheMallAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +874,7 @@
 		};
 		045D96F027A924670071275A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D813828FA525E86A08F41BE /* Pods-TheMallAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +897,7 @@
 		};
 		045D96F227A924670071275A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 301A3B5F21433CE620D466A2 /* Pods-TheMallApp-TheMallAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +918,7 @@
 		};
 		045D96F327A924670071275A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 289F0AA747DC94265D6579A8 /* Pods-TheMallApp-TheMallAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

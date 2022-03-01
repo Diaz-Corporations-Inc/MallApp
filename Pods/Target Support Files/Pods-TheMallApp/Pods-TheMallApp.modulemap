@@ -1,0 +1,6 @@
+framework module Pods_TheMallApp {
+  umbrella header "Pods-TheMallApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
