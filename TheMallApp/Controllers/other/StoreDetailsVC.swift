@@ -20,7 +20,7 @@ class StoreDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        doneBtn.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
+//        doneBtn.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
 
         
         STPAPIClient.shared.publishableKey = "pk_test_51KQragSCNzQLiBK9jhU8YtCRQ2rUj6QgCP1bzdLochzKPpAt9jRCGhviW8do0h7Gk1h2Ev8CQiSPcHbI4mZHbSxk00eEK6atkv"
@@ -44,6 +44,8 @@ class StoreDetailsVC: UIViewController {
     }
     
     @IBAction func doneTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+        self.navigationController?.pushViewController(vc, animated: true)
 //        didTapCheckoutButton()
     }
     @IBAction func backTapped(_ sender: Any) {

@@ -20,5 +20,13 @@ class ListingTypeVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
+    @IBAction func storeListing(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func storeListingWithItem(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

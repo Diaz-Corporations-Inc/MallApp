@@ -18,14 +18,19 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func loginTapped(_ sender: UIButton){
-        let modeldata = loginModel(email: email.text!, password: password.text!)
-        ApiManager.shared.login(model: modeldata) { (success) in
-            if success{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else{
-                print("loginfailed")
+        if email.text != "" || password.text != ""{
+            let modeldata = loginModel(email: email.text!, password: password.text!)
+            ApiManager.shared.login(model: modeldata) { (success) in
+                if success{
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    self.alert(message: "Please check email and password", title: "Login Failed")
+                }
             }
+        }
+        else{
+            self.alert(message: "Please fill all fields")
         }
 
     }

@@ -22,14 +22,19 @@ class OTPVC: UIViewController {
     }
     
     @IBAction func nextTapped(_ sender: UIButton){
-        ApiManager.shared.otpVerify(otp: otp.text!) { (success) in
-            if success{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResetPassword") as! ResetPassword
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else{
-                print("Completion false please check otp")
+        if otp.text != ""{
+            ApiManager.shared.otpVerify(otp: otp.text!) { (success) in
+                if success{
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResetPassword") as! ResetPassword
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    self.alert(message: "Please enter valid otp",title: "OTP")
+                }
             }
+        }else{
+            self.alert(message: "Please enter OTP")
         }
+        
         
     }
     @IBAction func resendTapped(_ sender: UIButton){

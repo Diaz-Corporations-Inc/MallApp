@@ -47,6 +47,7 @@
 		FA2CB63027B0FF2F0078414D /* PicFavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB62F27B0FF2F0078414D /* PicFavouriteCell.swift */; };
 		FA2CB63227B0FF3C0078414D /* Shopscell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB63127B0FF3C0078414D /* Shopscell.swift */; };
 		FA2CB63427B157D00078414D /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CB63327B157D00078414D /* TabBarVC.swift */; };
+		FA6F0F2527CE098A002C12E3 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */; };
 		FA9E9EE227AD48C5001FA74A /* ResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE127AD48C5001FA74A /* ResetPassword.swift */; };
 		FA9E9EE427AEA97B001FA74A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE327AEA97A001FA74A /* HomeVC.swift */; };
 		FA9E9EE627B0F7B5001FA74A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE527B0F7B5001FA74A /* Splash.swift */; };
@@ -133,6 +134,7 @@
 		FA2CB62F27B0FF2F0078414D /* PicFavouriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicFavouriteCell.swift; sourceTree = "<group>"; };
 		FA2CB63127B0FF3C0078414D /* Shopscell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopscell.swift; sourceTree = "<group>"; };
 		FA2CB63327B157D00078414D /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
 		FA9E9EE127AD48C5001FA74A /* ResetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassword.swift; sourceTree = "<group>"; };
 		FA9E9EE327AEA97A001FA74A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		FA9E9EE527B0F7B5001FA74A /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				04935C5F27C8B6810007E7F4 /* other */,
 				04463AE327BA2409000F2782 /* Tab */,
 				04463AE127BA23B0000F2782 /* Auth */,
+				FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				049570C127B39B2A00CE5E23 /* DealsCollCell.swift in Sources */,
 				0495711D27B68C2F00CE5E23 /* FavoutiteVC.swift in Sources */,
 				045D96C927A924650071275A /* FirstVC.swift in Sources */,
+				FA6F0F2527CE098A002C12E3 /* ImageUploadVC.swift in Sources */,
 				0429BD2E27BB72AB0030DED2 /* StoreDetailsVC.swift in Sources */,
 				04935C6627C8E3370007E7F4 /* BaseClass.swift in Sources */,
 				04935C6127C8B71B0007E7F4 /* ChangePasswordVC.swift in Sources */,
@@ -811,17 +815,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XR9GPSS6Y;
 				INFOPLIST_FILE = TheMallApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TheMallApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Themallapp_Dis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -833,17 +838,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XR9GPSS6Y;
 				INFOPLIST_FILE = TheMallApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TheMallApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Themallapp_Dis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

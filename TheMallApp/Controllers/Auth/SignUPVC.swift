@@ -31,22 +31,28 @@ class SignUPVC: UIViewController {
         }
     }
     @IBAction func signUpTapped(_ sender: UIButton){
-        let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!)
-        
-        ApiManager.shared.signUp(model: modelData) { (success) in
-            if success{
-                let alert = UIAlertController.init(title: "Register", message: "Successfully registered please login to continue", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { yes in
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }))
-                self.present(alert, animated: true, completion: nil)
-            }else{
-                print("CompletionFail")
+        if email.text != "" || password.text != "" || name.text != "" || dobCom.text != ""{
+            let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!)
+            
+            ApiManager.shared.signUp(model: modelData) { (success) in
+                if success{
+                    let alert = UIAlertController.init(title: "Register", message: "Successfully registered please login to continue", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { yes in
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    print("CompletionFail")
+                }
             }
+            
+           
+        }else{
+            self.alert(message: "Please enter all field")
+        }
         }
         
-       
-    }
+        
 
 }
