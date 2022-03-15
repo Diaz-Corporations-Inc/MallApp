@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import AVKit
+import AKSideMenu
 class StoreVC: UIViewController {
 
     @IBOutlet weak var storeCollection: UICollectionView!
@@ -17,24 +18,67 @@ class StoreVC: UIViewController {
     @IBOutlet weak var storeLocation: UILabel!
     @IBOutlet weak var contact: NSLayoutConstraint!
     @IBOutlet weak var priceRange: UILabel!
+    @IBOutlet weak var mallVideoView: UIView!
+    @IBOutlet weak var at_aGlance_lbl: UILabel!
+    var key = ""
+    
+    let player = AVPlayer()
+
+    var looper : AVPlayerLooper!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        playVideo()
+t
     }
-    
+    private func playVideo() {
+            guard let path = Bundle.main.path(forResource: "abc", ofType:"mov") else {
+                debugPrint("video.m4v not found")
+                return
+            }
+            let player = AVPlayer(url: URL(fileURLWithPath: path))
+           let playerLayer = AVPlayerLayer(player: player)
+        
+        playerLayer.frame = self.mallVideoView.bounds
+        
+            self.mallVideoView.layer.addSublayer(playerLayer)
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+            player.seek(to: CMTime.zero)
+            player.play()
+        }
+                player.play()
+            
+        }
 
     @IBAction func backTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if key == ""{
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+            let leftMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+            let rightMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+            let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: vc, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+            self.navigationController?.pushViewController(sideMenuViewController, animated: true)
+
+        }
+       
+        
     }
     
     @IBAction func visitWebsite(_ sender: Any) {
+        
     }
     
 }
 
 extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        guard let storetype = UserDefaults.standard.value(forKey: "storetype") as? String else { return 10 }
+        if storetype == "store"{
+            self.at_aGlance_lbl.isHidden = true
+            return 4
+        }else{
+            return 10
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -9,23 +9,30 @@ import UIKit
 
 class ListingTypeVC: UIViewController {
 
-    
+    var key = ""
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        UserDefaults.standard.removeObject(forKey: "storetype")
     }
     
     @IBAction func backTapped(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        if key == "S"{
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func storeListing(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+        let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
+        UserDefaults.standard.setValue("store", forKey: "storetype")
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func storeListingWithItem(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+        let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
+        UserDefaults.standard.setValue("storewithitems", forKey: "storetype")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

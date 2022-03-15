@@ -7,11 +7,12 @@ target 'TheMallApp' do
 
   # Pods for TheMallApp
 	
-	pod 'Stripe'
 	pod 'IQKeyboardManagerSwift'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
-
+  pod 'AKSideMenu'
+  pod 'Stripe'
+  
   target 'TheMallAppTests' do
     inherit! :search_paths
     # Pods for testing

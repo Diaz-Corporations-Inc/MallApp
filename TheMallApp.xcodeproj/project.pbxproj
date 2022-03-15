@@ -22,7 +22,6 @@
 		045D96DC27A924670071275A /* TheMallAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96DB27A924670071275A /* TheMallAppTests.swift */; };
 		045D96E727A924670071275A /* TheMallAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D96E627A924670071275A /* TheMallAppUITests.swift */; };
 		048BF02F27C11C3F006AE5AF /* ListingTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */; };
-		048BF03427C1262E006AE5AF /* abc.mov in Resources */ = {isa = PBXBuildFile; fileRef = 048BF03327C1262E006AE5AF /* abc.mov */; };
 		04935C6127C8B71B0007E7F4 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */; };
 		04935C6627C8E3370007E7F4 /* BaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04935C6527C8E3370007E7F4 /* BaseClass.swift */; };
 		049570A227B27AB900CE5E23 /* BrowseAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049570A127B27AB900CE5E23 /* BrowseAllVC.swift */; };
@@ -53,6 +52,9 @@
 		FA9E9EE627B0F7B5001FA74A /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE527B0F7B5001FA74A /* Splash.swift */; };
 		FA9E9EE827B0F83D001FA74A /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE727B0F83D001FA74A /* LocationVC.swift */; };
 		FA9E9EEA27B0F915001FA74A /* MapTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E9EE927B0F915001FA74A /* MapTableCell.swift */; };
+		FAB330ED27D529A800376F54 /* CardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB330EC27D529A800376F54 /* CardVC.swift */; };
+		FAB330EF27D5CE9400376F54 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB330EE27D5CE9400376F54 /* SideMenu.swift */; };
+		FAB330F127D6201300376F54 /* abc.mov in Resources */ = {isa = PBXBuildFile; fileRef = FAB330F027D61E1800376F54 /* abc.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +95,6 @@
 		045D96E627A924670071275A /* TheMallAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMallAppUITests.swift; sourceTree = "<group>"; };
 		045D96E827A924670071275A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTypeVC.swift; sourceTree = "<group>"; };
-		048BF03327C1262E006AE5AF /* abc.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = abc.mov; sourceTree = "<group>"; };
 		04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		04935C6527C8E3370007E7F4 /* BaseClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClass.swift; sourceTree = "<group>"; };
 		049570A127B27AB900CE5E23 /* BrowseAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseAllVC.swift; sourceTree = "<group>"; };
@@ -140,6 +141,9 @@
 		FA9E9EE527B0F7B5001FA74A /* Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		FA9E9EE727B0F83D001FA74A /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		FA9E9EE927B0F915001FA74A /* MapTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableCell.swift; sourceTree = "<group>"; };
+		FAB330EC27D529A800376F54 /* CardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardVC.swift; sourceTree = "<group>"; };
+		FAB330EE27D5CE9400376F54 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		FAB330F027D61E1800376F54 /* abc.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = abc.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				FA9E9EE327AEA97A001FA74A /* HomeVC.swift */,
+				0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */,
 				FA9E9EE727B0F83D001FA74A /* LocationVC.swift */,
 				049570A127B27AB900CE5E23 /* BrowseAllVC.swift */,
 				FA2CB63327B157D00078414D /* TabBarVC.swift */,
@@ -240,9 +245,9 @@
 		045D96C327A924650071275A /* TheMallApp */ = {
 			isa = PBXGroup;
 			children = (
+				FAB330F027D61E1800376F54 /* abc.mov */,
 				0444337627C607B000D5C015 /* Api */,
 				0444336D27C606EC00D5C015 /* Model */,
-				048BF03327C1262E006AE5AF /* abc.mov */,
 				FA21857227AA669C003FFCAF /* Font */,
 				FA21857127AA6215003FFCAF /* Views */,
 				FA21857027AA6207003FFCAF /* Controllers */,
@@ -279,11 +284,13 @@
 			children = (
 				049570AE27B3967B00CE5E23 /* DealsOfDayVC.swift */,
 				0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */,
-				0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */,
+				FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */,
 				04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */,
 				0429BD2D27BB72AB0030DED2 /* StoreDetailsVC.swift */,
 				048BF02E27C11C3F006AE5AF /* ListingTypeVC.swift */,
 				04935C6027C8B71B0007E7F4 /* ChangePasswordVC.swift */,
+				FAB330EC27D529A800376F54 /* CardVC.swift */,
+				FAB330EE27D5CE9400376F54 /* SideMenu.swift */,
 			);
 			path = other;
 			sourceTree = "<group>";
@@ -332,7 +339,6 @@
 				04935C5F27C8B6810007E7F4 /* other */,
 				04463AE327BA2409000F2782 /* Tab */,
 				04463AE127BA23B0000F2782 /* Auth */,
-				FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -472,9 +478,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				045D96D127A924670071275A /* LaunchScreen.storyboard in Resources */,
+				FAB330F127D6201300376F54 /* abc.mov in Resources */,
 				045D96CE27A924670071275A /* Assets.xcassets in Resources */,
 				045D96CC27A924650071275A /* Main.storyboard in Resources */,
-				048BF03427C1262E006AE5AF /* abc.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +620,7 @@
 				04935C6127C8B71B0007E7F4 /* ChangePasswordVC.swift in Sources */,
 				049570BC27B39B1E00CE5E23 /* PromoCollCell.swift in Sources */,
 				FA9E9EE627B0F7B5001FA74A /* Splash.swift in Sources */,
+				FAB330ED27D529A800376F54 /* CardVC.swift in Sources */,
 				049570A227B27AB900CE5E23 /* BrowseAllVC.swift in Sources */,
 				0444339627C60C6600D5C015 /* ApiUrls.swift in Sources */,
 				0495711227B62EE700CE5E23 /* ProductDetailsVC.swift in Sources */,
@@ -622,6 +629,7 @@
 				045D96C527A924650071275A /* AppDelegate.swift in Sources */,
 				0444336F27C6070600D5C015 /* UserModel.swift in Sources */,
 				FA2CB63027B0FF2F0078414D /* PicFavouriteCell.swift in Sources */,
+				FAB330EF27D5CE9400376F54 /* SideMenu.swift in Sources */,
 				049570A727B2825300CE5E23 /* BrowseCell.swift in Sources */,
 				049570FD27B3F84300CE5E23 /* CartVC.swift in Sources */,
 				0495710527B4ECC700CE5E23 /* ProfileVC.swift in Sources */,

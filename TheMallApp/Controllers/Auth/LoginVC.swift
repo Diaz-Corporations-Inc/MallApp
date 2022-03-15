@@ -14,6 +14,8 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        email.text = "test@gmail.com"
+        password.text = "12345"
         password.isSecureTextEntry = true
         // Do any additional setup after loading the view.
     }

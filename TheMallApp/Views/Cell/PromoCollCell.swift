@@ -16,10 +16,6 @@ class PromoCollCell: UICollectionViewCell{
     
     override  func awakeFromNib() {
         promoView.layer.cornerRadius = 20
-//        promoView.layer.backgroundColor = UIColor.red.cgColor
-        promoView.layer.shadowColor = UIColor.gray.cgColor
-        promoView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        promoView.layer.shadowRadius = 5
-        promoView.layer.shadowOpacity = 0.9
+
     }
 }

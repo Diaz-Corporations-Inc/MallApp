@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import AKSideMenu
 
 class HomeVC: UIViewController {
-   
-    
 
     @IBOutlet weak var storeImage: UIImageView!
     @IBOutlet weak var mikeButton: UIButton!
@@ -18,10 +17,9 @@ class HomeVC: UIViewController {
     @IBOutlet weak var shopsCollection: UICollectionView!
     @IBOutlet weak var pickFavourite: UICollectionView!
     
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
     
@@ -34,18 +32,24 @@ class HomeVC: UIViewController {
     }
     @IBAction func shopsNear(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
-        self.present(vc, animated: true, completion: nil)
+        vc.key = "H"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     @IBAction func shopFavourite(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "FavoutiteVC") as! FavoutiteVC
         vc.a = "1"
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func sideMenuTapped(_ sender: Any) {
+        self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
     @IBAction func mikeTapped(_ sender: Any) {
+        
     }
+    
     @IBAction func viewAll(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "BrowseAllVC") as! BrowseAllVC
         vc.a = "1"

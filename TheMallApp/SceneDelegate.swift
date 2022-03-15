@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AKSideMenu
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +18,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let splash = storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
+        let navigationController = UINavigationController.init(rootViewController: splash)
+        let leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+        let rightMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+
+        // Create side menu controller
+        let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+
+        // Make it a root controller
+        self.window?.rootViewController = sideMenuViewController
+        navigationController.isNavigationBarHidden = true
+        self.window?.backgroundColor = UIColor.white
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

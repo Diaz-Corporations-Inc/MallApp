@@ -13,7 +13,9 @@ class FavoutiteVC: UIViewController {
     
     let player = AVPlayer()
 
-      
+    var looper : AVPlayerLooper!
+    var selectedRows:[IndexPath] = []
+
     
     @IBOutlet weak var backbtn: UIButton!
     @IBOutlet weak var favouriteColl: UICollectionView!
@@ -41,9 +43,14 @@ class FavoutiteVC: UIViewController {
             }
             let player = AVPlayer(url: URL(fileURLWithPath: path))
            let playerLayer = AVPlayerLayer(player: player)
-        mallVideoView.clipsToBounds = true
+        
         playerLayer.frame = self.mallVideoView.bounds
+        
             self.mallVideoView.layer.addSublayer(playerLayer)
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak self] _ in
+            player.seek(to: CMTime.zero)
+            player.play()
+        }
                 player.play()
             
         }
@@ -54,12 +61,28 @@ class FavoutiteVC: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func backTApped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if a == "s"{
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            navigationController?.popViewController(animated: true)
+
+        }
     }
     @IBAction func mikeTapped(_ sender: Any) {
     }
-    @IBAction func likeTapped(_ sender: Any) {
+    @IBAction func likeTapped(_ sender: UIButton) {
+        let selectedIndexPath = IndexPath(item: sender.tag, section: 0)
+        if self.selectedRows.contains(selectedIndexPath)
+        {
+            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
+        }
+        else
+        {
+            self.selectedRows.append(selectedIndexPath)
+        }
+        self.favouriteColl.reloadData()
     }
+    
     
 }
 
@@ -72,10 +95,21 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
         if collectionView == favouriteColl{
             let cell = favouriteColl.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FavouriteCell
             cell.cellView.layer.cornerRadius = 20
+            cell.likeBtn.setImage(UIImage(named: "likeActive"), for: .normal)
             cell.cellView.layer.shadowColor = UIColor.gray.cgColor
             cell.cellView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
             cell.cellView.layer.shadowRadius = 1
             cell.cellView.layer.shadowOpacity = 5
+            if selectedRows.contains(indexPath)
+            {
+                cell.likeBtn.setImage(UIImage(named: "likeActive"), for: .normal)
+                
+            }
+            else
+            {
+                cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
+                
+            }
             return cell
         }else{
             let cell = browseColl.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BrowseCollCell

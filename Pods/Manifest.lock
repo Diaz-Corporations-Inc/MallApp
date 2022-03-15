@@ -1,4 +1,5 @@
 PODS:
+  - AKSideMenu (1.4.6)
   - Alamofire (5.4.4)
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
@@ -19,6 +20,7 @@ PODS:
     - StripeCore (= 21.12.0)
 
 DEPENDENCIES:
+  - AKSideMenu
   - Alamofire
   - AlamofireImage
   - IQKeyboardManagerSwift
@@ -26,6 +28,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AKSideMenu
     - Alamofire
     - AlamofireImage
     - IQKeyboardManagerSwift
@@ -35,6 +38,7 @@ SPEC REPOS:
     - StripeUICore
 
 SPEC CHECKSUMS:
+  AKSideMenu: 1f2b261a82b89f980624dda4b3385544fbf178e0
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
@@ -43,6 +47,6 @@ SPEC CHECKSUMS:
   StripeCore: 5e38cdea3dc176a32d8797ef312fe1ab41571272
   StripeUICore: c28e371b385f968388ae38bedb93a2723c078442
 
-PODFILE CHECKSUM: d709127e3e30bbc2480db1142c97746ce56cedd6
+PODFILE CHECKSUM: c2cea1b3640c6b34e423121b78b6dca6135a64bb
 
 COCOAPODS: 1.11.2
