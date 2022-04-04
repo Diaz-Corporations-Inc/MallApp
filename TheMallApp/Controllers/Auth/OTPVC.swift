@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ARSLineProgress
 class OTPVC: UIViewController {
 
     
@@ -23,7 +23,9 @@ class OTPVC: UIViewController {
     
     @IBAction func nextTapped(_ sender: UIButton){
         if otp.text != ""{
+            ARSLineProgress.show()
             ApiManager.shared.otpVerify(otp: otp.text!) { (success) in
+                ARSLineProgress.hide()
                 if success{
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResetPassword") as! ResetPassword
                     self.navigationController?.pushViewController(vc, animated: true)

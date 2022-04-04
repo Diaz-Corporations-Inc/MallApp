@@ -14,6 +14,7 @@ class BrowseCell: UITableViewCell{
     @IBOutlet weak var available: UILabel!
     @IBOutlet weak var apartmentname: UILabel!
     @IBOutlet weak var viewCell: UIView!
+    @IBOutlet weak var DetailBtn: UIButton!
     
     override  func awakeFromNib() {
         viewCell.layer.cornerRadius = 20

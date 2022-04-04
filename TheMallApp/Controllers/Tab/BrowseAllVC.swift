@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARSLineProgress
 
 class BrowseAllVC: UIViewController {
 
@@ -15,9 +16,15 @@ class BrowseAllVC: UIViewController {
     var a = ""
     
     var selectedRows:[IndexPath] = []
+    var storeData = [AnyObject]()
+    var storeId = ""
+    var userId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userId = UserDefaults.standard.value(forKey: "id") as! String
+
+        setData()
         if a == ""{
             backbtn.isHidden = true
         }else{
@@ -25,8 +32,31 @@ class BrowseAllVC: UIViewController {
         }
     }
     
+    func setData(){
+        ARSLineProgress.show()
+        ApiManager.shared.storeList { [self] isSuccess in
+            ARSLineProgress.hide()
+            if isSuccess{
+                storeData = ApiManager.shared.data
+                browseTable.reloadData()
+            }else{
+                print("hello")
+            }
+        }
+    }
     
     @IBAction func likeTapped(_ sender: UIButton) {
+        for i in 0...storeData.count-1{
+            storeId = storeData[i]["_id"] as! String
+        }
+        let favModel = favouriteModel(userId: userId, storeId: storeId)
+        ApiManager.shared.favUnFav(model: favModel) { isSuccess in
+            if isSuccess{
+                print("success")
+            }else{
+                print("success")
+            }
+        }
         let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
         if self.selectedRows.contains(selectedIndexPath)
         {
@@ -38,9 +68,10 @@ class BrowseAllVC: UIViewController {
         }
         self.browseTable.reloadData()
     }
-    @IBAction func detailTapped(_ sender: Any) {
+    @IBAction func detailTapped(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
         vc.key = "df"
+        vc.storeId = storeData[sender.tag]["_id"] as! String
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func scrolldown(_ sender: Any) {
@@ -51,17 +82,25 @@ class BrowseAllVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     @IBAction func browseNearYou(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
+        vc.key = "B"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension BrowseAllVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return storeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = browseTable.dequeueReusableCell(withIdentifier: "cell") as! BrowseCell
+        
+        cell.likeBtn.tag = indexPath.row
+        
+        cell.storeName.text = storeData[indexPath.row]["name"] as! String
+        cell.available.text = storeData[indexPath.row]["description"] as! String
         
         if selectedRows.contains(indexPath)
         {
@@ -75,6 +114,10 @@ extension BrowseAllVC: UITableViewDelegate,UITableViewDataSource{
         }
         return cell
     }
-    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+//        vc.storeId = storeData[indexPath.row]["_id"] as! String
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
     
 }

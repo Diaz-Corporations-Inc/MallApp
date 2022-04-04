@@ -3,7 +3,28 @@ PODS:
   - Alamofire (5.4.4)
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
+  - ARSLineProgress (3.1.1)
+  - GoogleAPIClientForREST/Core (1.6.0):
+    - GTMSessionFetcher (>= 1.6.1)
+  - GoogleAPIClientForREST/Drive (1.6.0):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.6.1)
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
+    - GoogleMaps/Base
+  - GooglePlaces (3.1.0):
+    - GoogleMaps/Base (= 3.1.0)
+  - GTMSessionFetcher (1.7.0):
+    - GTMSessionFetcher/Full (= 1.7.0)
+  - GTMSessionFetcher/Core (1.7.0)
+  - GTMSessionFetcher/Full (1.7.0):
+    - GTMSessionFetcher/Core (= 1.7.0)
   - IQKeyboardManagerSwift (6.5.9)
+  - PlacesPicker (0.0.3):
+    - GoogleMaps (~> 3.1.0)
+    - GooglePlaces (~> 3.1.0)
   - Stripe (21.12.0):
     - Stripe/Stripe3DS2 (= 21.12.0)
     - StripeApplePay (= 21.12.0)
@@ -23,7 +44,10 @@ DEPENDENCIES:
   - AKSideMenu
   - Alamofire
   - AlamofireImage
+  - ARSLineProgress (~> 3.1)
+  - GoogleAPIClientForREST/Drive
   - IQKeyboardManagerSwift
+  - PlacesPicker
   - Stripe
 
 SPEC REPOS:
@@ -31,7 +55,13 @@ SPEC REPOS:
     - AKSideMenu
     - Alamofire
     - AlamofireImage
+    - ARSLineProgress
+    - GoogleAPIClientForREST
+    - GoogleMaps
+    - GooglePlaces
+    - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - PlacesPicker
     - Stripe
     - StripeApplePay
     - StripeCore
@@ -41,12 +71,18 @@ SPEC CHECKSUMS:
   AKSideMenu: 1f2b261a82b89f980624dda4b3385544fbf178e0
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  ARSLineProgress: 7a94aa7d5216109f17aae465b7460ff9f1117634
+  GoogleAPIClientForREST: 5183df28e7bcb7b7b41ebd558e16083cfed60d99
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
+  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  PlacesPicker: 3748ed50243c4b786dd8404610b279c96455f0c1
   Stripe: c3692f360abcdfeef9751e3c240e7efbc68b921f
   StripeApplePay: 14db90fdf89abb2809ce41fc68bc6b1a86221408
   StripeCore: 5e38cdea3dc176a32d8797ef312fe1ab41571272
   StripeUICore: c28e371b385f968388ae38bedb93a2723c078442
 
-PODFILE CHECKSUM: c2cea1b3640c6b34e423121b78b6dca6135a64bb
+PODFILE CHECKSUM: 6744f93e7e0538ef693956e1f69fe86c3294e719
 
 COCOAPODS: 1.11.2

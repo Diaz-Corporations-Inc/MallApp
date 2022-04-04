@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ARSLineProgress
 class LoginVC: UIViewController {
 
     @IBOutlet weak var email: UITextField!
@@ -14,20 +14,26 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if UserDefaults.standard.value(forKey: "id") != nil{
+            print(UserDefaults.standard.value(forKey: "id") as! String)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         email.text = "test@gmail.com"
         password.text = "12345"
         password.isSecureTextEntry = true
-        // Do any additional setup after loading the view.
     }
     @IBAction func loginTapped(_ sender: UIButton){
         if email.text != "" || password.text != ""{
+            ARSLineProgress.show()
             let modeldata = loginModel(email: email.text!, password: password.text!)
             ApiManager.shared.login(model: modeldata) { (success) in
                 if success{
+                    ARSLineProgress.hide()
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else{
-                    self.alert(message: "Please check email and password", title: "Login Failed")
+                    self.alert(message: ApiManager.shared.msg, title: "Login Failed")
                 }
             }
         }

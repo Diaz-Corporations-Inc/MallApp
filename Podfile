@@ -10,9 +10,11 @@ target 'TheMallApp' do
 	pod 'IQKeyboardManagerSwift'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
-  pod 'AKSideMenu'
-  pod 'Stripe'
-  
+  	pod 'AKSideMenu'
+  	pod 'Stripe'
+  	pod 'ARSLineProgress', '~> 3.1'
+	pod 'GoogleAPIClientForREST/Drive'
+	pod 'PlacesPicker'
   target 'TheMallAppTests' do
     inherit! :search_paths
     # Pods for testing

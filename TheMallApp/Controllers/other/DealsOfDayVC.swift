@@ -18,7 +18,6 @@ class DealsOfDayVC: UIViewController {
     var key = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerView.isHidden = true
   
     }
     
@@ -62,7 +61,8 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             return cell
         }else{
             let cell = oldDealsCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! OldDealCollCell
-            
+            cell.oldDealView.layer.borderColor = UIColor.gray.cgColor
+            cell.oldDealView.layer.borderWidth = 1
             cell.oldDealView.layer.shadowColor = UIColor.gray.cgColor
             cell.oldDealView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.oldDealView.layer.shadowRadius = 1
@@ -72,12 +72,12 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == oldDealsCollection{
-            return CGSize(width: oldDealsCollection.frame.width/1.3, height: oldDealsCollection.frame.height)
+            return CGSize(width: oldDealsCollection.frame.width/3, height: oldDealsCollection.frame.height)
         }else if collectionView == promoCollection{
             return CGSize(width: promoCollection.frame.width/1.3, height: promoCollection.frame.height)
 
         }else{
-            return CGSize(width: dealsCollection.frame.width/2.5, height: dealsCollection.frame.height/1.2)
+            return CGSize(width: dealsCollection.frame.width/3, height: dealsCollection.frame.height/2)
 
         }
     }

@@ -7,6 +7,9 @@
 
 import UIKit
 import AKSideMenu
+import PlacesPicker
+import GoogleMaps
+import GooglePlaces
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -14,9 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let splash = storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
@@ -32,6 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.isNavigationBarHidden = true
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
+        
+        let googlekey = "AIzaSyBz4PZ6RlDaZeVNoiCvPDXkZMnc1Avu-1o"
+        GMSServices.provideAPIKey(googlekey)
+        GMSPlacesClient.provideAPIKey(googlekey)
+        PlacePicker.configure(googleMapsAPIKey: googlekey, placesAPIKey: googlekey)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

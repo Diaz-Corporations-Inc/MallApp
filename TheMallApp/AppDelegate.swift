@@ -8,6 +8,8 @@
 import UIKit
 import IQKeyboardManagerSwift
 import AKSideMenu
+
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,23 +18,7 @@ var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         IQKeyboardManager.shared.enable = true
-        //UserDefaults.standard.removeObject(forKey: "Role")
-
-        // Create content and menu controllers
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let splash = storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
-//        let navigationController = UINavigationController.init(rootViewController: splash)
-//        let leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
-//        let rightMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
-//
-//        // Create side menu controller
-//        let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
-//
-//        // Make it a root controller
-//        self.window?.rootViewController = sideMenuViewController
-//
-//        self.window?.backgroundColor = UIColor.white
-//        self.window?.makeKeyAndVisible()
+        
         
         return true
     }

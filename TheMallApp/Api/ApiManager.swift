@@ -9,17 +9,20 @@ import UIKit
 import Alamofire
 
 class ApiManager: UIViewController {
-
-   static let shared = ApiManager()
- 
     
- // MARK: - SignUp api function
+    static let shared = ApiManager()
+    var msg = ""
+    var storeid = ""
+    var data = [AnyObject]()
+    var dataDict : NSDictionary!
+    
+    // MARK: - SignUp api function
     func signUp(model: signUpModel, completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
-            AF.request(Api.login,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{
+            AF.request(Api.signUp,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
                 response in
                 switch(response.result){
-                
+                    
                 case .success(let data):do{
                     let json = try! JSONSerialization.jsonObject(with: data!, options: [])
                     print("response",json)
@@ -27,12 +30,12 @@ class ApiManager: UIViewController {
                     let respond = json as! NSDictionary
                     if success == 200{
                         print("success",respond)
+                        let data =
                         completionHandler(true)
                     }else{
                         print("fail",respond)
-                        let error = respond.object(forKey: "error") as! String
-                        print("errorrrrr",error)
-                        self.alert(message: error)
+                        self.msg = respond.object(forKey: "error") as! String
+                        print("errorrrrr",msg)
                         completionHandler(false)
                     }
                 }
@@ -45,19 +48,19 @@ class ApiManager: UIViewController {
                 }
             }
         }else{
-            self.alert(message: "Please check internet connection",title: "Connection error!")
+            msg = "Please check Internet connection"
             completionHandler(false)
         }
     }
-
-//MARK: - loginApi function
+    
+    //MARK: - loginApi function
     
     func login(model: loginModel, completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
-            AF.request(Api.login,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{
+            AF.request(Api.login,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
                 response in
                 switch(response.result){
-                
+                    
                 case .success(let data):do{
                     let json = try! JSONSerialization.jsonObject(with: data!, options: [])
                     print("response",json)
@@ -74,9 +77,9 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print("fail",respond)
-                        let error = respond.object(forKey: "error") as! String
-                        print("errorrrrr",error)
-                        self.alert(message: error)
+                        self.msg = respond.object(forKey: "error") as! String
+                        
+                        print("errorrrrr",msg)
                         completionHandler(false)
                     }
                 }
@@ -93,13 +96,13 @@ class ApiManager: UIViewController {
             self.alert(message: "Please check internet connection",title: "Connection error!")
         }
     }
-  
-    //MARK: - forgotPassword function 
+    
+    //MARK: - forgotPassword function
     func forgotPassword(email: forgotPassword,completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
             
             AF.request(Api.forgot,method: .post,parameters: email,encoder: JSONParameterEncoder.default).response{
-            response in
+                response in
                 switch (response.result){
                 case .success(let data): do{
                     let json = try JSONSerialization.jsonObject(with: data!, options: [])
@@ -123,7 +126,7 @@ class ApiManager: UIViewController {
                     completionHandler(false)
                 }
                 case .failure(let error): do{
-                   
+                    
                     print("Error",error.localizedDescription)
                     completionHandler(false)
                 }
@@ -135,7 +138,7 @@ class ApiManager: UIViewController {
         }
     }
     
-//MARK: - otpApi function
+    //MARK: - otpApi function
     
     func otpVerify(otp: String, completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
@@ -147,7 +150,7 @@ class ApiManager: UIViewController {
                 response in
                 switch(response.result){
                 case .success(let json): do{
-//                    let json = try! JSONSerialization.jsonObject(with: data!, options: [])
+                    //                    let json = try! JSONSerialization.jsonObject(with: data!, options: [])
                     let success = response.response?.statusCode
                     let respond = json as! NSDictionary
                     if success == 200{
@@ -171,8 +174,8 @@ class ApiManager: UIViewController {
             self.alert(message: "Please check internet connection",title: "Connection error!")
         }
     }
- 
- //MARK: - resetPassword api function
+    
+    //MARK: - resetPassword api function
     
     func resetPassword(password: String, completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
@@ -183,7 +186,7 @@ class ApiManager: UIViewController {
                 response in
                 switch(response.result){
                 case .success(let json): do{
-//                    let json = try! JSONSerialization.jsonObject(with: data!, options: [])
+                    //                    let json = try! JSONSerialization.jsonObject(with: data!, options: [])
                     let success = response.response?.statusCode
                     let respond = json as! NSDictionary
                     if success == 200{
@@ -208,7 +211,7 @@ class ApiManager: UIViewController {
         }
     }
     
-//MARK: - changePasswordApi
+    //MARK: - changePasswordApi
     
     func changePass(model: changePassModel, completionHandler: @escaping (Bool) -> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
@@ -241,53 +244,303 @@ class ApiManager: UIViewController {
         }
     }
     
-//MARK: - imageProfile upload
+    //MARK: - imageProfile upload
     func upload(image: UIImage,
-                      progressCompletion: @escaping (_ percent: Float) -> Void,
-                      completion: @escaping (_ result: Bool) -> Void) {
-              guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-              print("Could not get JPEG representation of UIImage")
-              return
-            }
-            let randomno = Int.random(in: 1000...100000)
-            let imgFileName = "image\(randomno).jpg"
-            let userId = UserDefaults.standard.value(forKey: "id") as! String
-            AF.upload(
-              multipartFormData: { multipartFormData in
-//
+                progressCompletion: @escaping (_ percent: Float) -> Void,
+                completion: @escaping (_ result: Bool) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Could not get JPEG representation of UIImage")
+            return
+        }
+        let randomno = Int.random(in: 1000...100000)
+        let imgFileName = "image\(randomno).jpg"
+        let userId = UserDefaults.standard.value(forKey: "id") as! String
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                //
                 multipartFormData.append(imageData,
                                          withName: "file",
                                          fileName: imgFileName,
                                          mimeType: "image/jpeg")
-              },
-                to: Api.profileImage+userId, usingThreshold: UInt64.init(), method: .put)
-              .uploadProgress { progress in
-                   progressCompletion(Float(progress.fractionCompleted))
-              }
-              .response { response in
-                  debugPrint(response)
-              }
-          }
+            },
+            to: Api.profileImage+userId, usingThreshold: UInt64.init(), method: .put)
+            .uploadProgress { progress in
+                progressCompletion(Float(progress.fractionCompleted))
+            }
+            .response { response in
+                debugPrint(response)
+            }
+    }
+    
+    //MARK: - get profile
+    
+    //    func getProfile(completion: @escaping (Bool)->()){
+    //        if ReachabilityNetwork.isConnectedToNetwork(){
+    //        let userId = UserDefaults.standard.value(forKey: "id") as! String
+    //        AF.request(Api.getProfile+userId,method: .get,encoding: JSONEncoding.default).responseJSON {[self]
+    //            response in
+    //            switch(response.result){
+    //
+    //            case .success(let json):do{
+    //                let success = response.response?.statusCode
+    //                let respond = json as! NSDictionary
+    //                if success == 200{
+    //                    print("success",respond)
+    //                    msg = respond.object(forKey: "message") as! String
+    //                    completion(true)
+    //                }else{
+    //                    msg = respond.object(forKey: "error") as! String
+    //                    completion(false)
+    //                }
+    //            }
+    //
+    //            case .failure(let error): do{
+    //                print("error",error)
+    //                completion(false)
+    //            }
+    //
+    //            }
+    //        }
+    //        }else{
+    //            msg = "Please check Internet connection"
+    //            completion(false)
+    //        }
+    //    }
+///
+//MARK: - UPLOAD STORE LOGO
+    
+    func uploadStoreImage(image: UIImage,type:String,
+                         progressCompletion: @escaping (_ percent: Float) -> Void,
+                         completion: @escaping (_ result: Bool) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Could not get JPEG representation of UIImage")
+            return
+        }
+        let randomno = Int.random(in: 1000...100000)
+        let imgFileName = "image\(randomno).jpg"
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                //
+                multipartFormData.append(imageData,
+                                         withName: "file",
+                                         fileName: imgFileName,
+                                         mimeType: "image/jpeg")
+            },
+            to: Api.storeImage+storeid+"/\(type)", usingThreshold: UInt64.init(), method: .put)
+            .uploadProgress { progress in
+                progressCompletion(Float(progress.fractionCompleted))
+            }
+            .response { response in
+                debugPrint(response)
+            }
+    }
+    //MARK: - create store api
+    func createStore(model: createStoreModel,completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            AF.request(Api.createStore,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
+                response in
+                switch(response.result){
+                    
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let respond = json as! NSDictionary
+                    if response.response?.statusCode == 200{
+                        msg = respond.object(forKey: "message") as! String
+                        print("response is ",respond)
+                        let dataRes = respond.object(forKey: "data") as! NSDictionary
+                        storeid = dataRes.object(forKey: "_id") as! String
+                        completion(true)
+                    }else{
+                        msg = respond.object(forKey: "error") as! String
+                        print(respond,"sbvjsdbvjh",msg)
+                        completion(false)
+                        
+                    }
+                }
+                    catch{
+                        print("error",error.localizedDescription)
+                        completion(false)
+                        
+                    }
+                    
+                case .failure(let error):do{
+                    print("error",error)
+                    completion(false)
+                    
+                }
+                    
+                }
+            }
+        }else{
+            msg = "Please check Internet connection"
+        }
+    }
+    
+    // MARK: - FavouriteApi
+    func favUnFav(model: favouriteModel,completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            
+            
+            AF.request(Api.favUnfav,method: .post,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
+                response in
+                switch(response.result){
+                    
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let respond = json as! NSDictionary
+                    if response.response?.statusCode == 200{
+//                        msg = respond.object(forKey: "message") as! String
+                        print("response is ",respond)
+                        completion(true)
+                    }else{
+//                        msg = respond.object(forKey: "error") as! String
+                        print(respond,"sbvjsdbvjh",msg)
+                        completion(false)
+                        
+                    }
+                }
+                    catch{
+                        print("error",error.localizedDescription)
+                        completion(false)
+                        
+                    }
+                    
+                case .failure(let error):do{
+                    print("error",error)
+                    completion(false)
+                    
+                }
+                    
+                }
+            }
+        }else{
+            msg = "Please check Internet connection"
+        }
+    }
+    
+    //MARK: - GET FAV API
+    //    func getFav(completion: @escaping (Bool)->()){
+    //        if ReachabilityNetwork.isConnectedToNetwork(){
+    //
+    //        let id = UserDefaults.standard.object(forKey: "id") as! String
+    //        AF.request(Api.getFav+id,method: .get,encoding: JSONEncoding.default).responseJSON {[self]
+    //            response in
+    //            switch(response.result){
+    //
+    //            case .success(let json): do{
+    //                let success = response.response?.statusCode
+    //                let respond = json as! NSDictionary
+    //                if success == 200{
+    //                    print(respond)
+    //                    print(msg)
+    //                    completion(true)
+    //                }else{
+    //                    msg = respond.object(forKey: "error") as! String
+    //                    completion(false)
+    //                }
+    //            }
+    //
+    //            case .failure(let error): do{
+    //                print("error",error)
+    //                completion(false)
+    //            }
+    //
+    //            }
+    //        }
+    //        }else{
+    //            msg = "Please check Internet connection"
+    //            completion(false)
+    //        }
+    //    }
+    
+    //
+    
+    
+    //MARK: - STORELIST
+    
+    func storeList(completionHandler: @escaping (Bool)->()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            AF.request(Api.storeList,method: .get,encoding: JSONEncoding.default).responseJSON{ [self]
+                response in
+                switch(response.result){
+                    
+                case .success(let json):do{
+                    let success = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if success == 200{
+                        print(respond,"success")
+                        data = respond.object(forKey: "data") as! [AnyObject]
+                        completionHandler(true)
+                    }else{
+                        print(respond,"fail")
+                        completionHandler(false)
+                    }
+                }
+                case .failure(let error):do{
+                    print("error",error)
+                    completionHandler(false)
+                    
+                }
+                }
+            }
+        }else{
+            msg = "Please cheeck internet connection"
+            completionHandler(false)
+        }
+    }
+    
+    //MARK: - STORE BY ID
+    func storeById(storeid: String,completionHandler: @escaping (Bool)->()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            
+            AF.request(Api.storeById+storeid,method: .get,encoding: JSONEncoding.default).responseJSON{ [self]
+                response in
+                switch(response.result){
+                    
+                case .success(let json):do{
+                    let success = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if success == 200{
+                        print(respond,"success")
+                        dataDict = respond.object(forKey: "data") as! NSDictionary
+                        completionHandler(true)
+                    }else{
+                        print(respond,"fail")
+                        completionHandler(false)
+                    }
+                }
+                case .failure(let error):do{
+                    print("error",error)
+                    completionHandler(false)
+                    
+                }
+                }
+            }
+        }else{
+            msg = "Please cheeck internet connection"
+            completionHandler(false)
+        }
+    }
 }
 
 
 extension UIViewController {
     
-  func alert(message: String, title: String = "") {
-    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-    alertController.addAction(OKAction)
-    self.present(alertController, animated: true, completion: nil)
-  }
+    func alert(message: String, title: String = "") {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
- // showAlertWithOneAction
- func showAlertWithOneAction(alertTitle:String, message: String, action1Title:String, completion1: ((UIAlertAction) -> Void)? = nil){
-            let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: action1Title, style: .default, handler: completion1))
-            self.present(alert, animated: true, completion: nil)
-        }
+    // showAlertWithOneAction
+    func showAlertWithOneAction(alertTitle:String, message: String, action1Title:String, completion1: ((UIAlertAction) -> Void)? = nil){
+        let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: action1Title, style: .default, handler: completion1))
+        self.present(alert, animated: true, completion: nil)
+    }
     
-//showAlertWithTwoActions
+    //showAlertWithTwoActions
     func showAlertWithTwoActions(alertTitle:String, message: String, action1Title:String, action1Style: UIAlertAction.Style ,action2Title: String ,completion1: ((UIAlertAction) -> Void)? = nil,completion2 :((UIAlertAction) -> Void)? = nil){
         
         let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ARSLineProgress
 class ForgotPasswordVC: UIViewController {
     @IBOutlet weak var email: UITextField!
     
@@ -23,8 +23,9 @@ class ForgotPasswordVC: UIViewController {
     @IBAction func forgetTapped(_ sender: UIButton){
         if email.text != ""{
             let model = forgotPassword(email: email.text!)
-            
+            ARSLineProgress.show()
             ApiManager.shared.forgotPassword(email: model) { (Success) in
+                ARSLineProgress.hide()
                 if Success{
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPVC") as! OTPVC
                     self.navigationController?.pushViewController(vc, animated: true)

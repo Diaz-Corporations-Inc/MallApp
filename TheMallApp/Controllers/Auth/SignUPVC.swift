@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARSLineProgress
 
 class SignUPVC: UIViewController {
     
@@ -33,8 +34,9 @@ class SignUPVC: UIViewController {
     @IBAction func signUpTapped(_ sender: UIButton){
         if email.text != "" || password.text != "" || name.text != "" || dobCom.text != ""{
             let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!)
-
+            ARSLineProgress.show()
             ApiManager.shared.signUp(model: modelData) { (success) in
+                ARSLineProgress.hide()
                 if success{
                     let alert = UIAlertController.init(title: "Register", message: "Successfully registered please login to continue", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { yes in

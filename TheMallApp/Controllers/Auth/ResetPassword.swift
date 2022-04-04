@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ARSLineProgress
 class ResetPassword: UIViewController {
 
     @IBOutlet weak var newPassword: UITextField!
@@ -20,7 +20,9 @@ class ResetPassword: UIViewController {
     }
     
     @IBAction func resetPassword(_ sender: UIButton){
+        ARSLineProgress.show()
         ApiManager.shared.resetPassword(password: newPassword.text!) { (success) in
+            ARSLineProgress.hide()
             if success{
                 self.showAlertWithTwoActions(alertTitle: "Reset password", message: "Password changed please login", action1Title: "No", action1Style: .destructive, action2Title: "Yes", completion1: nil) { (ok) in
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC

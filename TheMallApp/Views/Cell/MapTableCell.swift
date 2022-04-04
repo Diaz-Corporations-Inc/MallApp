@@ -13,7 +13,6 @@ class MapTableCell: UITableViewCell {
     @IBOutlet weak var shopName: UILabel!
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var apartmentLabel: UILabel!
     @IBOutlet weak var like: UIButton!
     @IBOutlet weak var mapTabView: UIView!
     

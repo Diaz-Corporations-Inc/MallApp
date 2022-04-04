@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARSLineProgress
 
 class ChangePasswordVC: UIViewController {
 
@@ -40,7 +41,9 @@ class ChangePasswordVC: UIViewController {
         }
         else{
             let model = changePassModel(oldPassword: oldPassword.text!, newPassword: newPassword.text!)
+            ARSLineProgress.show()
             ApiManager.shared.changePass(model: model) { (success) in
+                ARSLineProgress.hide()
                 if success{
                     self.showAlertWithOneAction(alertTitle: "Change password", message: "Password Updated Successfully", action1Title: "OK") { (ok) in
                         self.navigationController?.popViewController(animated: true)
