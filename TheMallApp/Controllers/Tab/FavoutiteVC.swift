@@ -111,10 +111,10 @@ class FavoutiteVC: UIViewController {
     @IBAction func mikeTapped(_ sender: Any) {
     }
     @IBAction func likeTapped(_ sender: UIButton) {[self]
-        for i in 0...data.count-1{
-            let store = data[i]["store"] as! NSDictionary
+       
+        let store = data[sender.tag]["store"] as! NSDictionary
             storeId = store.object(forKey: "_id") as! String
-        }
+    
         let favModel = favouriteModel(userId: userId, storeId: storeId)
         ApiManager.shared.favUnFav(model: favModel) { isSuccess in
             if isSuccess{
@@ -223,7 +223,7 @@ class FavouriteCell: UICollectionViewCell{
     @IBOutlet weak var storeName: UILabel!
     @IBOutlet weak var productType: UILabel!
     override func awakeFromNib() {
-        
+        likeBtn.setImage(UIImage(named:"heartActive"), for: .normal)
     }
 }
 class BrowseCollCell: UICollectionViewCell{

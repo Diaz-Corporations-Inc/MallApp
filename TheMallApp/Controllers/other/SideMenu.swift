@@ -18,7 +18,7 @@ class SideMenu: UIViewController {
         }
     }
 
-    var sideArray = ["Favourite","Deals","Near shop","Register store","Privacy Policy","Contact Us"]
+    var sideArray = ["Favourite","Deals","Near shop","My store","Privacy Policy","Contact Us"]
     var userArray = ["Favourite","Deals","Near shop","Privacy Policy","Contact Us"]
 
 
@@ -28,8 +28,18 @@ class SideMenu: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("hello")
+        backColor()
     }
     
+    func backColor(){
+                    let upColor = UIColor(red: 80/255,green: 226/255,blue: 168/255,alpha: 1.0).cgColor
+                    let downColor = UIColor(red: 75/255,green: 116/255,blue: 159/255,alpha: 1.0).cgColor
+                    let gradient = CAGradientLayer()
+                    gradient.colors = [upColor,downColor]
+                    gradient.locations = [0.4,1.0]
+                    gradient.frame = self.view.bounds
+                    self.view.layer.insertSublayer(gradient, at: 0)
+    }
     @IBAction func signOutTapped(_ sender: Any) {
         
     }
@@ -62,7 +72,7 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
             cell.sideLabel.text = sideArray[indexPath.row]
            // cell.sideImage.image = sideImage[indexPath.row]
       //  }
-        
+        cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -93,16 +103,17 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
            self.present(navigationController, animated: true, completion: nil)
 
         case 3:
-            let vc = story.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
-            vc.key = "S"
+            let vc = story.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+            vc.key = "My"
             let navigationController = UINavigationController.init(rootViewController: vc)
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.isNavigationBarHidden = true
            self.present(navigationController, animated: true, completion: nil)
 
         case 4:
-          alert(message: "")
-
+          alert(message: "Functionality under development")
+        case 5:
+            alert(message: "Functionality under development")
         default:
             print("sdbvus")
         }

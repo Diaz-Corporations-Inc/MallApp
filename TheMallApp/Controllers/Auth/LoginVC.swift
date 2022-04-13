@@ -7,6 +7,7 @@
 
 import UIKit
 import ARSLineProgress
+import AKSideMenu
 class LoginVC: UIViewController {
 
     @IBOutlet weak var email: UITextField!
@@ -19,8 +20,7 @@ class LoginVC: UIViewController {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        email.text = "test@gmail.com"
-        password.text = "12345"
+      
         password.isSecureTextEntry = true
     }
     @IBAction func loginTapped(_ sender: UIButton){
@@ -28,10 +28,18 @@ class LoginVC: UIViewController {
             ARSLineProgress.show()
             let modeldata = loginModel(email: email.text!, password: password.text!)
             ApiManager.shared.login(model: modeldata) { (success) in
+                ARSLineProgress.hide()
                 if success{
-                    ARSLineProgress.hide()
+                  
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
-                    self.navigationController?.pushViewController(vc, animated: true)
+               let navigationController = UINavigationController.init(rootViewController: vc)
+               let leftMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+               let rightMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+
+               // Create side menu controller
+               let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+                    navigationController.isNavigationBarHidden = true
+                    self.navigationController?.pushViewController(sideMenuViewController, animated: true)
                 }else{
                     self.alert(message: ApiManager.shared.msg, title: "Login Failed")
                 }

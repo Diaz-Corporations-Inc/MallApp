@@ -13,7 +13,6 @@ class ListingTypeVC: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.removeObject(forKey: "storetype")
     }
     
     @IBAction func backTapped(_ sender: UIButton){
@@ -26,13 +25,13 @@ class ListingTypeVC: UIViewController {
     
     @IBAction func storeListing(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
-        UserDefaults.standard.setValue("store", forKey: "storetype")
+//        UserDefaults.standard.setValue("store", forKey: "storetype")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func storeListingWithItem(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
-        UserDefaults.standard.setValue("storewithitems", forKey: "storetype")
+//        UserDefaults.standard.setValue("storewithitems", forKey: "storetype")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

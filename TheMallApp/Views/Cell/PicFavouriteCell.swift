@@ -11,4 +11,5 @@ class PicFavouriteCell: UICollectionViewCell{
     
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var cellLabel: UILabel!
 }

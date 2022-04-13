@@ -35,7 +35,7 @@ class ImageUploadVC: BaseClass {
                        print("Status: \(percent)")
                       if percent == 1.0{
                           let vc = self?.storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
-                          vc.key = "I"
+                          vc.key = "My"
                           self?.navigationController?.pushViewController(vc, animated: true)
                        }
                      },

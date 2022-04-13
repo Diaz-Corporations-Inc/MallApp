@@ -12,7 +12,7 @@ import PlacesPicker
 import GooglePlaces
 import CoreLocation
 
-class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate {
+class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate,UITextViewDelegate {
     func placePickerController(controller: PlacePickerController, didSelectPlace place: GMSPlace) {
         print(place)
     }
@@ -46,13 +46,15 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     let datePick = UIDatePicker()
 
     let manager = CLLocationManager()
-   
+   var key = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        storeOpenTime.delegate = self
 //        storeColsingTime.delegate = self
 //        doneBtn.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
-
+        storeDescription.text = "Store detail..."
+        storeDescription.textColor = UIColor.lightGray
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
@@ -68,27 +70,38 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
        // doneBtn.layer.cornerRadius = 10
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        storeDescription.text = ""
+        storeDescription.textColor = UIColor.black
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if storeDescription.text.isEmpty {
+            storeDescription.text = "Tree Description"
+            storeDescription.textColor = UIColor.lightGray
+               }
+    }
+    
     @IBAction func doneTapped(_ sender: Any) {
-//        let userId = UserDefaults.standard.value(forKey: "id") as! String
-//        let timing = timingModel(to: storeColsingTime.text!, from: storeOpenTime.text!)
-//
-//        let location = locationM(coordinates: [12.0000,12.00000])
-//        let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-//        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: storeContact.text!, webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!, zipCode: zipcode.text!)
-//
-//        print(createStoreModel)
-//        print("dnfivbifd")
-//        ARSLineProgress.show()
-//        ApiManager.shared.createStore(model: createStoreModel) { issuccess in
-//            ARSLineProgress.hide()
-//            if issuccess{
-//                print("created",ApiManager.shared.msg)
-//                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }else{
-//                print(ApiManager.shared.msg)
-//            }
-//        }
+        let userId = UserDefaults.standard.value(forKey: "id") as! String
+        let timing = timingModel(to: storeColsingTime.text!, from: storeOpenTime.text!)
+
+        let location = locationM(coordinates: [12.0000,12.00000])
+        let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!)
+
+        print(createStoreModel)
+        ARSLineProgress.show()
+        ApiManager.shared.createStore(model: createStoreModel) { issuccess in
+            ARSLineProgress.hide()
+            if issuccess{
+                print("created",ApiManager.shared.msg)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self.alert(message: ApiManager.shared.msg)
+                print(ApiManager.shared.msg)
+            }
+        }
         
 //        didTapCheckoutButton()
     }

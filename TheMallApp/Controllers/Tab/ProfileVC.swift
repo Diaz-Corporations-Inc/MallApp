@@ -88,6 +88,7 @@ class ProfileVC: BaseClass {
     
     @IBAction func upgradeBtn(_ sender: Any) {
     }
+    
 }
 
 
@@ -109,6 +110,16 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
         switch indexPath.row {
         case 0:
             let vc = storyboard?.instantiateViewController(withIdentifier: "ChangePasswordVC") as! ChangePasswordVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            UserDefaults.standard.removeObject(forKey: "id")
+            UserDefaults.standard.removeObject(forKey: "token")
+            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 2:
+            UserDefaults.standard.removeObject(forKey: "id")
+            UserDefaults.standard.removeObject(forKey: "token")
+            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             print("Functionality under developement")

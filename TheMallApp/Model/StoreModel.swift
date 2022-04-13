@@ -20,6 +20,7 @@ struct createStoreModel: Encodable{
     let scotNo:  String?
     let  state:  String?
     let  landmark:  String?
+    let contactNo: String?
     let zipCode:  String?
 
 }

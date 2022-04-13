@@ -8,6 +8,7 @@
 import UIKit
 import AKSideMenu
 import ARSLineProgress
+import AlamofireImage
 
 class HomeVC: UIViewController {
 
@@ -18,12 +19,16 @@ class HomeVC: UIViewController {
     @IBOutlet weak var shopsCollection: UICollectionView!
     @IBOutlet weak var pickFavourite: UICollectionView!
     var storeData = [AnyObject]()
- 
+    var productData = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setdata()
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setdata()
+        getProduct()
+    }
     func setdata(){
         ARSLineProgress.show()
         ApiManager.shared.storeList { [self] isSuccess in
@@ -39,7 +44,21 @@ class HomeVC: UIViewController {
             }
         }
     }
-    
+    func getProduct(){
+        ARSLineProgress.show()
+        ApiManager.shared.getAllProduct { [self] isSuccess in
+            ARSLineProgress.hide()
+            if isSuccess {
+                productData = ApiManager.shared.data
+                print(productData)
+                shopsCollection.reloadData()
+                
+            }else{
+                
+                print(ApiManager.shared.msg)
+            }
+        }
+    }
     
     @IBAction func contactUsTapped(_ sender: Any) {
     }
@@ -80,8 +99,12 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        if collectionView == pickFavourite{
             return storeData.count
+        }else{
+            return productData.count
+        }
+            
         
     }
     
@@ -96,6 +119,16 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             cell.mainView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.mainView.layer.shadowRadius  = 2
             cell.mainView.layer.shadowOpacity = 5
+            cell.cellLabel.text = storeData[indexPath.row]["name"] as! String
+            if let logo = storeData[indexPath.row]["logo"] as? String{
+                let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logo)")
+                if url != nil{
+                    cell.cellImage.af.setImage(withURL: url!)
+                    print(url,"urlis")
+                }else{
+                    print("hello")
+                }
+            }
             return cell
         }
         else{
@@ -108,9 +141,19 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             print("sdfsdfsdf",storeData.count)
             print(storeData)
             print(storeData.count)
-            cell.offerLabel.text = storeData[indexPath.row]["description"] as! String
-            cell.shopOffer.text = storeData[indexPath.row]["name"] as! String
-//            let dateStore = storeData[indexPath.row]["updatedAt"] as! String
+            cell.offerLabel.text = productData[indexPath.row]["description"] as! String
+            cell.shopOffer.text = productData[indexPath.row]["name"] as! String
+            if let gallery = productData[indexPath.row]["gallery"] as? [AnyObject]{
+                if let image = gallery[0]["name"] as? String{
+                    let url = URL(string: image)
+                    if url != nil{
+                        cell.cellImage.af.setImage(withURL: url!)
+                    }else{
+                        cell.cellImage.image = UIImage(named: "")
+                    }
+                }
+            }
+                //            let dateStore = storeData[indexPath.row]["updatedAt"] as! String
 //            let dateFormatterGet = DateFormatter()
 //            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
 //
@@ -129,15 +172,21 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == pickFavourite{
-            return CGSize(width: pickFavourite.frame.width/3, height: pickFavourite.frame.height/2)
+            return CGSize(width: 122, height: pickFavourite.frame.height/2)
         }else{
-            return CGSize(width: shopsCollection.frame.width/1.3, height: shopsCollection.frame.height)
+            return CGSize(width: 280, height: shopsCollection.frame.height)
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == pickFavourite{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+            vc.storeId = storeData[indexPath.row]["_id"] as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            vc.productId = productData[indexPath.row]["id"] as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
-        vc.storeId = storeData[indexPath.row]["_id"] as! String
-        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

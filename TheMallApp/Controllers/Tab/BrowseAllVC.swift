@@ -46,9 +46,8 @@ class BrowseAllVC: UIViewController {
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
-        for i in 0...storeData.count-1{
-            storeId = storeData[i]["_id"] as! String
-        }
+        storeId = storeData[sender.tag]["_id"] as! String
+        
         let favModel = favouriteModel(userId: userId, storeId: storeId)
         ApiManager.shared.favUnFav(model: favModel) { isSuccess in
             if isSuccess{

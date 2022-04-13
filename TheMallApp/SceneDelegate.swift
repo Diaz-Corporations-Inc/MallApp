@@ -19,8 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let splash = storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
-        let navigationController = UINavigationController.init(rootViewController: splash)
+        var vc = UIViewController()
+        if UserDefaults.standard.value(forKey: "id") == nil{
+             vc = storyboard.instantiateViewController(withIdentifier: "Splash") as! Splash
+        }else{
+             vc = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+        }
+        let navigationController = UINavigationController.init(rootViewController: vc)
         let leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
         let rightMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
 

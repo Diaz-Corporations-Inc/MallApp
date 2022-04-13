@@ -14,13 +14,13 @@ class FirstVC: UIViewController {
     }
     
     @IBAction func userTapped(_ sender: UIButton){
-            UserDefaults.standard.setValue("User", forKey: "Role")
+//            UserDefaults.standard.setValue("User", forKey: "Role")
             let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     
     @IBAction func shopOwner(_ sender: UIButton){
-        UserDefaults.standard.setValue("Shop", forKey: "Role")
+//        UserDefaults.standard.setValue("Shop", forKey: "Role")
         let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }

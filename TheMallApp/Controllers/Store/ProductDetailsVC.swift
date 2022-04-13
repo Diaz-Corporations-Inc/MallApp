@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ProductDetailsVC: UIViewController {
 
@@ -24,11 +25,28 @@ class ProductDetailsVC: UIViewController {
     @IBOutlet weak var similarProduct: UICollectionView!
     @IBOutlet weak var addFavourite: UIButton!
     
+    var productId = ""
+    var productData : NSDictionary!
+    let sizeArray = ["M","L","XL","XXL"]
+    let color = ["Blue","Black","Green","Grey"]
+    var storeId = ""
+    var userId = ""
+    var masterTotal = Int()
+    var gallery = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        getProductDetail()
         self.similarProduct.delegate = self
         self.similarProduct.dataSource = self
         
+    }
+    func getData(){
+        storeId = productData.object(forKey: "store") as! String
+        masterTotal = productData.object(forKey: "masterPrice") as! Int
+        if let gall = productData.object(forKey: "gallery") as? [AnyObject]{
+            gallery = gall
+        }
+        userId = UserDefaults.standard.value(forKey: "id") as! String
     }
     
     @IBAction func viewAllTapped(_ sender: Any) {
@@ -36,31 +54,85 @@ class ProductDetailsVC: UIViewController {
     @IBAction func likeTapped(_ sender: Any) {
     }
     
-    @IBAction func addToFavourite(_ sender: Any) {
+    @IBAction func backTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
-    
-
+    @IBAction func addToFavourite(_ sender: Any) {
+        let params : [String:Any] = ["userId":userId,"productId": self.productId,"storeId":"\(storeId)","quantity":"1","total": "\(masterTotal)","status":"Cart"]
+        print(params)
+        ApiManager.shared.addToCart(params) { isSuccess  in
+            if isSuccess{
+            
+                self.alert(message: ApiManager.shared.msg)
+            }else{
+            
+                self.alert(message: ApiManager.shared.msg)
+            }
+        }
+    }
 }
 
-
+extension ProductDetailsVC{
+    func getProductDetail(){
+        ApiManager.shared.getProductById(productId: productId) { [self] isSuccess in
+            if isSuccess{
+                productData = ApiManager.shared.dataDict
+                print(productData)
+                setData()
+               
+            }else{
+                print("wrong url")
+            }
+        }
+    }
+    func setData(){
+        productName.text = productData.object(forKey: "name") as! String
+        detailLabel.text = productData.object(forKey: "description") as! String
+        price.text = "$ \(productData.object(forKey: "masterPrice") as! Int)"
+        picCollection.reloadData()
+        colorCollection.reloadData()
+        similarProduct.reloadData()
+        getData()
+    }
+}
 extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        if collectionView == sizeCollection{
+            return sizeArray.count
+        }else {
+            return gallery.count
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == picCollection{
             let cell = picCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductCollcell
-            
+            if let image = gallery[indexPath.row]["name"] as? String{
+                let url = URL(string: image)
+                if url != nil{
+                    cell.productImage.af.setImage(withURL: url!)
+                }else{
+                    cell.productImage.image = UIImage(named: "")
+                }
+            }
             return cell
         }else if collectionView == colorCollection{
             let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductColor
             cell.colorView.layer.borderWidth = 1
             cell.colorView.layer.borderColor = UIColor.gray.cgColor
+            if let image = gallery[indexPath.row]["name"] as? String{
+                let url = URL(string: image)
+                if url != nil{
+                    cell.colorImage.af.setImage(withURL: url!)
+                }else{
+                    cell.colorImage.image = UIImage(named: "")
+                }
+            }
             return cell
         }else if collectionView == sizeCollection{
             let cell = sizeCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductSize
+            cell.sizeLabel.text = sizeArray[indexPath.row]
             cell.sizeView.layer.borderWidth = 1
             cell.sizeView.layer.borderColor = UIColor.gray.cgColor
             return cell

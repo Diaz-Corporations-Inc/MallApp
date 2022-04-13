@@ -12,6 +12,7 @@ struct signUpModel: Encodable {
     let password: String?
     let name: String?
     let dob: String?
+    let fcmToken: String?
 }
 
 struct  loginModel: Encodable {
