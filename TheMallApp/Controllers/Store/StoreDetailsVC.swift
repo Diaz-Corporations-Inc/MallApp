@@ -12,7 +12,9 @@ import PlacesPicker
 import GooglePlaces
 import CoreLocation
 
-class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate,UITextViewDelegate {
+class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate,UITextViewDelegate, UITextFieldDelegate {
+   
+    
     func placePickerController(controller: PlacePickerController, didSelectPlace place: GMSPlace) {
         print(place)
     }
@@ -47,12 +49,15 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 
     let manager = CLLocationManager()
    var key = ""
+    var storeData = NSDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        storeOpenTime.delegate = self
-//        storeColsingTime.delegate = self
-//        doneBtn.addTarget(self, action: #selector(didTapCheckoutButton), for: .touchUpInside)
+        setData()
+        storeOpenTime.delegate = self
+        storeColsingTime.delegate = self
+        
+        storeDescription.delegate = self
         storeDescription.text = "Store detail..."
         storeDescription.textColor = UIColor.lightGray
         manager.delegate = self
@@ -71,14 +76,21 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        storeDescription.text = ""
-        storeDescription.textColor = UIColor.black
+        if storeDescription.text == "Store detail..."{
+            storeDescription.text = ""
+            storeDescription.textColor = UIColor.black
+        }else{
+            storeDescription.textColor = UIColor.black
+        }
+        
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if storeDescription.text.isEmpty {
-            storeDescription.text = "Tree Description"
+            storeDescription.text = "Store detail..."
             storeDescription.textColor = UIColor.lightGray
-               }
+        }else{
+            storeDescription.textColor = UIColor.black
+        }
     }
     
     @IBAction func doneTapped(_ sender: Any) {
@@ -91,17 +103,33 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 
         print(createStoreModel)
         ARSLineProgress.show()
-        ApiManager.shared.createStore(model: createStoreModel) { issuccess in
-            ARSLineProgress.hide()
-            if issuccess{
-                print("created",ApiManager.shared.msg)
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else{
-                self.alert(message: ApiManager.shared.msg)
-                print(ApiManager.shared.msg)
+        if key == "" {
+            ApiManager.shared.createStore(model: createStoreModel) { issuccess in
+                ARSLineProgress.hide()
+                if issuccess{
+                    print("created",ApiManager.shared.msg)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    self.alert(message: ApiManager.shared.msg)
+                    print(ApiManager.shared.msg)
+                }
+            }
+        }else{
+            ApiManager.shared.updateStore(model: createStoreModel,storeId: "") { issuccess in
+                ARSLineProgress.hide()
+                if issuccess{
+                    print("created",ApiManager.shared.msg)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    self.alert(message: ApiManager.shared.msg)
+                    print(ApiManager.shared.msg)
+                }
             }
         }
+       
+      
         
 //        didTapCheckoutButton()
     }
@@ -154,6 +182,56 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 //    @objc func cancel(){
 //        datePick.resignFirstResponder()
 //
+//    }
+//
+//}
+
+extension StoreDetailsVC{
+    func setData(){
+        self.storeName.text = storeData.object(forKey: "name") as! String
+        self.storeContact.text = storeData.object(forKey: "contactNo") as! String
+        let storeTiming = storeData.object(forKey: "timing") as! NSDictionary
+        self.storeOpenTime.text = storeTiming.object(forKey: "from") as! String
+        self.storeColsingTime.text = storeTiming.object(forKey: "to") as! String
+        let storePrices = storeData.object(forKey: "priceRange") as! NSDictionary
+        self.lowPrice.text = storeTiming.object(forKey: "from") as! String
+        self.higherPrice.text = storeTiming.object(forKey: "to") as! String
+        self.webUrl.text = storeData.object(forKey: "webSiteUrl") as! String
+        self.scotNo.text = storeData.object(forKey: "scotNo") as! String
+        self.city.text = storeData.object(forKey: "city") as! String
+        self.state.text = storeData.object(forKey: "state") as! String
+        self.zipcode.text = storeData.object(forKey: "zipCode") as! String
+        self.landmark.text = storeData.object(forKey: "landmark") as! String
+        self.storeDescription.text = storeData.object(forKey: "description") as! String
+    }
+}
+
+//{
+//
+//     myData = ApiManager.shared.data
+//    if myData.count != 0{
+//        storeName.text = myData[0]["name"] as! String
+//        storeDescription.text = myData[0]["description"] as! String
+//        let timingDict = myData[0]["timing"] as! NSDictionary
+//        storeTiming.text = "\(timingDict.object(forKey: "from") as? String ?? "") - \(timingDict.object(forKey: "to") as? String ?? "") "
+//     let priceRangedict = myData[0]["priceRange"] as! NSDictionary
+//        priceRange.text = "\(priceRangedict.object(forKey: "from") as? Int ?? 0) - \(priceRangedict.object(forKey: "to") as? Int ?? 0) $"
+//        contact.text = myData[0]["contactNo"] as! String
+//        storeLocation.text = "\(myData[0]["city"] as! String),\(myData[0]["state"] as! String),\(myData[0]["zipCode"] as! String),Near \(myData[0]["landmark"] as! String)"
+//        gallery = myData[0]["gallery"] as! [AnyObject]
+////                    if let logo =
+//        if let logoImage = myData[0]["logo"] as? String{
+//            DispatchQueue.main.async {
+//                let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
+//                if url != nil{
+//                    self.companyImge.af.setImage(withURL: url!)
+//                }else{
+//                    self.companyImge.image = UIImage(named: "")
+//                }
+//            }
+//        }
+//
+//        storeCollection.reloadData()
 //    }
 //
 //}

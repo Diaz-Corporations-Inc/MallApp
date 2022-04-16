@@ -375,6 +375,48 @@ class ApiManager: UIViewController {
         }
     }
     
+    //MARK: - UPDATE store api
+    func updateStore(model: createStoreModel,storeId: String,completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            AF.request(Api.updateStore+storeId,method: .put,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
+                response in
+                switch(response.result){
+                    
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let respond = json as! NSDictionary
+                    if response.response?.statusCode == 200{
+                        msg = respond.object(forKey: "message") as! String
+                        print("response is ",respond)
+                      
+                        completion(true)
+                    }else{
+                        msg = respond.object(forKey: "error") as! String
+                        print(respond,"sbvjsdbvjh",msg)
+                        completion(false)
+                        
+                    }
+                }
+                    catch{
+                        print("error",error.localizedDescription)
+                        completion(false)
+                        
+                    }
+                    
+                case .failure(let error):do{
+                    print("error",error)
+                    completion(false)
+                    
+                }
+                    
+                }
+            }
+        }else{
+            msg = "Please check Internet connection"
+        }
+    }
+    
+
     // MARK: - FavouriteApi
     func favUnFav(model: favouriteModel,completion: @escaping (Bool)-> ()){
         if ReachabilityNetwork.isConnectedToNetwork(){
@@ -740,6 +782,40 @@ class ApiManager: UIViewController {
             msg = "Please cheeck internet connection"
             completion(false)
         }
+    }
+    
+//MARK: - update products
+    func updateProducts(productId:String,completion: @escaping (Bool)->()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head: HTTPHeaders = ["x-access-token": token]
+            AF.request(Api.updateProduct+productId,method: .put,headers: head).responseJSON {[self]
+                response  in
+                switch(response.result){
+                case .success(let json):do{
+                    let success = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if success == 200{
+                        msg = respond.object(forKey: "message") as! String
+                        print("success",respond)
+                        completion(true)
+                    }else{
+                        msg = respond.object(forKey: "error") as! String
+                        print("fail")
+                        completion(false)
+                    }
+                }
+                case .failure(let error):do{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                    
+                }
+            }
+        }else{
+            msg = "Please check internet connection"
+        }
+     
     }
 //MARK: - productImageUpload
     func uploadProductImages(image: [UIImage],type: String,productId: String,

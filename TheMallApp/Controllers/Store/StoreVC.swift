@@ -22,6 +22,7 @@ class StoreVC: UIViewController {
     @IBOutlet weak var visitStore: UIButton!
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var storeCollection: UICollectionView!
+    @IBOutlet weak var productCollection: UICollectionView!
     @IBOutlet weak var storeName: UILabel!
     @IBOutlet weak var companyImge: UIImageView!
     @IBOutlet weak var storeTiming: UILabel!
@@ -30,6 +31,7 @@ class StoreVC: UIViewController {
     @IBOutlet weak var priceRange: UILabel!
     
     var key = ""
+    var productData = [AnyObject]()
     var myData = [AnyObject]()
     var storeId = ""
     var storeData : NSDictionary!
@@ -48,6 +50,7 @@ class StoreVC: UIViewController {
             addStoreImageBtn.isHidden = true
         }
         setData()
+        getProductData()
     }
    
     
@@ -57,6 +60,7 @@ class StoreVC: UIViewController {
     @IBAction func editBtn(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
         vc.key = "S"
+        vc.storeData = self.myData[0] as! NSDictionary
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func backTapped(_ sender: Any) {
@@ -81,12 +85,8 @@ class StoreVC: UIViewController {
     }
     
     @IBAction func producttapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ProductsVC") as! ProductsVC
-        if key == "My"{
-            vc.storeId = myData[0]["_id"] as! String
-        }else{
-            vc.storeId = storeData.object(forKey: "_id") as! String
-        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
+        vc.key = "My"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func registoreStore(_ sender: UIButton){
@@ -100,61 +100,100 @@ class StoreVC: UIViewController {
 }
 
 extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    ///
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if key == "My"{
-            if myData.count == 0{
-                scrollableView.isHidden = true
-                editBtn.isHidden = true
-                return 0
+        if collectionView == storeCollection{
+            if key == "My"{
+                if myData.count == 0{
+                    scrollableView.isHidden = true
+                    editBtn.isHidden = true
+                    return 0
+                }else{
+                    scrollableView.isHidden = false
+                    editBtn.isHidden = false
+                    return gallery.count
+                }
             }else{
-                scrollableView.isHidden = false
-                editBtn.isHidden = false
                 return gallery.count
             }
         }else{
-            return gallery.count
+            return productData.count
         }
     }
-    
+ ///
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = storeCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StoreCell
-        if key == "My"{
-            if myData.count != 0{
-                if let logoImage = self.gallery[indexPath.row]["name"] as? String{
-                    DispatchQueue.main.async {
-                        let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
-                        if url != nil{
-                            cell.cellImage.af.setImage(withURL: url!)
-                        }else{
-                            cell.cellImage.image = UIImage(named: "")
+        if collectionView == storeCollection{
+            let cell = storeCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StoreCell
+            if key == "My"{
+                if myData.count != 0{
+                    if let logoImage = self.gallery[indexPath.row]["name"] as? String{
+                        DispatchQueue.main.async {
+                            let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
+                            if url != nil{
+                                cell.cellImage.af.setImage(withURL: url!)
+                            }else{
+                                cell.cellImage.image = UIImage(named: "")
 
+                            }
+                        }
+                    }
+                }
+
+            }else{
+                if storeData != nil{
+                    if let logoImage = self.gallery[indexPath.row]["name"] as? String{
+                        DispatchQueue.main.async {
+                            let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
+                            if url != nil{
+                                cell.cellImage.af.setImage(withURL: url!)
+                            }else{
+                                cell.cellImage.image = UIImage(named: "")
+                            }
                         }
                     }
                 }
             }
-
+            return cell
         }else{
-            if storeData != nil{
-                if let logoImage = self.gallery[indexPath.row]["name"] as? String{
-                    DispatchQueue.main.async {
-                        let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
+            let cell = productCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! productCell
+            cell.productPrice.text = "\(productData[indexPath.item]["masterPrice"] as! Int)"
+            cell.productName.text = productData[indexPath.item]["name"] as! String
+            if let gallery = productData[indexPath.item]["gallery"] as? [AnyObject]{
+                if gallery.count != 0{
+                    if let image = gallery[0]["name"] as? String{
+                        let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
                         if url != nil{
-                            cell.cellImage.af.setImage(withURL: url!)
+                            cell.productImage.af.setImage(withURL: url!)
                         }else{
-                            cell.cellImage.image = UIImage(named: "")
+                            print("hello")
                         }
                     }
+
                 }
             }
+            return cell
         }
-        return cell
+       
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: storeCollection.frame.width/1.2, height: storeCollection.frame.height/1.2)
+        if collectionView == storeCollection{
+            return CGSize(width: storeCollection.frame.width/1.8, height: storeCollection.frame.height)
+        }else{
+            return CGSize(width: productCollection.frame.width/2, height: productCollection.frame.height)
+        }
+        
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {[self]
+        if collectionView == productCollection{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            vc.productId = productData[indexPath.row]["_id"] as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            print("hello")
+        }
+    }
     
 }
 
@@ -162,6 +201,14 @@ class StoreCell: UICollectionViewCell{
     
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var cellImage: UIImageView!
+}
+class productCell: UICollectionViewCell{
+    @IBOutlet weak var productView: UIView!
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var brandName: UILabel!
+    @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var offOnProduct: UILabel!
 }
 
 extension StoreVC{
@@ -242,4 +289,19 @@ extension StoreVC{
         }
         
     }
+}
+
+
+extension StoreVC{
+    func getProductData(){
+        ApiManager.shared.getStoreProducts(storeId: self.storeId) { isSuccess in
+            if isSuccess{
+                self.productData = ApiManager.shared.data
+                self.productCollection.reloadData()
+            }else{
+                print("please check store id")
+            }
+        }
+    }
+    
 }

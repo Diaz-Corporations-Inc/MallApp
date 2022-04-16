@@ -8,7 +8,7 @@
 import UIKit
 import AlamofireImage
 
-class ProductDetailsVC: UIViewController {
+class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
 
     @IBOutlet weak var reviewStars: UIView!
     @IBOutlet weak var picCollection: UICollectionView!
@@ -24,6 +24,8 @@ class ProductDetailsVC: UIViewController {
     @IBOutlet weak var ratingStars: UIView!
     @IBOutlet weak var similarProduct: UICollectionView!
     @IBOutlet weak var addFavourite: UIButton!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var editProduct: UIButton!
     
     var productId = ""
     var productData : NSDictionary!
@@ -31,11 +33,17 @@ class ProductDetailsVC: UIViewController {
     let color = ["Blue","Black","Green","Grey"]
     var storeId = ""
     var userId = ""
+    var key = ""
     var masterTotal = Int()
     var gallery = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         getProductDetail()
+        if key == "My"{
+            editProduct.isHidden = false
+        }else{
+            editProduct.isHidden = true
+        }
         self.similarProduct.delegate = self
         self.similarProduct.dataSource = self
         
@@ -49,9 +57,20 @@ class ProductDetailsVC: UIViewController {
         userId = UserDefaults.standard.value(forKey: "id") as! String
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    
     @IBAction func viewAllTapped(_ sender: Any) {
     }
-    @IBAction func likeTapped(_ sender: Any) {
+    @IBAction func editTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
+        vc.key = "Edit"
+        vc.productData = self.productData
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -100,6 +119,8 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
         if collectionView == sizeCollection{
             return sizeArray.count
         }else {
+            pageControl.numberOfPages = gallery.count
+                pageControl.isHidden = !(gallery.count > 1)
             return gallery.count
         }
         
@@ -108,6 +129,7 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == picCollection{
             let cell = picCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductCollcell
+            pageControl.currentPage = indexPath.item
             if let image = gallery[indexPath.row]["name"] as? String{
                 let url = URL(string: image)
                 if url != nil{
@@ -162,7 +184,6 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
             
         }
     }
-    
 }
 
 class ProductCollcell: UICollectionViewCell{

@@ -27,6 +27,7 @@ public struct Api{
     public static var storeById                  = baseUrl + "store/getStoreById/"
     public static var storeImage                 = baseUrl + "store/imageUpload/"
     public static var myStore                    = baseUrl + "store/myStores/"
+    public static var updateStore                = baseUrl + "store/update/"
    
 //MARK: - favourite api's
     public static var favUnfav                   = baseUrl + "store/makeFavOrUnfav"
@@ -39,7 +40,8 @@ public struct Api{
     public static var myStoreProducts            = baseUrl + "products/byStoreId/"
     public static var addProduct                 = baseUrl + "products/add"
     public static var addProductImages           = baseUrl + "products/imageUpload/"
-    
+    public static var updateProduct              = baseUrl + "/products/update/"
+        
 // MARK: - cart api's
     public static var addToCart                  = baseUrl + "carts/addToCart"
     public static var getCart                    = baseUrl + "carts/getCarts"

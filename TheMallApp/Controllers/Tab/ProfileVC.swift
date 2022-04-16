@@ -30,9 +30,8 @@ class ProfileVC: BaseClass {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         ARSLineProgress.show()
@@ -61,8 +60,8 @@ class ProfileVC: BaseClass {
     
 
     @IBAction func addProfileBtn(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
-            self.pic.image = image
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
+            self.pic.image = image.withRenderingMode(.alwaysOriginal)
             ApiManager.shared.upload(
                 image: self.pic.image!,
                         progressCompletion: { [weak self] percent in

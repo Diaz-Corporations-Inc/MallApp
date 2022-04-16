@@ -27,7 +27,7 @@ class ProductImageUploadVC: BaseClass {
     }
     ///
     @IBAction func selectImage1(_ sender: UIButton){
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image1.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -37,7 +37,7 @@ class ProductImageUploadVC: BaseClass {
     }
     ///
     @IBAction func selectImage2(_ sender: UIButton){
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image2.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -47,7 +47,7 @@ class ProductImageUploadVC: BaseClass {
     }
     ///
     @IBAction func selectImage3(_ sender: UIButton){
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image3.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -57,7 +57,7 @@ class ProductImageUploadVC: BaseClass {
     }
     ///
     @IBAction func selectImage4(_ sender: UIButton){
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image4.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)

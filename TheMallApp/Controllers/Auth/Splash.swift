@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import AKSideMenu
 
 class Splash: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        sideMenuViewController?.panGestureEnabled = false
      
     }
     

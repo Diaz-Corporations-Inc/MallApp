@@ -41,6 +41,10 @@ class SideMenu: UIViewController {
                     self.view.layer.insertSublayer(gradient, at: 0)
     }
     @IBAction func signOutTapped(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "id")
+        UserDefaults.standard.removeObject(forKey: "token")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     

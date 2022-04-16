@@ -8,7 +8,7 @@
 import UIKit
 import ARSLineProgress
 
-class SignUPVC: UIViewController {
+class SignUPVC: UIViewController,UITextFieldDelegate{
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -18,8 +18,9 @@ class SignUPVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         password.isSecureTextEntry = true
-        // Do any additional setup after loading the view.
+        dobCom.delegate = self
     }
+    
     @IBAction func loginTapped(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
     }
@@ -31,6 +32,7 @@ class SignUPVC: UIViewController {
             password.isSecureTextEntry = true
         }
     }
+    
     @IBAction func signUpTapped(_ sender: UIButton){
         if email.text != "" || password.text != "" || name.text != "" || dobCom.text != ""{
             let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!,fcmToken: "nhjksnsdjnei131231nbjb")
@@ -59,4 +61,51 @@ class SignUPVC: UIViewController {
         
         
 
+}
+
+extension SignUPVC{
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        datePicker()
+    }
+    
+    func datePicker(){
+        let datepick = UIDatePicker()
+        datepick.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            datepick.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+        dobCom.inputView = datepick
+
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        
+        let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(done))
+        
+        let flexiblebtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbar.setItems([cancelBtn,flexiblebtn,doneBtn], animated: false)
+        dobCom.inputAccessoryView = toolbar
+    }
+    
+    @objc func cancel(){
+        self.dobCom.resignFirstResponder()
+    }
+    
+    
+    @objc func done(){
+        if let datePicker = dobCom.inputView as? UIDatePicker{
+            datePicker.datePickerMode = .date
+            let dateformatter  = DateFormatter()
+            dateformatter.dateFormat = "MM/dd/yyyy"
+            dobCom.text = dateformatter.string(from: datePicker.date)
+            
+            self.dobCom.resignFirstResponder()
+
+        }
+    }
+        
 }

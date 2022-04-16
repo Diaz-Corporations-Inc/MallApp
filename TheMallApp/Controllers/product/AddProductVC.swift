@@ -19,6 +19,8 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     let colorArray = ["s"]
     let imageArray = ["q"]
     var storeId = ""
+    var key = ""
+    var productData: NSDictionary!
     var productdata = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +45,16 @@ class AddProductVC: UIViewController,UITextViewDelegate{
             productDescription.textColor = UIColor.black
         }
     }
-
+    func setData(){
+        if key == "Edit"{
+            productName.text = productData.object(forKey: "name") as! String
+            productPrice.text = "\(productData.object(forKey: "masterPrice") as! Int)"
+            productDescription.text = productData.object(forKey: "description") as! String
+//            productType.text = productData.object(forKey: "name") as! String
+        }else{
+            print("hello")
+        }
+    }
     
     @IBAction func backTaped(_ sender: Any) {
         navigationController?.popViewController(animated: true)

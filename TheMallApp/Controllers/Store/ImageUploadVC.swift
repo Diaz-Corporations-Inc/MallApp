@@ -49,7 +49,7 @@ class ImageUploadVC: BaseClass {
     }
     
     @IBAction func logo(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.logoImage.image = image
         } failure: {Error in
             print(Error)

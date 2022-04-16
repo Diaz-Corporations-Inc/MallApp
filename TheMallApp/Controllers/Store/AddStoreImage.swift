@@ -34,7 +34,7 @@ print(storeId,"jghvhf")
     }
     
     @IBAction func addImage1(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image1.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -45,7 +45,7 @@ print(storeId,"jghvhf")
         
     }
     @IBAction func addImage2(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image2.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -55,7 +55,7 @@ print(storeId,"jghvhf")
         
     }
     @IBAction func addImage3(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image3.image = image
             self.imageArray.append(image)
             print("sdfsad",imageArray)
@@ -65,8 +65,8 @@ print(storeId,"jghvhf")
         
     }
     @IBAction func addImage4(_ sender: Any) {
-        openCameraAndPhotos(isEditImage: false) { [self] image, string in
-            self.image4.image = image
+        openCameraAndPhotos(isEditImage: true) { [self] image, string in
+            self.image4.image = image.withRenderingMode(.alwaysOriginal)
             self.imageArray.append(image)
             print("sdfsad",imageArray)
         } failure: {Error in

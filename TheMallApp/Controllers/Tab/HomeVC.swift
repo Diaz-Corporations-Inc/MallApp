@@ -86,6 +86,10 @@ class HomeVC: UIViewController {
     @IBAction func mikeTapped(_ sender: Any) {
         
     }
+    @IBAction func notificationTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func viewAll(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "BrowseAllVC") as! BrowseAllVC

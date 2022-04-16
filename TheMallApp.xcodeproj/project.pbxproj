@@ -36,6 +36,7 @@
 		0495711227B62EE700CE5E23 /* ProductDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */; };
 		0495711D27B68C2F00CE5E23 /* FavoutiteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495711C27B68C2F00CE5E23 /* FavoutiteVC.swift */; };
 		04AFB49F27BA4A2E00DDA79F /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */; };
+		6F00197B2806F58800536B38 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F00197A2806F58800536B38 /* NotificationVC.swift */; };
 		6F0663FE2800608E00B3128C /* ShowProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0663FD2800608E00B3128C /* ShowProductCell.swift */; };
 		6F130C5427E89A4E0067FBFB /* AddProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F130C5327E89A4E0067FBFB /* AddProductVC.swift */; };
 		6F26916727FDC06B00355365 /* DoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26916627FDC06B00355365 /* DoneVC.swift */; };
@@ -129,6 +130,7 @@
 		4B763058785DFFB68D13D809 /* Pods_TheMallApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMallApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D813828FA525E86A08F41BE /* Pods-TheMallAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallAppTests.release.xcconfig"; path = "Target Support Files/Pods-TheMallAppTests/Pods-TheMallAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A630C270CC70CB6C3281FC7 /* Pods-TheMallApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMallApp.debug.xcconfig"; path = "Target Support Files/Pods-TheMallApp/Pods-TheMallApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6F00197A2806F58800536B38 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		6F0663FD2800608E00B3128C /* ShowProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProductCell.swift; sourceTree = "<group>"; };
 		6F130C5327E89A4E0067FBFB /* AddProductVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductVC.swift; sourceTree = "<group>"; };
 		6F26916627FDC06B00355365 /* DoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneVC.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				FAB330EC27D529A800376F54 /* CardVC.swift */,
 				FAB330EE27D5CE9400376F54 /* SideMenu.swift */,
 				6F26916627FDC06B00355365 /* DoneVC.swift */,
+				6F00197A2806F58800536B38 /* NotificationVC.swift */,
 			);
 			path = other;
 			sourceTree = "<group>";
@@ -354,17 +357,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6F0019792806F41E00536B38 /* product */ = {
+			isa = PBXGroup;
+			children = (
+				0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */,
+				6F130C5327E89A4E0067FBFB /* AddProductVC.swift */,
+				6F8B156D2800416F006E9537 /* ProductsVC.swift */,
+				6FA6F660280439C400E6D3F1 /* ProductImageUploadVC.swift */,
+			);
+			path = product;
+			sourceTree = "<group>";
+		};
 		6F130C5227E898EA0067FBFB /* Store */ = {
 			isa = PBXGroup;
 			children = (
 				FA6F0F2427CE098A002C12E3 /* ImageUploadVC.swift */,
-				0495711127B62EE700CE5E23 /* ProductDetailsVC.swift */,
 				04AFB49E27BA4A2E00DDA79F /* StoreVC.swift */,
 				0429BD2D27BB72AB0030DED2 /* StoreDetailsVC.swift */,
-				6F130C5327E89A4E0067FBFB /* AddProductVC.swift */,
-				6F8B156D2800416F006E9537 /* ProductsVC.swift */,
 				6FA6F652280157ED00E6D3F1 /* AddStoreImage.swift */,
-				6FA6F660280439C400E6D3F1 /* ProductImageUploadVC.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -385,6 +395,7 @@
 		FA21857027AA6207003FFCAF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6F0019792806F41E00536B38 /* product */,
 				6F130C5227E898EA0067FBFB /* Store */,
 				04935C5F27C8B6810007E7F4 /* other */,
 				04463AE327BA2409000F2782 /* Tab */,
@@ -695,6 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0444337827C607C600D5C015 /* ApiManager.swift in Sources */,
+				6F00197B2806F58800536B38 /* NotificationVC.swift in Sources */,
 				6FA6F65928019B8900E6D3F1 /* FavouriteDataModel.swift in Sources */,
 				0495710A27B4F03200CE5E23 /* ProTableCell.swift in Sources */,
 				FA2CB63227B0FF3C0078414D /* Shopscell.swift in Sources */,
