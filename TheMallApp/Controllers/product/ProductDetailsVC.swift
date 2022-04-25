@@ -26,6 +26,7 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     @IBOutlet weak var addFavourite: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var editProduct: UIButton!
+    @IBOutlet weak var addReview: UITextField!
     
     var productId = ""
     var productData : NSDictionary!
@@ -48,13 +49,16 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
         self.similarProduct.dataSource = self
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+    }
     func getData(){
         storeId = productData.object(forKey: "store") as! String
         masterTotal = productData.object(forKey: "masterPrice") as! Int
         if let gall = productData.object(forKey: "gallery") as? [AnyObject]{
             gallery = gall
         }
-        userId = UserDefaults.standard.value(forKey: "id") as! String
+       
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -65,6 +69,19 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     }
     
     @IBAction func viewAllTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ReviewVC") as! ReviewVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func addReviewTapped(_ sender: UIButton){
+        review.text = addReview.text
+        let date = Date()
+        let dateFormet = DateFormatter()
+        dateFormet.dateStyle = .full
+        self.reviewdate.text = "\(dateFormet.string(from: date))"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+            self.addReview.text = ""
+        }
+     
     }
     @IBAction func editTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
@@ -77,15 +94,22 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func addToFavourite(_ sender: Any) {
-        let params : [String:Any] = ["userId":userId,"productId": self.productId,"storeId":"\(storeId)","quantity":"1","total": "\(masterTotal)","status":"Cart"]
-        print(params)
-        ApiManager.shared.addToCart(params) { isSuccess  in
-            if isSuccess{
-            
-                self.alert(message: ApiManager.shared.msg)
-            }else{
-            
-                self.alert(message: ApiManager.shared.msg)
+        if userId == ""{
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+        }else{
+            let params : [String:Any] = ["userId":userId,"productId": self.productId,"storeId":"\(storeId)","quantity":"1","total": "\(masterTotal)","status":"Cart"]
+            print(params)
+            ApiManager.shared.addToCart(params) { isSuccess  in
+                if isSuccess{
+                
+                    self.alert(message: ApiManager.shared.msg)
+                }else{
+                
+                    self.alert(message: ApiManager.shared.msg)
+                }
             }
         }
     }

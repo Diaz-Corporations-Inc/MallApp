@@ -13,7 +13,7 @@ import ARSLineProgress
 import AlamofireImage
 class StoreVC: UIViewController {
 
-    @IBOutlet weak var productbtn: UIButton!
+    @IBOutlet weak var productbtn: UIView!
     @IBOutlet weak var addStoreImageBtn: UIView!
    
     @IBOutlet weak var registerView: UIView!
@@ -45,8 +45,10 @@ class StoreVC: UIViewController {
         if key == "My"{
             editBtn.isHidden = false
             addStoreImageBtn.isHidden = false
+            productbtn.isHidden = false
         }else{
             editBtn.isHidden = true
+            productbtn.isHidden = true
             addStoreImageBtn.isHidden = true
         }
         setData()
@@ -87,6 +89,7 @@ class StoreVC: UIViewController {
     @IBAction func producttapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
         vc.key = "My"
+        vc.storeId = self.myData[0]["_id"] as! String
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func registoreStore(_ sender: UIButton){
@@ -216,13 +219,15 @@ extension StoreVC{
         ARSLineProgress.show()
         if key == "My"{
             let id = UserDefaults.standard.value(forKey: "id") as! String
-            ApiManager.shared.myStore(id: id) { [self]isSuccess in
+            ApiManager.shared.myStore(id: id) { [self] isSuccess in
                 ARSLineProgress.hide()
                
                 if isSuccess{
     
                      myData = ApiManager.shared.data
                     if myData.count != 0{
+                        self.storeId = myData[0]["_id"] as! String
+                        print(self.storeId)
                         storeName.text = myData[0]["name"] as! String
                         storeDescription.text = myData[0]["description"] as! String
                         let timingDict = myData[0]["timing"] as! NSDictionary
@@ -294,6 +299,7 @@ extension StoreVC{
 
 extension StoreVC{
     func getProductData(){
+        
         ApiManager.shared.getStoreProducts(storeId: self.storeId) { isSuccess in
             if isSuccess{
                 self.productData = ApiManager.shared.data

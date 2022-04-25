@@ -20,17 +20,17 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
         }
     }
     @IBOutlet weak var backBtn : UIButton!
-    
+ 
+///
     var selectedRows:[IndexPath] = []
-    
     var key = ""
     var storeData = [AnyObject]()
     var storeId = ""
     var userId = ""
-    
+ ///
     override func viewDidLoad() {
         super.viewDidLoad()
-        userId = UserDefaults.standard.value(forKey: "id") as! String
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         setdata()
         if key == ""{
             backBtn.isHidden = true
@@ -40,7 +40,7 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
         self.map.bringSubviewToFront(mapTable)
         
     }
-    
+///
     func setdata(){
         ARSLineProgress.show()
         ApiManager.shared.storeList { [self] isSuccess in
@@ -55,7 +55,8 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
             }
         }
     }
-    
+    //MARK: - BUTTON ACTIONS
+///
     @IBAction func backTapped(_ sender: Any) {
         if key == "S"{
             self.dismiss(animated: true, completion: nil)
@@ -63,30 +64,38 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
             navigationController?.popViewController(animated: true)
         }
     }
-    
+ ///
     @IBAction func likeTapped(_ sender: UIButton){
       
-        storeId = storeData[sender.tag]["_id"] as! String
-        
-        let favModel = favouriteModel(userId: userId, storeId: storeId)
-        ApiManager.shared.favUnFav(model: favModel) { isSuccess in
-            if isSuccess{
-                print("success")
-            }else{
-                print("success")
+        if userId != ""{
+            storeId = storeData[sender.tag]["_id"] as! String
+            
+            let favModel = favouriteModel(userId: userId, storeId: storeId)
+            ApiManager.shared.favUnFav(model: favModel) { isSuccess in
+                if isSuccess{
+                    print("success")
+                }else{
+                    print("success")
+                }
+            }
+            
+            let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
+            if self.selectedRows.contains(selectedIndexPath)
+            {
+                self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
+            }
+            else
+            {
+                self.selectedRows.append(selectedIndexPath)
+            }
+            self.mapTable.reloadData()
+        }else{
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
             }
         }
-        
-        let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
-        if self.selectedRows.contains(selectedIndexPath)
-        {
-            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
-        }
-        else
-        {
-            self.selectedRows.append(selectedIndexPath)
-        }
-        self.mapTable.reloadData()
+       
     }
 }
 
@@ -100,19 +109,23 @@ extension LocationVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mapTable.dequeueReusableCell(withIdentifier: "cell") as! MapTableCell
         cell.like.tag = indexPath.row
-        
-        cell.shopName.text = storeData[indexPath.row]["name"] as! String
-        cell.label.text = storeData[indexPath.row]["description"] as! String
-        
-        if selectedRows.contains(indexPath)
-        {
-            cell.like.setImage(UIImage(named: "likeActive"), for: .normal)
-            
+        if storeData.count != 0{
+            cell.shopName.text = storeData[indexPath.row]["name"] as! String
+            cell.label.text = storeData[indexPath.row]["description"] as! String
+            if let image = storeData[indexPath.row]["logo"] as? String{
+                let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                if url != nil{
+                    cell.shopImage.af.setImage(withURL: url!)
+                }else{
+                    cell.shopImage.image = UIImage(named: "c2")
+                }
+            }
         }
-        else
-        {
+        
+        if selectedRows.contains(indexPath){
+            cell.like.setImage(UIImage(named: "likeActive"), for: .normal)
+        }else{
             cell.like.setImage(UIImage(named: "likeInactive"), for: .normal)
-            
         }
         
         return cell

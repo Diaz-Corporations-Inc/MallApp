@@ -16,13 +16,11 @@ class NotificationVC: UIViewController {
 
     }
     
-
     @IBAction func backTapped(_ sender: UIButton){
-        
+        self.navigationController?.popViewController(animated: true)
     }
 
 }
-
 
 class notificationTableCell:UITableViewCell{
     

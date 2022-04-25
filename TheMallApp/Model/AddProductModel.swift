@@ -16,6 +16,7 @@ struct AddProductModel: Encodable{
     let size: sizeA?
     let colors: colors?
     let features:feature?
+    let discount: String?
 }
 
 struct sizeA: Encodable{

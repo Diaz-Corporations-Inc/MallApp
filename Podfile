@@ -15,6 +15,10 @@ target 'TheMallApp' do
   	pod 'ARSLineProgress', '~> 3.1'
 	pod 'GoogleAPIClientForREST/Drive'
 	pod 'PlacesPicker'
+  pod 'LocationPicker'
+	pod 'CreditCardForm'
+  pod 'DropDown'
+
   target 'TheMallAppTests' do
     inherit! :search_paths
     # Pods for testing

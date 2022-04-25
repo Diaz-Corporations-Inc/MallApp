@@ -18,11 +18,11 @@ class SideMenu: UIViewController {
         }
     }
 
-    var sideArray = ["Favourite","Deals","Near shop","My store","Privacy Policy","Contact Us"]
-    var userArray = ["Favourite","Deals","Near shop","Privacy Policy","Contact Us"]
+    var sideArray = ["Favourite","Deals","Near shop","My store","Shop by category","Privacy Policy","Contact Us"]
+    var userArray = ["Favourite","Deals","Near shop","Shop by category","Privacy Policy","Contact Us"]
 
 
-    let sideImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
+    let sideImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
     let userImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s4")]
     
     override func viewDidLoad() {
@@ -44,7 +44,10 @@ class SideMenu: UIViewController {
         UserDefaults.standard.removeObject(forKey: "id")
         UserDefaults.standard.removeObject(forKey: "token")
         let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        let navigationController = UINavigationController.init(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.isNavigationBarHidden = true
+        self.present(navigationController, animated: true, completion: nil)
         
     }
     
@@ -115,8 +118,16 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
            self.present(navigationController, animated: true, completion: nil)
 
         case 4:
-          alert(message: "Functionality under development")
+            let vc = story.instantiateViewController(withIdentifier: "BrowseAllVC") as! BrowseAllVC
+            vc.a = "2"
+            let navigationController = UINavigationController.init(rootViewController: vc)
+            navigationController.modalPresentationStyle = .fullScreen
+            navigationController.isNavigationBarHidden = true
+           self.present(navigationController, animated: true, completion: nil)
+            
         case 5:
+            alert(message: "Functionality under development")
+        case 6:
             alert(message: "Functionality under development")
         default:
             print("sdbvus")

@@ -24,6 +24,11 @@ class LoginVC: UIViewController {
         password.text = "123456"
         password.isSecureTextEntry = true
     }
+    
+    @IBAction func skipLogin(_ sennder: UIButton){
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func loginTapped(_ sender: UIButton){
         if email.text != "" || password.text != ""{
             ARSLineProgress.show()

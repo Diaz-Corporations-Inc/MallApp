@@ -26,38 +26,47 @@ class ProfileVC: BaseClass {
     
     let tabData = ["Change password","Log out", "Logout from all devices"]
     var data : NSDictionary!
-    
+    var userId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        ARSLineProgress.show()
-        getProfile { isSuccess in
-            ARSLineProgress.hide()
-            if isSuccess {
-                self.nameLabel.text = self.data.object(forKey: "name") as! String
-                self.contactLabel.text = self.data.object(forKey: "email") as! String
-                if let image = self.data.object(forKey: "profileImageName") as? String{
-                    DispatchQueue.main.async {
-                        print(image)
-                        let url = URL(string: image)
-                        print("sdfsadf",url)
-                        if url != nil{
-                            self.pic.af.setImage(withURL: url!)
-                        }else{
-                            print("hello")
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+        if userId != ""{
+            ARSLineProgress.show()
+            getProfile { isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess {
+                    self.nameLabel.text = self.data.object(forKey: "name") as! String
+                    self.contactLabel.text = self.data.object(forKey: "email") as! String
+                    if let image = self.data.object(forKey: "profileImageName") as? String{
+                        DispatchQueue.main.async {
+                            print(image)
+                            let url = URL(string: image)
+                            print("sdfsadf",url)
+                            if url != nil{
+                                self.pic.af.setImage(withURL: url!)
+                            }else{
+                                print("hello")
+                            }
                         }
                     }
+                }else{
+                    print("message")
                 }
-            }else{
-                print("message")
             }
+
+        }else{
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
         }
+        
     }
     
+    }
 
     @IBAction func addProfileBtn(_ sender: Any) {
         openCameraAndPhotos(isEditImage: true) { [self] image, string in
@@ -131,7 +140,7 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
 extension ProfileVC{
     func getProfile(completion: @escaping (Bool)->()){
         if ReachabilityNetwork.isConnectedToNetwork(){
-        let userId = UserDefaults.standard.value(forKey: "id") as! String
+        
             AF.request(Api.getProfile+userId,method: .get,encoding: JSONEncoding.default).responseJSON {[self]
             response in
             switch(response.result){

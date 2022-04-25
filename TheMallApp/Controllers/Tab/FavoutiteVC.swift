@@ -13,26 +13,40 @@ import ARSLineProgress
 
 class FavoutiteVC: UIViewController {
     
-    let player = AVPlayer()
-    
-    var looper : AVPlayerLooper!
-    var selectedRows:[IndexPath] = []
-    var storeData = [AnyObject]()
-    
     @IBOutlet weak var backbtn: UIButton!
+    ///
     @IBOutlet weak var favouriteColl: UICollectionView!
+    ///
     @IBOutlet weak var mikebtn: UIButton!
+    ///
     @IBOutlet weak var browseColl: UICollectionView!
+    ///
     @IBOutlet weak var searchText: UITextField!
+    ///
     @IBOutlet weak var mallVideoView: UIView!
-    
+    ///
+    @IBOutlet weak var favView: UIView!
+    ///
+    let player = AVPlayer()
+///
+    var looper : AVPlayerLooper!
+ ///
+    var selectedRows:[IndexPath] = []
+    ///
+    var storeData = [AnyObject]()
+    ///
+    @IBOutlet weak var viewheight: NSLayoutConstraint!
     var data = [AnyObject]()
+    ///
     var a = ""
+    ///
     var storeId = ""
+    ///
     var userId = ""
+    ///
     override func viewDidLoad() {
         super.viewDidLoad()
-        userId = UserDefaults.standard.value(forKey: "id") as! String
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         playVideo()
         mallVideoView.backgroundColor = UIColor.clear
         if a == ""{
@@ -44,18 +58,33 @@ class FavoutiteVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setData()
-        
-        ARSLineProgress.show()
-        getFav { isSuccess in
-            ARSLineProgress.hide()
-            if isSuccess{
-                print("hello")
-            }else{
-                print("hii")
+        if userId == ""{
+            print("login Please")
+            setupUI()
+        }else{
+            getFav {[self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    setupUI()
+                    print("hello")
+                    favouriteColl.reloadData()
+
+                   
+                }else{
+                    print("hii")
+                }
             }
         }
+      
     }
     
+    func setupUI(){
+        if data.count == 0{
+            favouriteColl.isHidden = true
+        }else{
+            favouriteColl.isHidden = false
+        }
+    }
   
     func setData(){
         ARSLineProgress.show()
@@ -161,6 +190,15 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
                 print(data,"egwgwgrwtherthert")
                 let storeDetail = data[indexPath.row]["store"] as! NSDictionary
                 cell.storeName.text = storeDetail.object(forKey: "name") as! String
+                if let image = storeDetail.object(forKey: "logo") as? String{
+                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                    if url != nil{
+                        cell.imageCell.af.setImage(withURL: url!)
+                    }else{
+                        cell.imageCell.image = UIImage(named: "c2")
+                    }
+                }
+                
             }
             if selectedRows.contains(indexPath)
             {
@@ -169,6 +207,9 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
             else
             {
                 cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
+            }
+            if storeData.count != 0{
+              
             }
             return cell
         }else{
@@ -180,15 +221,28 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
             cell.browseCellView.layer.shadowColor = UIColor.gray.cgColor
             cell.browseImageCell.layer.cornerRadius = 15
             cell.browseImageCell.layer.maskedCorners = [.layerMaxXMaxYCorner]
-            cell.cellStoreName.text = storeData[indexPath.row]["name"] as! String
-            cell.productType.text = storeData[indexPath.row]["description"] as! String
+            
+            if storeData.count != 0{
+                cell.cellStoreName.text = storeData[indexPath.row]["name"] as! String
+                cell.productType.text = storeData[indexPath.row]["description"] as! String
+                if let image = storeData[indexPath.row]["logo"] as? String{
+                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                    if url != nil{
+                        cell.browseImageCell.af.setImage(withURL: url!)
+                    }else{
+                        cell.browseImageCell.image = UIImage(named: "c2")
+                    }
+                }
+            }
+           
+            
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == favouriteColl{
             if data.count == 1{
-                return CGSize(width: favouriteColl.frame.width/1.2, height: favouriteColl.frame.height/1.2)
+                return CGSize(width: favouriteColl.frame.width, height: favouriteColl.frame.height/1.6)
             }else{
                 return CGSize(width: favouriteColl.frame.width/1.2, height: favouriteColl.frame.height/2.1)
             }

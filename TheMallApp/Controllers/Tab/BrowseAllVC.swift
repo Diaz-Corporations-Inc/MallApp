@@ -7,13 +7,16 @@
 
 import UIKit
 import ARSLineProgress
-
+import DropDown
 class BrowseAllVC: UIViewController {
 
     @IBOutlet weak var backbtn: UIButton!
-    @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var browseTable: UITableView!
+    @IBOutlet weak var selectCategory: UILabel!
+    var drop = DropDown()
     var a = ""
+    
+    var filterArray = ["Clothes","Electronics","Footwear","Beauty & Luxury beauty","Home & Kitchen","Groceries","Health & Household","Furniture","Computer & Accessories"]
     
     var selectedRows:[IndexPath] = []
     var storeData = [AnyObject]()
@@ -22,7 +25,7 @@ class BrowseAllVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userId = UserDefaults.standard.value(forKey: "id") as! String
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
 
         setData()
         if a == ""{
@@ -45,27 +48,45 @@ class BrowseAllVC: UIViewController {
         }
     }
     
+    
+    @IBAction func selectCat(_ sender:UIButton){
+        drop.dataSource = filterArray
+        drop.anchorView = browseTable
+        drop.show()
+        drop.selectionAction = { [unowned self] (index, item) in
+            selectCategory.text = item
+            drop.hide()
+        }
+    }
     @IBAction func likeTapped(_ sender: UIButton) {
-        storeId = storeData[sender.tag]["_id"] as! String
-        
-        let favModel = favouriteModel(userId: userId, storeId: storeId)
-        ApiManager.shared.favUnFav(model: favModel) { isSuccess in
-            if isSuccess{
-                print("success")
-            }else{
-                print("success")
+        if userId == ""{
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
             }
+        }else{
+            storeId = storeData[sender.tag]["_id"] as! String
+            
+            let favModel = favouriteModel(userId: userId, storeId: storeId)
+            ApiManager.shared.favUnFav(model: favModel) { isSuccess in
+                if isSuccess{
+                    print("success")
+                }else{
+                    print("success")
+                }
+            }
+            let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
+            if self.selectedRows.contains(selectedIndexPath)
+            {
+                self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
+            }
+            else
+            {
+                self.selectedRows.append(selectedIndexPath)
+            }
+            self.browseTable.reloadData()
         }
-        let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
-        if self.selectedRows.contains(selectedIndexPath)
-        {
-            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
-        }
-        else
-        {
-            self.selectedRows.append(selectedIndexPath)
-        }
-        self.browseTable.reloadData()
+        
     }
     @IBAction func detailTapped(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
@@ -78,7 +99,12 @@ class BrowseAllVC: UIViewController {
     @IBAction func mikeTapped(_ sender: Any) {
     }
     @IBAction func backTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if a == "2"{
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            navigationController?.popViewController(animated: true)
+        }
+        
     }
     @IBAction func browseNearYou(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
@@ -100,6 +126,15 @@ extension BrowseAllVC: UITableViewDelegate,UITableViewDataSource{
         
         cell.storeName.text = storeData[indexPath.row]["name"] as! String
         cell.available.text = storeData[indexPath.row]["description"] as! String
+        
+        if let image = storeData[indexPath.row]["logo"] as? String{
+            let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+            if url != nil{
+                cell.cellImage.af.setImage(withURL: url!)
+            }else{
+                cell.cellImage.image = UIImage(named: "c2")
+            }
+        }
         
         if selectedRows.contains(indexPath)
         {

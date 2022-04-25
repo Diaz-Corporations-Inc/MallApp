@@ -11,7 +11,8 @@ import GoogleMaps
 import PlacesPicker
 import GooglePlaces
 import CoreLocation
-
+import LocationPicker
+import MapKit
 class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate,UITextViewDelegate, UITextFieldDelegate {
    
     
@@ -46,20 +47,27 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     @IBOutlet weak var doneBtn: UIButton!
     
     let datePick = UIDatePicker()
-
+    var lat = 0.0
+    var long = 0.0
     let manager = CLLocationManager()
-   var key = ""
+    var key = ""
     var storeData = NSDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setData()
+        
         storeOpenTime.delegate = self
         storeColsingTime.delegate = self
-        
         storeDescription.delegate = self
-        storeDescription.text = "Store detail..."
-        storeDescription.textColor = UIColor.lightGray
+        
+        if key != ""{
+            setData()
+        }else{
+            print("")
+            storeDescription.text = "Store detail..."
+            storeDescription.textColor = UIColor.lightGray
+        }
+        
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
@@ -70,11 +78,14 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
             viewCollOutlet[i].layer.shadowRadius = 1
             viewCollOutlet[i].layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             viewCollOutlet[i].layer.shadowColor = UIColor.gray.cgColor
-        
         }
+        
        // doneBtn.layer.cornerRadius = 10
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+
+    }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if storeDescription.text == "Store detail..."{
             storeDescription.text = ""
@@ -94,10 +105,11 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     }
     
     @IBAction func doneTapped(_ sender: Any) {
+        [self]
         let userId = UserDefaults.standard.value(forKey: "id") as! String
         let timing = timingModel(to: storeColsingTime.text!, from: storeOpenTime.text!)
 
-        let location = locationM(coordinates: [12.0000,12.00000])
+        let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
         let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!)
 
@@ -116,7 +128,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
                 }
             }
         }else{
-            ApiManager.shared.updateStore(model: createStoreModel,storeId: "") { issuccess in
+            ApiManager.shared.updateStore(model: createStoreModel,storeId: storeData.object(forKey: "_id") as! String) { issuccess in
                 ARSLineProgress.hide()
                 if issuccess{
                     print("created",ApiManager.shared.msg)
@@ -134,10 +146,11 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 //        didTapCheckoutButton()
     }
     @IBAction func searchLocation(_ sender: Any) {
-        let controller = PlacePicker.placePickerController()
-        controller.delegate = self
-        let navigation = UINavigationController(rootViewController: controller)
-        self.show(navigation, sender: nil)
+//        let controller = PlacePicker.placePickerController()
+//        controller.delegate = self
+//        let navigation = UINavigationController(rootViewController: controller)
+//        self.show(navigation, sender: nil)
+        addLocation()
         
     }
     
@@ -145,93 +158,111 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         self.navigationController?.popViewController(animated: true)
 //        didTapCheckoutButton()
     }
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        datePicker()
-//    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == storeOpenTime{
+            datePicker(textField: storeOpenTime)
+        }else{
+            datePicker(textField: storeColsingTime)
+        }
+        
+    }
 
 }
 
-//MARK: - Store detail api
-
-//extension StoreDetailsVC{
-//
-//}
-
 //MARK: - date picker
-//extension StoreDetailsVC: UITextFieldDelegate{
-//    func datePicker(){
-//        datePick.datePickerMode = .time
-//        datePick.preferredDatePickerStyle = .wheels
-//
-//        let toolbar = UIToolbar();
-//          toolbar.sizeToFit()
-//
-//        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(done))
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-//        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancel))
-//          toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-// }
-//
-//    @objc func done(){
-//        let formatter = DateFormatter()
-//           formatter.dateFormat = "HH:mm"
-//        self.storeOpenTime.text = formatter.string(from: datePick.date)
-//           //dismiss date picker dialog
-//        datePick.resignFirstResponder()
-//    }
-//    @objc func cancel(){
-//        datePick.resignFirstResponder()
-//
-//    }
-//
-//}
+extension StoreDetailsVC{
+    func datePicker(textField: UITextField){
+//        let datePicker = UIDatePicker()
+        datePick.datePickerMode = .time
+        datePick.preferredDatePickerStyle = .wheels
 
+        textField.inputView = datePick
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        
+        let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(done))
+        
+        let flexiblebtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbar.setItems([cancelBtn,flexiblebtn,doneBtn], animated: false)
+        textField.inputAccessoryView = toolbar
+ }
+
+    @objc func done(){
+        
+        if let datePicker = storeColsingTime.inputView as? UIDatePicker{
+            datePicker.datePickerMode = .time
+            let dateformatter  = DateFormatter()
+            dateformatter.timeStyle = .short
+            self.storeColsingTime.text = dateformatter.string(from: datePicker.date)
+            
+            self.storeColsingTime.resignFirstResponder()
+
+        }
+        if let datePicker = storeOpenTime.inputView as? UIDatePicker{
+            datePicker.datePickerMode = .time
+            let dateformatter  = DateFormatter()
+            dateformatter.timeStyle = .short
+            self.storeOpenTime.text = dateformatter.string(from: datePicker.date)
+            
+            self.storeOpenTime.resignFirstResponder()
+
+        }
+    }
+    @objc func cancel(){
+        datePick.resignFirstResponder()
+
+    }
+
+}
+///
 extension StoreDetailsVC{
     func setData(){
-        self.storeName.text = storeData.object(forKey: "name") as! String
-        self.storeContact.text = storeData.object(forKey: "contactNo") as! String
+        self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
+        self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""
         let storeTiming = storeData.object(forKey: "timing") as! NSDictionary
-        self.storeOpenTime.text = storeTiming.object(forKey: "from") as! String
-        self.storeColsingTime.text = storeTiming.object(forKey: "to") as! String
+        self.storeOpenTime.text = storeTiming.object(forKey: "from") as? String ?? ""
+        self.storeColsingTime.text = storeTiming.object(forKey: "to") as? String ?? ""
         let storePrices = storeData.object(forKey: "priceRange") as! NSDictionary
-        self.lowPrice.text = storeTiming.object(forKey: "from") as! String
-        self.higherPrice.text = storeTiming.object(forKey: "to") as! String
-        self.webUrl.text = storeData.object(forKey: "webSiteUrl") as! String
-        self.scotNo.text = storeData.object(forKey: "scotNo") as! String
-        self.city.text = storeData.object(forKey: "city") as! String
-        self.state.text = storeData.object(forKey: "state") as! String
-        self.zipcode.text = storeData.object(forKey: "zipCode") as! String
-        self.landmark.text = storeData.object(forKey: "landmark") as! String
-        self.storeDescription.text = storeData.object(forKey: "description") as! String
+        self.lowPrice.text = "\(storePrices.object(forKey: "from") as? Int ?? 0)"
+        self.higherPrice.text = "\(storePrices.object(forKey: "to") as? Int ?? 0)"
+        self.webUrl.text = storeData.object(forKey: "webSiteUrl") as? String ?? ""
+        self.scotNo.text = storeData.object(forKey: "scotNo") as? String ?? ""
+        self.city.text = storeData.object(forKey: "city") as? String ?? ""
+        self.state.text = storeData.object(forKey: "state") as? String ?? ""
+        self.zipcode.text = storeData.object(forKey: "zipCode") as? String ?? ""
+        self.landmark.text = storeData.object(forKey: "landmark") as? String ?? ""
+        self.storeDescription.text = storeData.object(forKey: "description") as? String ?? ""
+        print(storeData.object(forKey: "description") as? String ?? "")
     }
 }
 
-//{
-//
-//     myData = ApiManager.shared.data
-//    if myData.count != 0{
-//        storeName.text = myData[0]["name"] as! String
-//        storeDescription.text = myData[0]["description"] as! String
-//        let timingDict = myData[0]["timing"] as! NSDictionary
-//        storeTiming.text = "\(timingDict.object(forKey: "from") as? String ?? "") - \(timingDict.object(forKey: "to") as? String ?? "") "
-//     let priceRangedict = myData[0]["priceRange"] as! NSDictionary
-//        priceRange.text = "\(priceRangedict.object(forKey: "from") as? Int ?? 0) - \(priceRangedict.object(forKey: "to") as? Int ?? 0) $"
-//        contact.text = myData[0]["contactNo"] as! String
-//        storeLocation.text = "\(myData[0]["city"] as! String),\(myData[0]["state"] as! String),\(myData[0]["zipCode"] as! String),Near \(myData[0]["landmark"] as! String)"
-//        gallery = myData[0]["gallery"] as! [AnyObject]
-////                    if let logo =
-//        if let logoImage = myData[0]["logo"] as? String{
-//            DispatchQueue.main.async {
-//                let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(logoImage)")
-//                if url != nil{
-//                    self.companyImge.af.setImage(withURL: url!)
-//                }else{
-//                    self.companyImge.image = UIImage(named: "")
-//                }
-//            }
-//        }
-//
-//        storeCollection.reloadData()
-//    }
-//
-//}
+extension StoreDetailsVC{
+    func addLocation(){
+        let locationPicker = LocationPickerViewController()
+        
+        let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 37.331686, longitude: -122.030656), addressDictionary: nil)
+        let location = Location(name: "1 Infinite Loop, Cupertino", location: nil, placemark: placemark)
+        locationPicker.location = location
+
+        locationPicker.showCurrentLocationButton = true // default: true
+        locationPicker.currentLocationButtonBackground = .blue
+        locationPicker.showCurrentLocationInitially = true // default: true
+        locationPicker.mapType = .satellite // default: .Hybrid
+        locationPicker.useCurrentLocationAsHint = true // default: false
+        locationPicker.searchBarPlaceholder = "Search places" // default: "Search or enter an address"
+        locationPicker.searchHistoryLabel = "Previously searched" // default: "Search History"
+        locationPicker.resultRegionDistance = 500 // default: 600
+        locationPicker.completion = { [self] location in
+            self.mapLocation.text =  location!.address
+            lat = (location?.coordinate.latitude)!
+//            print("sn",lat)
+            long = (location?.coordinate.longitude)!
+//            print("long",long)
+        }
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(locationPicker, animated: true)
+    }
+}

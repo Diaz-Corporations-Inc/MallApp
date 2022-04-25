@@ -377,8 +377,11 @@ class ApiManager: UIViewController {
     
     //MARK: - UPDATE store api
     func updateStore(model: createStoreModel,storeId: String,completion: @escaping (Bool)-> ()){
+        
+        let token = UserDefaults.standard.value(forKey: "token") as! String
+        let head : HTTPHeaders = ["x-access-token":token]
         if ReachabilityNetwork.isConnectedToNetwork(){
-            AF.request(Api.updateStore+storeId,method: .put,parameters: model,encoder: JSONParameterEncoder.default).response{ [self]
+            AF.request(Api.updateStore+storeId,method: .put,parameters: model,encoder: JSONParameterEncoder.default,headers:  head).response{ [self]
                 response in
                 switch(response.result){
                     
@@ -386,7 +389,9 @@ class ApiManager: UIViewController {
                     let json = try JSONSerialization.jsonObject(with: data!, options: [])
                     let respond = json as! NSDictionary
                     if response.response?.statusCode == 200{
-                        msg = respond.object(forKey: "message") as! String
+                        let dataRes = respond.object(forKey: "data") as! NSDictionary
+                        storeid = dataRes.object(forKey: "_id") as! String
+//                        msg = respond.object(forKey: "message") as! String
                         print("response is ",respond)
                       
                         completion(true)

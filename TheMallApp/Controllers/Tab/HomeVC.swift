@@ -11,7 +11,7 @@ import ARSLineProgress
 import AlamofireImage
 
 class HomeVC: UIViewController {
-
+    
     @IBOutlet weak var storeImage: UIImageView!
     @IBOutlet weak var mikeButton: UIButton!
     @IBOutlet weak var searchText: UITextField!
@@ -20,12 +20,14 @@ class HomeVC: UIViewController {
     @IBOutlet weak var pickFavourite: UICollectionView!
     var storeData = [AnyObject]()
     var productData = [AnyObject]()
+    var userId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         setdata()
         getProduct()
     }
@@ -63,9 +65,16 @@ class HomeVC: UIViewController {
     @IBAction func contactUsTapped(_ sender: Any) {
     }
     @IBAction func registerTAPPED(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
-       
-        self.navigationController?.pushViewController(vc, animated: true)
+        if userId == "" {
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     @IBAction func shopsNear(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
@@ -80,15 +89,29 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func sideMenuTapped(_ sender: Any) {
-        self.sideMenuViewController?.presentLeftMenuViewController()
+        if userId == "" {
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+        }else{
+            self.sideMenuViewController?.presentLeftMenuViewController()
+        }
     }
     
     @IBAction func mikeTapped(_ sender: Any) {
         
     }
     @IBAction func notificationTapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        if userId == ""{
+            self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func viewAll(_ sender: Any) {
@@ -108,7 +131,7 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         }else{
             return productData.count
         }
-            
+        
         
     }
     
@@ -157,19 +180,19 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
                     }
                 }
             }
-                //            let dateStore = storeData[indexPath.row]["updatedAt"] as! String
-//            let dateFormatterGet = DateFormatter()
-//            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//
-//            let dateFormatterPrint = DateFormatter()
-//            dateFormatterPrint.dateFormat = "MMM dd,yyyy"
-//
-//            if let date = dateFormatterGet.date(from: dateStore) {
-//                print(dateFormatterPrint.string(from: date))
-//            } else {
-//               print("There was an error decoding the string")
-//            }
-//
+            //            let dateStore = storeData[indexPath.row]["updatedAt"] as! String
+            //            let dateFormatterGet = DateFormatter()
+            //            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            //
+            //            let dateFormatterPrint = DateFormatter()
+            //            dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+            //
+            //            if let date = dateFormatterGet.date(from: dateStore) {
+            //                print(dateFormatterPrint.string(from: date))
+            //            } else {
+            //               print("There was an error decoding the string")
+            //            }
+            //
             return cell
             
         }
