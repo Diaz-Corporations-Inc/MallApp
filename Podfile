@@ -7,17 +7,23 @@ target 'TheMallApp' do
 
   # Pods for TheMallApp
 	
-	pod 'IQKeyboardManagerSwift'
-	pod 'Alamofire'
-	pod 'AlamofireImage'
-  	pod 'AKSideMenu'
-  	pod 'Stripe'
-  	pod 'ARSLineProgress', '~> 3.1'
-	pod 'GoogleAPIClientForREST/Drive'
-	pod 'PlacesPicker'
-  pod 'LocationPicker'
-	pod 'CreditCardForm'
-  pod 'DropDown'
+    pod 'IQKeyboardManagerSwift'
+    pod 'Alamofire'
+    pod 'AlamofireImage'
+    pod 'AKSideMenu'
+    pod 'Stripe'
+    pod 'ARSLineProgress', '~> 3.1'
+    pod 'GoogleAPIClientForREST/Drive'
+    pod 'PlacesPicker'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+    pod 'LocationPicker'
+    pod 'CreditCardForm'
+    pod 'DropDown'
+    pod 'Cosmos'
 
   target 'TheMallAppTests' do
     inherit! :search_paths

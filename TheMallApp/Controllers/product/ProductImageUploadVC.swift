@@ -80,8 +80,13 @@ extension ProductImageUploadVC{
             }
             print("Status: \(percent)")
            if percent == 1.0{
-          self!.alert(message: "Product Images uploaded Successfully", title: "Image")
-            }
+               self?.showAlertWithOneAction(alertTitle: "", message: "Product images uploaded successfully", action1Title: "Ok") {[self] ok in
+                   let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+                   let navigationController = UINavigationController.init(rootViewController: vc)
+                   let leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                   let rightMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                   self?.navigationController?.pushViewController(navigationController, animated: true)
+               }            }
           },
 
           completion: { [weak self] result in
@@ -91,3 +96,4 @@ extension ProductImageUploadVC{
         })
     }
 }
+

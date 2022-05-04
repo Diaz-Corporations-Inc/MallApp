@@ -12,7 +12,7 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productPrice: UITextField!
-    @IBOutlet weak var productType: UITextField!
+    @IBOutlet weak var brandName: UITextField!
     @IBOutlet weak var productDescription: UITextView!
     @IBOutlet weak var discount: UITextField!
     @IBOutlet var viewsCollection: [UIView]!
@@ -26,7 +26,9 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     var key = ""
     var productData: NSDictionary!
     var productdata = [AnyObject]()
-    var filterArray = ["Clothes","Electronics","Footwear","Beauty & Luxury beauty","Home & Kitchen","Groceries","Health & Household","Furniture","Computer & Accessories"]
+    var filterArray = [String]()
+    var categoryId = [String]()
+    var catIdtoSend = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,10 @@ class AddProductVC: UIViewController,UITextViewDelegate{
         for i in 0...viewsCollection.count-1{
             viewsCollection[i].layer.cornerRadius = 10
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+   getCategory()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -51,6 +57,7 @@ class AddProductVC: UIViewController,UITextViewDelegate{
             productDescription.textColor = UIColor.black
         }
     }
+    
     func setData(){
         if key == "Edit"{
             productName.text = productData.object(forKey: "name") as! String
@@ -66,20 +73,20 @@ class AddProductVC: UIViewController,UITextViewDelegate{
         navigationController?.popViewController(animated: true)
     }
     @IBAction func continueTapped(_ sender: Any) {
-        addProduct()
-    }
-  
-    @IBAction func selectCat(_ sender:UIButton){
-        drop.dataSource = filterArray
-        drop.anchorView = discount
-        drop.show()
-        drop.selectionAction = { [unowned self] (index, item) in
-            productType.text = item
-            drop.hide()
+         if productName.text == ""{
+            alert(message: "Please enter product name")
+        }else if productPrice.text == ""{
+            alert(message: "Please enter product price")
+        }else if brandName.text == ""{
+            alert(message: "Please enter product Brand name")
+        }else if productDescription.text == ""{
+            alert(message: "Please enter description")
         }
+        else{
+            addProduct()
+        }
+        
     }
-
-    
 
 }
 
@@ -90,17 +97,34 @@ extension AddProductVC{
         let size = sizeA(value: "M", price: 0)
         let color = colors(name: "Gray", price: 0)
         let feature = feature(key: "1", value: "10")
-        let price = Int("\(self.productPrice.text!)")
+        let price = Double("\(self.productPrice.text!)")
         print(self.storeId,"dfgdfsg")
-        let model = AddProductModel(description: self.productDescription.text!, name: self.productName.text!, masterPrice: price, productUrl: "Nike", storeId: self.storeId, size: size, colors: color, features: feature,discount:discount.text!)
+        let model = AddProductModel(description: self.productDescription.text!, name: self.productName.text!, masterPrice: price, productUrl: "Nike", storeId: self.storeId, size: size, colors: color, features: feature,discount:discount.text, categoryId: catIdtoSend, brand: brandName.text!)
+        print(model)
+        print("sdnvkabvbakvbabvkabv")
         ApiManager.shared.addProduct(model:model) { isSuccess in
             if isSuccess{
-
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductImageUploadVC") as! ProductImageUploadVC
                 vc.productId = ApiManager.shared.dataDict.object(forKey: "_id") as! String
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
                 print("try again")
+            }
+        }
+    }
+}
+
+extension AddProductVC{
+    func getCategory(){
+        ApiManager.shared.getCategories { isSuccess in
+            if isSuccess{
+                let data = ApiManager.shared.data
+                for i in 0...data.count-1{
+                    self.filterArray.append(data[i]["name"] as! String)
+                    self.categoryId.append(data[i]["_id"] as! String)
+                }
+            }else{
+                print("scasdcasdc")
             }
         }
     }

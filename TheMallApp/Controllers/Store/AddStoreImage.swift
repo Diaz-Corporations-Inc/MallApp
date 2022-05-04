@@ -26,7 +26,7 @@ print(storeId,"jghvhf")
     }
     
     @IBAction func skipTapped(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -75,24 +75,31 @@ print(storeId,"jghvhf")
         
     }
     @IBAction func submitTapped(_ sender: Any) {
-        uploadStoreImages(
-            image: self.imageArray,
-            type: "gallery",
-                    progressCompletion: { [weak self] percent in
-                       guard let _ = self else {
-                         return
-                       }
-                       print("Status: \(percent)")
-                      if percent == 1.0{
-                     self!.alert(message: "Store Images updated Successfully", title: "Image")
-                       }
-                     },
-         
-                     completion: { [weak self] result in
-                       guard let _ = self else {
-                         return
-                       }
-                   })
+        if imageArray.count != 0{
+            uploadStoreImages(
+                image: self.imageArray,
+                type: "gallery",
+                        progressCompletion: { [weak self] percent in
+                           guard let _ = self else {
+                             return
+                           }
+                           print("Status: \(percent)")
+                          if percent == 1.0{
+                              self?.showAlertWithOneAction(alertTitle: "", message: "Store Images added successfully", action1Title: "Ok", completion1: { ok in
+                                  self?.navigationController?.popViewController(animated: true)
+                              })
+                           }
+                         },
+             
+                         completion: { [weak self] result in
+                           guard let _ = self else {
+                             return
+                           }
+                       })
+
+        }else{
+            self.alert(message: "Please select images")
+        }
     }
     
 }

@@ -40,10 +40,22 @@ public struct Api{
     public static var myStoreProducts            = baseUrl + "products/byStoreId/"
     public static var addProduct                 = baseUrl + "products/add"
     public static var addProductImages           = baseUrl + "products/imageUpload/"
-    public static var updateProduct              = baseUrl + "/products/update/"
+    public static var updateProduct              = baseUrl + "products/update/"
+    public static var ratingReview               = baseUrl + "products/ratingReview"
+//
         
 // MARK: - cart api's
     public static var addToCart                  = baseUrl + "carts/addToCart"
     public static var getCart                    = baseUrl + "carts/getCarts"
     public static var deleteCart                 = baseUrl + "carts/deleteItem/"
+
+//MARK: - address
+    public static var addAddress                 = baseUrl + "addresses/create"
+    public static var getAddress                 = baseUrl + "addresses/byUser/"
+    public static var updateAddress              = baseUrl + "addresses/update/"
+    public static var addressById                = baseUrl + "addresses/byId/"
+//MARK: - Categories
+    public static var getCategories              = baseUrl + "categories/getCategories"
+//MARK: - SEARCH API
+    public static var search                     = baseUrl + "store/search?name="
 }

@@ -14,10 +14,11 @@ class BrowseAllVC: UIViewController {
     @IBOutlet weak var browseTable: UITableView!
     @IBOutlet weak var selectCategory: UILabel!
     var drop = DropDown()
+    
     var a = ""
     
-    var filterArray = ["Clothes","Electronics","Footwear","Beauty & Luxury beauty","Home & Kitchen","Groceries","Health & Household","Furniture","Computer & Accessories"]
-    
+    var filterArray = [String]()
+    var categoryId = [String]()
     var selectedRows:[IndexPath] = []
     var storeData = [AnyObject]()
     var storeId = ""
@@ -25,9 +26,15 @@ class BrowseAllVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
 
         setData()
+        getCategory()
         if a == ""{
             backbtn.isHidden = true
         }else{
@@ -44,6 +51,21 @@ class BrowseAllVC: UIViewController {
                 browseTable.reloadData()
             }else{
                 print("hello")
+            }
+        }
+    }
+    func getCategory(){
+        ARSLineProgress.show()
+        ApiManager.shared.getCategories { [self] isSuccess in
+            ARSLineProgress.hide()
+            if isSuccess{
+                let data = ApiManager.shared.data
+                for i in 0...data.count-1{
+                    filterArray.append(data[i]["name"] as! String)
+                    categoryId.append(data[i]["_id"] as! String)
+                }
+            }else{
+                alert(message: ApiManager.shared.msg)
             }
         }
     }
@@ -88,14 +110,7 @@ class BrowseAllVC: UIViewController {
         }
         
     }
-    @IBAction func detailTapped(_ sender: UIButton) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
-        vc.key = "df"
-        vc.storeId = storeData[sender.tag]["_id"] as! String
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    @IBAction func scrolldown(_ sender: Any) {
-    }
+  
     @IBAction func mikeTapped(_ sender: Any) {
     }
     @IBAction func backTapped(_ sender: Any) {

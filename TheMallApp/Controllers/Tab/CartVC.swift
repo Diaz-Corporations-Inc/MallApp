@@ -159,9 +159,10 @@ class CartVC: UIViewController {
     @IBAction func buyTapped(_ sender:UIButton){
 
 //        pay()
-                let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
-        vc.key = "Cart"
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
+        vc.key = "cart"
         self.navigationController?.pushViewController(vc, animated: true)
+
         
     }
     @IBAction func deleteTapped(_ sender:UIButton){
@@ -241,6 +242,12 @@ extension CartVC: UITableViewDelegate,UITableViewDataSource{
         }
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+        vc.key = "cart"
+        let product = cartData[indexPath.row]["product"] as! NSDictionary
+        vc.productId = product.object(forKey: "_id") as! String
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
 }

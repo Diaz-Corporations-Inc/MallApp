@@ -84,20 +84,24 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
     
     ///
     @IBAction func complete(_ sender: Any) {
-            if key == ""{
-                let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            else{
-                self.viewModel.proceedPayment(cardNumber: paymentTextField.cardNumber!, cardholdername: cardholdername_Field.text!, expiryMonth: UInt(paymentTextField.expirationMonth), expiryYear: UInt(paymentTextField.expirationYear), cardCVC: paymentTextField.cvc!) { isSuccess in
-                    if isSuccess{
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
+            
+        if cardholdername_Field.text == "" || paymentTextField.cardNumber == "" || "\(paymentTextField.expirationMonth)" == "" || "\(paymentTextField.expirationYear)" == "" || "\(paymentTextField.cvc)" == "" {
+            self.alert(message: "Please enter card details")
+        }else{
+            self.viewModel.proceedPayment(cardNumber: paymentTextField.cardNumber!, cardholdername: cardholdername_Field.text!, expiryMonth: UInt(paymentTextField.expirationMonth), expiryYear: UInt(paymentTextField.expirationYear), cardCVC: paymentTextField.cvc!) { [self] isSuccess in
+                if isSuccess{
+                    if key == ""{
+                        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
                         self.navigationController?.pushViewController(vc, animated: true)
                     }else{
-                        self.alert(message: "Payment failed")
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
+                        self.navigationController?.pushViewController(vc, animated: true)
                     }
+                }else{
+                    self.alert(message: "Payment failed")
                 }
             }
+        }
         
     }
     @IBAction func backTapped(_ sender: Any) {

@@ -13,6 +13,8 @@ import GooglePlaces
 import CoreLocation
 import LocationPicker
 import MapKit
+import DropDown
+
 class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDelegate,UITextViewDelegate, UITextFieldDelegate {
    
     
@@ -26,7 +28,8 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     
   
     
-
+    @IBOutlet weak var categorySelect: UITextField!
+    
     @IBOutlet weak var mapLocation: UITextField!
     @IBOutlet weak var scotNo: UITextField!
     @IBOutlet weak var storeDescription: UITextView!
@@ -41,7 +44,6 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     @IBOutlet weak var storeOpenTime: UITextField!
     @IBOutlet weak var storeContact: UITextField!
 
-    @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var storeName: UITextField!
     @IBOutlet var viewCollOutlet: [UIView]!
     @IBOutlet weak var doneBtn: UIButton!
@@ -51,7 +53,12 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     var long = 0.0
     let manager = CLLocationManager()
     var key = ""
+    var storeType = ""
     var storeData = NSDictionary()
+    var drop = DropDown()
+    var filterArray = [String]()
+    var categoryId = [String]()
+    var catIdtoSend = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,13 +67,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         storeColsingTime.delegate = self
         storeDescription.delegate = self
         
-        if key != ""{
-            setData()
-        }else{
-            print("")
-            storeDescription.text = "Store detail..."
-            storeDescription.textColor = UIColor.lightGray
-        }
+      
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -84,7 +85,15 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     }
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
-
+        getCategory()
+        if key != ""{
+            setData()
+        }else{
+            print("")
+            storeDescription.text = "Store detail..."
+            storeDescription.textColor = UIColor.lightGray
+        }
+        
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if storeDescription.text == "Store detail..."{
@@ -104,16 +113,21 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         }
     }
     
+    @IBAction func backTapped(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func doneTapped(_ sender: Any) {
-        [self]
         let userId = UserDefaults.standard.value(forKey: "id") as! String
         let timing = timingModel(to: storeColsingTime.text!, from: storeOpenTime.text!)
-
+        let storeType = UserDefaults.standard.value(forKey: "storetype") as? String ?? ""
         let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!)
-
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType)
+        print("sadfasdf")
         print(createStoreModel)
+       
+        print("sdfsd")
         ARSLineProgress.show()
         if key == "" {
             ApiManager.shared.createStore(model: createStoreModel) { issuccess in
@@ -154,10 +168,19 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         
     }
     
-    @IBAction func backTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-//        didTapCheckoutButton()
+    @IBAction func selectCatgory(_ sender: Any) {
+        drop.dataSource = filterArray
+        drop.anchorView = categorySelect
+        drop.show()
+        drop.selectionAction = { [unowned self] (index,item) in
+            categorySelect.text = item
+            catIdtoSend = categoryId[index]
+            drop.hide()
+        }
     }
+//    @IBAction func backTapped(_ sender: Any) {
+//        self.navigationController?.popViewController(animated: true)
+//    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == storeOpenTime{
             datePicker(textField: storeOpenTime)
@@ -197,11 +220,8 @@ extension StoreDetailsVC{
             let dateformatter  = DateFormatter()
             dateformatter.timeStyle = .short
             self.storeColsingTime.text = dateformatter.string(from: datePicker.date)
-            
             self.storeColsingTime.resignFirstResponder()
-
-        }
-        if let datePicker = storeOpenTime.inputView as? UIDatePicker{
+        }else if let datePicker = storeOpenTime.inputView as? UIDatePicker{
             datePicker.datePickerMode = .time
             let dateformatter  = DateFormatter()
             dateformatter.timeStyle = .short
@@ -220,6 +240,11 @@ extension StoreDetailsVC{
 ///
 extension StoreDetailsVC{
     func setData(){
+        if UserDefaults.standard.value(forKey: "storetype") == nil{
+            self.storeType = storeData.object(forKey: "storeType") as? String ?? ""
+            print(storeType)
+        }
+        
         self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
         self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""
         let storeTiming = storeData.object(forKey: "timing") as! NSDictionary
@@ -265,4 +290,23 @@ extension StoreDetailsVC{
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(locationPicker, animated: true)
     }
+}
+
+
+extension StoreDetailsVC{
+    func getCategory(){
+        ApiManager.shared.getCategories { isSuccess in
+            ApiManager.shared.getCategories { [self] isSuccess in
+                if isSuccess{
+                    let data = ApiManager.shared.data
+                    for i in 0...data.count-1{
+                        filterArray.append(data[i]["name"] as! String)
+                        categoryId.append(data[i]["_id"] as! String)
+                    }
+                }else{
+                    alert(message: ApiManager.shared.msg)
+                }
+            }
+    }
+}
 }

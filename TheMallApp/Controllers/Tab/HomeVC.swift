@@ -10,10 +10,9 @@ import AKSideMenu
 import ARSLineProgress
 import AlamofireImage
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var storeImage: UIImageView!
-    @IBOutlet weak var mikeButton: UIButton!
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var registerView: UIView!
     @IBOutlet weak var shopsCollection: UICollectionView!
@@ -21,15 +20,31 @@ class HomeVC: UIViewController {
     var storeData = [AnyObject]()
     var productData = [AnyObject]()
     var userId = ""
+    var searchdata = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        searchText.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         setdata()
         getProduct()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if searchText.text != ""{
+            ApiManager.shared.searchStore(storename: searchText.text!) { isSuccess in
+                if isSuccess{
+                    self.searchdata = ApiManager.shared.data
+                }else{
+                    self.alert(message: ApiManager.shared.msg)
+                }
+            }
+        }else{
+            print("ss")
+        }
+       
     }
     func setdata(){
         ARSLineProgress.show()
@@ -99,8 +114,10 @@ class HomeVC: UIViewController {
         }
     }
     
-    @IBAction func mikeTapped(_ sender: Any) {
+    @IBAction func searchTaped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as! SearchVC
         
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     @IBAction func notificationTapped(_ sender: Any) {
         if userId == ""{
@@ -168,6 +185,7 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             print("sdfsdfsdf",storeData.count)
             print(storeData)
             print(storeData.count)
+            
             cell.offerLabel.text = productData[indexPath.row]["description"] as! String
             cell.shopOffer.text = productData[indexPath.row]["name"] as! String
             if let gallery = productData[indexPath.row]["gallery"] as? [AnyObject]{

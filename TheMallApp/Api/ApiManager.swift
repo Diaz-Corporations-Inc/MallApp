@@ -7,8 +7,9 @@
 import Foundation
 import UIKit
 import Alamofire
+import SwiftUI
 
-class ApiManager: UIViewController {
+ class ApiManager: UIViewController {
     
     static let shared = ApiManager()
     var msg = ""
@@ -69,8 +70,9 @@ class ApiManager: UIViewController {
                         print("success",respond)
                         let data = respond.object(forKey: "data") as! NSDictionary
                         let id = data.object(forKey: "id") as! String
+                        let name = data.object(forKey: "name") as! String
                         let token = response.response?.allHeaderFields["x-access-token"] as! String
-                        print("token",token)
+                        UserDefaults.standard.set(name, forKey: "name")
                         UserDefaults.standard.setValue(token, forKey: "token")
                         UserDefaults.standard.setValue(id, forKey: "id")
                         completionHandler(true)
@@ -91,8 +93,9 @@ class ApiManager: UIViewController {
                 }
             }
         }else{
+            self.msg = "Please check internet connection"
             completionHandler(false)
-            self.alert(message: "Please check internet connection",title: "Connection error!")
+            
         }
     }
     
@@ -115,9 +118,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print("Fail",respond)
-                        let error = respond.object(forKey: "error") as! String
-                        print("errorrrrr",error)
-                        self.alert(message: error)
+                        self.msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }catch{
@@ -132,7 +133,7 @@ class ApiManager: UIViewController {
                 }
             }
         }else{
-            self.alert(message: "Please check internet connection",title: "Connection error!")
+            self.msg = "Please check internet connection"
             completionHandler(false)
         }
     }
@@ -154,12 +155,12 @@ class ApiManager: UIViewController {
                     let respond = json as! NSDictionary
                     if success == 200{
                         print("Success==",respond)
+                        self.msg = respond.object(forKey: "message") as! String
                         completionHandler(true)
                     }else{
                         print("Fail",respond)
-                        let error = respond.object(forKey: "error") as! String
-                        print("errorrrrr",error)
-                        self.alert(message: error)
+                        self.msg = respond.object(forKey: "error") as! String
+                       
                         completionHandler(false)
                     }
                 }
@@ -170,7 +171,8 @@ class ApiManager: UIViewController {
                 }
             }
         }else{
-            self.alert(message: "Please check internet connection",title: "Connection error!")
+            self.msg = "Please check internet connection"
+            completionHandler(false)
         }
     }
     
@@ -190,12 +192,12 @@ class ApiManager: UIViewController {
                     let respond = json as! NSDictionary
                     if success == 200{
                         print("Success==",respond)
+//                        self.msg = respond.object(forKey: "error") as! String
                         completionHandler(true)
                     }else{
                         print("Fail",respond)
-                        let error = respond.object(forKey: "error") as! String
-                        print("errorrrrr",error)
-                        self.alert(message: error)
+                        self.msg = respond.object(forKey: "error") as! String
+                        
                         completionHandler(false)
                     }
                 }
@@ -206,7 +208,8 @@ class ApiManager: UIViewController {
                 }
             }
         }else{
-            self.alert(message: "Please check internet connection",title: "Connection error!")
+            self.msg = "Please check internet connection"
+            completionHandler(false)
         }
     }
     
@@ -228,6 +231,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print("Failure",respond)
+                        self.msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }catch{
@@ -240,6 +244,9 @@ class ApiManager: UIViewController {
                 }
                 }
             }
+        }else{
+            self.msg = "Please check internet connection"
+            completionHandler(false)
         }
     }
     
@@ -372,6 +379,7 @@ class ApiManager: UIViewController {
             }
         }else{
             msg = "Please check Internet connection"
+            completion(false)
         }
     }
     
@@ -418,6 +426,7 @@ class ApiManager: UIViewController {
             }
         }else{
             msg = "Please check Internet connection"
+            completion(false)
         }
     }
     
@@ -439,8 +448,7 @@ class ApiManager: UIViewController {
                         print("response is ",respond)
                         completion(true)
                     }else{
-//                        msg = respond.object(forKey: "error") as! String
-                        print(respond,"sbvjsdbvjh",msg)
+                        msg = respond.object(forKey: "error") as! String
                         completion(false)
                         
                     }
@@ -461,6 +469,7 @@ class ApiManager: UIViewController {
             }
         }else{
             msg = "Please check Internet connection"
+            completion(false)
         }
     }
     
@@ -519,6 +528,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print(respond,"fail")
+                        msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }
@@ -553,6 +563,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print(respond,"fail")
+                        msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }
@@ -586,6 +597,7 @@ class ApiManager: UIViewController {
                         completionHandler(dataDict,true)
                     }else{
                         print(respond,"fail")
+                        msg = respond.object(forKey: "error") as! String
                         completionHandler(nil,false)
                     }
                 }
@@ -618,6 +630,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print(respond,"fail")
+                        msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }
@@ -636,7 +649,7 @@ class ApiManager: UIViewController {
 //MARK: -
     func getProductById(productId: String,completionHandler: @escaping (Bool)->()){
         if ReachabilityNetwork.isConnectedToNetwork(){
-            
+            print(Api.getProductById+productId)
             AF.request(Api.getProductById+productId,method: .get,encoding: JSONEncoding.default).responseJSON{ [self]
                 response in
                 switch(response.result){
@@ -650,6 +663,7 @@ class ApiManager: UIViewController {
                         completionHandler(true)
                     }else{
                         print(respond,"fail")
+                        msg = respond.object(forKey: "error") as! String
                         completionHandler(false)
                     }
                 }
@@ -710,6 +724,9 @@ class ApiManager: UIViewController {
                     print(respond)
                   data = respond.object(forKey: "data") as! [AnyObject]
                     completion(true)
+                }else{
+                    msg = respond.object(forKey: "error") as! String
+                    completion(false)
                 }
             }
             case .failure(let error):do{
@@ -736,6 +753,7 @@ class ApiManager: UIViewController {
                       data = respond.object(forKey: "data") as! [AnyObject]
                         completion(true)
                     }else{
+                        msg = respond.object(forKey: "error") as! String
                         completion(false)
                     }
                 }
@@ -871,7 +889,6 @@ class ApiManager: UIViewController {
                     }else{
                         print("fail",respond)
                         self.msg = respond.object(forKey: "error") as! String
-                        print("errorrrrr",msg)
                         completion(false)
                     }
                 }
@@ -888,9 +905,256 @@ class ApiManager: UIViewController {
             completion(false)
         }
     }
+    ///
+// MARK: - addReview
+    
+    func addReview(model: ReviewModel,completion: @escaping (Bool) -> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head: HTTPHeaders = ["x-access-token": token]
+            AF.request(Api.ratingReview,method: .post,parameters:model,encoder: JSONParameterEncoder.default,headers: head).response{
+                response in
+                switch(response.result){
+                case .success(let data): do{
+                        let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                        let status = response.response?.statusCode
+                        let respond = json as! NSDictionary
+                        if status == 200{
+                            print(respond)
+                            self.dataDict = respond
+                            completion(true)
+                        }else{
+                            self.msg = respond.object(forKey: "error") as! String
+                            completion(false)
+                        }
+                }catch{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                case .failure(let error):do{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                    
+                }
+           
+            }
+        }else{
+            self.msg = "Please check internet connection"
+            completion(false)
+        }
+   
+        
+    }
+    
+//MARK: - ADD ADDRESS
+    func addAddress(model: AddAddressModel,completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head : HTTPHeaders = ["x-access-token": token]
+            AF.request(Api.addAddress,method: .post,parameters: model,encoder: JSONParameterEncoder.default,headers: head).response{ [self]
+                response in
+                switch(response.result){
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let status = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if status == 200{
+                        print(respond)
+                        msg = respond.object(forKey: "message") as! String
+                        completion(true)
+                    }else{
+                        msg = respond.object(forKey: "error") as! String
+                        completion(false)
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                case .failure(let error):do{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                }
+            }
+        }else{
+            msg = "Please check internet connection"
+            completion(false)
+        }
+    }
+    ///
+//MARK: - update address api
+    func updateAddress(model: AddAddressModel,AddressId: String,completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head : HTTPHeaders = ["x-access-token": token]
+            AF.request(Api.updateAddress+AddressId,method: .put,parameters: model,encoder: JSONParameterEncoder.default,headers: head).response{ [self]
+                response in
+                switch(response.result){
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let status = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if status == 200{
+                        print(respond)
+                        
+                        completion(true)
+                    }else{
+                        msg = respond.object(forKey: "error") as! String
+                        completion(false)
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                case .failure(let error):do{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                }
+            }
+        }else{
+            msg = "Please check internet connection"
+            completion(false)
+        }
+    }
+///
+//MARK: - GET ADDRESS
+    func getAddress(completion: @escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let id  = UserDefaults.standard.value(forKey: "id") as! String
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head : HTTPHeaders = ["x-access-token": token]
+            AF.request(Api.getAddress+id,method: .get,headers: head).response{ [self]
+                response in
+                switch(response.result){
+                case .success(let data): do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let status = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if status == 200{
+                        print(respond)
+                        self.data = respond.object(forKey: "data") as! [AnyObject]
+                        completion(true)
+                    }else{
+                        print(respond)
+                        msg = respond.object(forKey: "error") as! String
+                        completion(false)
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                case .failure(let error):do{
+                    print(error.localizedDescription)
+                    completion(false)
+                }
+                }
+            }
+        }else{
+            msg = "Please check internet connection"
+            completion(false)
+        }
+    }
+///
+//MARK: - get categories
+    func getCategories(completion:@escaping (Bool)-> ()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            AF.request(Api.getCategories,method: .get).responseJSON { [self] response in
+            switch(response.result){
+            case .success(let json): do{
+                let success = response.response?.statusCode
+                let respond = json as! NSDictionary
+                if success == 200{
+                    print(respond)
+                    self.data = respond.object(forKey: "data") as! [AnyObject]
+                    completion(true)
+                }else{
+                    print(respond)
+                    msg = respond.object(forKey: "error") as! String
+                    completion(false)
+                }
+            }
+            case .failure(let error):do{
+                print(error)
+                completion(false)
+            }
+            
+            }
+        }
+        }else{
+            msg = "Please check internet connnection"
+            completion(false)
+        }
+    }
+    ///
+// MARK: - ADDRESS BY ADDRESS ID
+    func addressById(addressId: String,completion: @escaping (Bool)->()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head : HTTPHeaders = ["x-access-token":token]
+            print(Api.addressById+addressId)
+            AF.request(Api.addressById+addressId,method: .get,headers: head).responseJSON { [self]
+                response in
+                switch(response.result){
+                case .success(let json):do{
+                    let success = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if success == 200{
+                        print(respond)
+                        dataDict = respond.object(forKey: "data") as! NSDictionary
+                        completion(true)
+                    }else{
+                        completion(false)
+                    }
+                }
+                case .failure(let error):do{
+                    print("error",error)
+                    completion(false)
+                }
+                }
+            }
+        }else{
+            self.msg = "Please check Internet connection"
+            completion(false)
+        }
+    }
+    
+// MARK: - SEARCH STORE
+    func searchStore(storename: String,completion: @escaping (Bool)->()){
+        if ReachabilityNetwork.isConnectedToNetwork(){
+            let token = UserDefaults.standard.value(forKey: "token") as! String
+            let head : HTTPHeaders = ["x-access-token":token]
+            print(Api.search+storename)
+            AF.request(Api.search+storename,method: .get,headers: head).responseJSON { [self]
+                response in
+                switch(response.result){
+                case .success(let json):do{
+                    let success = response.response?.statusCode
+                    let respond = json as! NSDictionary
+                    if success == 200{
+                        print(respond)
+                        data = respond.object(forKey: "data") as! [AnyObject]
+                        completion(true)
+                    }else{
+                        self.msg = respond.object(forKey: "error") as! String
+                        completion(false)
+                    }
+                }
+                case .failure(let error):do{
+                    print("error",error)
+                    completion(false)
+                }
+                }
+            }
+        }else{
+            self.msg = "Please check Internet connection"
+            completion(false)
+        }
+    }
 }
 
-
+///
 extension UIViewController {
     
     func alert(message: String, title: String = "") {

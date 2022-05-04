@@ -41,6 +41,7 @@ class StoreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         }
+///
     override func viewWillAppear(_ animated: Bool) {
         if key == "My"{
             editBtn.isHidden = false
@@ -52,7 +53,6 @@ class StoreVC: UIViewController {
             addStoreImageBtn.isHidden = true
         }
         setData()
-        getProductData()
     }
    
     
@@ -65,6 +65,7 @@ class StoreVC: UIViewController {
         vc.storeData = self.myData[0] as! NSDictionary
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func backTapped(_ sender: Any) {
         if key == ""{
             self.navigationController?.popViewController(animated: true)
@@ -74,10 +75,7 @@ class StoreVC: UIViewController {
             let rightMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
             let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: vc, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
             self.navigationController?.pushViewController(sideMenuViewController, animated: true)
-
         }
-       
-        
     }
     
     @IBAction func addStoreImagesTapped(_ sender: Any) {
@@ -90,6 +88,7 @@ class StoreVC: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
         vc.key = "My"
         vc.storeId = self.myData[0]["_id"] as! String
+        vc.catIdtoSend = self.myData[0]["category"] as! String
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func registoreStore(_ sender: UIButton){
@@ -160,8 +159,9 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             return cell
         }else{
             let cell = productCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! productCell
-            cell.productPrice.text = "\(productData[indexPath.item]["masterPrice"] as! Int)"
+            cell.productPrice.text = "$\(productData[indexPath.item]["masterPrice"] as! Int)"
             cell.productName.text = productData[indexPath.item]["name"] as! String
+            cell.brandName.text = productData[indexPath.item]["brand"] as! String
             if let gallery = productData[indexPath.item]["gallery"] as? [AnyObject]{
                 if gallery.count != 0{
                     if let image = gallery[0]["name"] as? String{
@@ -189,7 +189,7 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {[self]
-        if collectionView == productCollection{
+        if collectionView == productCollection{ 
             let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
             vc.productId = productData[indexPath.row]["_id"] as! String
             self.navigationController?.pushViewController(vc, animated: true)
@@ -225,9 +225,10 @@ extension StoreVC{
                 if isSuccess{
     
                      myData = ApiManager.shared.data
+                    print(self.myData.count,"abs")
                     if myData.count != 0{
                         self.storeId = myData[0]["_id"] as! String
-                        print(self.storeId)
+                        print("asdsa",self.storeId)
                         storeName.text = myData[0]["name"] as! String
                         storeDescription.text = myData[0]["description"] as! String
                         let timingDict = myData[0]["timing"] as! NSDictionary
@@ -248,7 +249,7 @@ extension StoreVC{
                                 }
                             }
                         }
-                        
+                        getProductData()
                         storeCollection.reloadData()
                     }
                  
@@ -283,7 +284,7 @@ extension StoreVC{
                             }
                         }
                     }
-                    
+                    getProductData()
                     storeCollection.reloadData()
                 }else{
                     ARSLineProgress.hide()
@@ -302,9 +303,12 @@ extension StoreVC{
         
         ApiManager.shared.getStoreProducts(storeId: self.storeId) { isSuccess in
             if isSuccess{
+                
                 self.productData = ApiManager.shared.data
+                print("sjdbfksbdajc",self.productData,"abcd")
                 self.productCollection.reloadData()
             }else{
+                print(self.storeId)
                 print("please check store id")
             }
         }

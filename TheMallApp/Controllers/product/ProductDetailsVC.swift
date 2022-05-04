@@ -7,9 +7,12 @@
 
 import UIKit
 import AlamofireImage
+import Cosmos
 
 class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
 
+    @IBOutlet weak var cosmosRating: CosmosView!
+    @IBOutlet var ratingView: UIView!
     @IBOutlet weak var reviewStars: UIView!
     @IBOutlet weak var picCollection: UICollectionView!
     @IBOutlet weak var productName: UILabel!
@@ -26,7 +29,6 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     @IBOutlet weak var addFavourite: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var editProduct: UIButton!
-    @IBOutlet weak var addReview: UITextField!
     
     var productId = ""
     var productData : NSDictionary!
@@ -39,11 +41,17 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     var gallery = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        getProductDetail()
+//        ratingView.isHidden = false
+//        ratingView.frame = self.view.bounds
+//        self.view.addSubview(ratingView)
         if key == "My"{
             editProduct.isHidden = false
+        }else if key == "cart"{
+            editProduct.isHidden = true
+            addFavourite.setTitle("Buy now", for: .normal)
         }else{
             editProduct.isHidden = true
+            addFavourite.setTitle("Add to cart", for: .normal)
         }
         self.similarProduct.delegate = self
         self.similarProduct.dataSource = self
@@ -51,6 +59,7 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
+        getProductDetail()
     }
     func getData(){
         storeId = productData.object(forKey: "store") as! String
@@ -70,17 +79,19 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     
     @IBAction func viewAllTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ReviewVC") as! ReviewVC
+        vc.productData = self.productData
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func addReviewTapped(_ sender: UIButton){
-        review.text = addReview.text
-        let date = Date()
-        let dateFormet = DateFormatter()
-        dateFormet.dateStyle = .full
-        self.reviewdate.text = "\(dateFormet.string(from: date))"
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
-            self.addReview.text = ""
-        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddReviewVC") as! AddReviewVC
+        vc.productId = self.productId
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let date = Date()
+//        let dateFormet = DateFormatter()
+//        dateFormet.dateStyle = .full
+//        self.reviewdate.text = "\(dateFormet.string(from: date))"
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+//        }
      
     }
     @IBAction func editTapped(_ sender: Any) {
@@ -100,17 +111,25 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
                 self.navigationController?.pushViewController(vc, animated: false)
             }
         }else{
-            let params : [String:Any] = ["userId":userId,"productId": self.productId,"storeId":"\(storeId)","quantity":"1","total": "\(masterTotal)","status":"Cart"]
-            print(params)
-            ApiManager.shared.addToCart(params) { isSuccess  in
-                if isSuccess{
-                
-                    self.alert(message: ApiManager.shared.msg)
-                }else{
-                
-                    self.alert(message: ApiManager.shared.msg)
+            if key == "cart"{
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
+                vc.key = "cart"
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else{
+                let params : [String:Any] = ["userId":userId,"productId": self.productId,"storeId":"\(storeId)","quantity":"1","total": "\(masterTotal)","status":"Cart"]
+                print(params)
+                ApiManager.shared.addToCart(params) { isSuccess  in
+                    if isSuccess{
+                    
+                        self.alert(message: ApiManager.shared.msg)
+                    }else{
+                    
+                        self.alert(message: ApiManager.shared.msg)
+                    }
                 }
             }
+            
         }
     }
 }
@@ -132,6 +151,22 @@ extension ProductDetailsVC{
         productName.text = productData.object(forKey: "name") as! String
         detailLabel.text = productData.object(forKey: "description") as! String
         price.text = "$ \(productData.object(forKey: "masterPrice") as! Int)"
+        let rating = productData.object(forKey: "rating") as! [AnyObject]
+        if rating.count != 0{
+            print(rating)
+            self.review.text = rating[0]["review"] as! String
+            let date = rating[0]["postedOn"] as! String
+            print(date)
+            let dateFormat = DateFormatter()
+            dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"
+           let datt = dateFormat.date(from: date)
+            dateFormat.dateStyle = .medium
+            print("dfnvjdfbvksdfkv",datt)
+            self.reviewdate.text = dateFormat.string(from: datt ?? Date())
+            self.reviewerName.text = rating[0]["customerName"] as? String ?? "Anonymous"
+        }
+       
+
         picCollection.reloadData()
         colorCollection.reloadData()
         similarProduct.reloadData()

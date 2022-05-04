@@ -35,9 +35,8 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
     
     @IBAction func signUpTapped(_ sender: UIButton){
         if email.text != "" || password.text != "" || name.text != "" || dobCom.text != ""{
-            let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!,fcmToken: "nhjksnsdjnei131231nbjb")
-            print(modelData,"sdv")
-            print("dsfsad")
+            let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!,fcmToken: UserDefaults.standard.value(forKey: "devicetoken") as? String ?? "notoken")
+           
             ARSLineProgress.show()
             ApiManager.shared.signUp(model: modelData) { (success) in
                 ARSLineProgress.hide()
