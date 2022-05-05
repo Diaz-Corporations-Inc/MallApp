@@ -1152,6 +1152,37 @@ import SwiftUI
             completion(false)
         }
     }
+///
+// MARK: - STORE BY CATEGORY ID
+     func storeByCategory(categoryId: String,completion: @escaping (Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             AF.request(Api.storeByCtegory+categoryId,method: .get).responseJSON{
+                 response in
+                 switch(response.result){
+                 case .success(let json):do{
+                     let status = response.response?.statusCode
+                     let respond = json as! NSDictionary
+                     if status == 200{
+                         print(respond)
+                         self.data = respond.object(forKey: "data") as! [AnyObject]
+                         completion(true)
+                     }else{
+                         self.msg = respond.object(forKey: "error") as! String
+                         completion(false)
+                     }
+                 }
+                 case .failure(let error): do{
+                     print("error",error)
+                     completion(false)
+                     
+                 }
+                 }
+             }
+         }else{
+             self.msg = "Please check internet connection"
+             completion(false)
+         }
+     }
 }
 
 ///

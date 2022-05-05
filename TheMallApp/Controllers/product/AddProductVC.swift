@@ -99,7 +99,13 @@ extension AddProductVC{
         let feature = feature(key: "1", value: "10")
         let price = Double("\(self.productPrice.text!)")
         print(self.storeId,"dfgdfsg")
-        let model = AddProductModel(description: self.productDescription.text!, name: self.productName.text!, masterPrice: price, productUrl: "Nike", storeId: self.storeId, size: size, colors: color, features: feature,discount:discount.text, categoryId: catIdtoSend, brand: brandName.text!)
+        var isDiscount = false
+        if discount.text == ""{
+            isDiscount = false
+        }else{
+            isDiscount = true
+        }
+        let model = AddProductModel(description: self.productDescription.text!, name: self.productName.text!, masterPrice: price, productUrl: "Nike", storeId: self.storeId, size: size, colors: color, features: feature,discount:discount.text, categoryId: catIdtoSend, brand: brandName.text!,isOnDiscount:isDiscount)
         print(model)
         print("sdnvkabvbakvbabvkabv")
         ApiManager.shared.addProduct(model:model) { isSuccess in

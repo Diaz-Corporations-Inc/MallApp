@@ -28,6 +28,8 @@ public struct Api{
     public static var storeImage                 = baseUrl + "store/imageUpload/"
     public static var myStore                    = baseUrl + "store/myStores/"
     public static var updateStore                = baseUrl + "store/update/"
+    public static var storeByCtegory             = baseUrl + "store/byCatId/"
+    
    
 //MARK: - favourite api's
     public static var favUnfav                   = baseUrl + "store/makeFavOrUnfav"

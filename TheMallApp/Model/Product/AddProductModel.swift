@@ -19,6 +19,7 @@ struct AddProductModel: Encodable{
     let discount: String?
     let categoryId: String?
     let brand: String?
+    let isOnDiscount: Bool?
 }
 
 

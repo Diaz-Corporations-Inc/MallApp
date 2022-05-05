@@ -74,7 +74,7 @@ class StoreVC: UIViewController {
             let leftMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
             let rightMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
             let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: vc, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
-            self.navigationController?.pushViewController(sideMenuViewController, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

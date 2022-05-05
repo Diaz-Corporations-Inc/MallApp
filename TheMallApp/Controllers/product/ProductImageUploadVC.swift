@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AKSideMenu
 
 class ProductImageUploadVC: BaseClass {
 
@@ -80,12 +81,14 @@ extension ProductImageUploadVC{
             }
             print("Status: \(percent)")
            if percent == 1.0{
-               self?.showAlertWithOneAction(alertTitle: "", message: "Product images uploaded successfully", action1Title: "Ok") {[self] ok in
+               self?.showAlertWithOneAction(alertTitle: "", message: "Product images uploaded successfully", action1Title: "Ok") { ok in
                    let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
                    let navigationController = UINavigationController.init(rootViewController: vc)
-                   let leftMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
-                   let rightMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
-                   self?.navigationController?.pushViewController(navigationController, animated: true)
+                   let leftMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                   let rightMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                   let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+                   navigationController.isNavigationBarHidden = true
+                   self?.navigationController?.pushViewController(sideMenuViewController, animated: true)
                }            }
           },
 

@@ -17,8 +17,9 @@ class BrowseAllVC: UIViewController {
     
     var a = ""
     
-    var filterArray = [String]()
-    var categoryId = [String]()
+    @IBOutlet weak var nearYouTop: NSLayoutConstraint!
+    var filterArray = ["All"]
+    var categoryId = ["All"]
     var selectedRows:[IndexPath] = []
     var storeData = [AnyObject]()
     var storeId = ""
@@ -47,7 +48,13 @@ class BrowseAllVC: UIViewController {
         ApiManager.shared.storeList { [self] isSuccess in
             ARSLineProgress.hide()
             if isSuccess{
+                storeData.removeAll()
                 storeData = ApiManager.shared.data
+                if storeData.count == 0{
+                    nearYouTop.constant = -150
+                }else{
+                    nearYouTop.constant = 10
+                }
                 browseTable.reloadData()
             }else{
                 print("hello")
@@ -63,7 +70,9 @@ class BrowseAllVC: UIViewController {
                 for i in 0...data.count-1{
                     filterArray.append(data[i]["name"] as! String)
                     categoryId.append(data[i]["_id"] as! String)
+                
                 }
+                print("asdfsdafasdfsadf",categoryId,filterArray,"sdfsdafsadfsadfasdfsdf")
             }else{
                 alert(message: ApiManager.shared.msg)
             }
@@ -77,6 +86,29 @@ class BrowseAllVC: UIViewController {
         drop.show()
         drop.selectionAction = { [unowned self] (index, item) in
             selectCategory.text = item
+            if filterArray[index] == "All"{
+                setData()
+            }else{
+                ApiManager.shared.storeByCategory(categoryId: self.categoryId[index]) { isSuccess in
+                    if isSuccess{
+                        print(storeData.count,"dsfe")
+                        storeData.removeAll()
+                        print(storeData.count,"dsfesfdsda")
+                        storeData = ApiManager.shared.data
+                        print(storeData.count,"dsfesfdsda")
+                        if storeData.count == 0{
+                            nearYouTop.constant = -150
+                        }else{
+                            nearYouTop.constant = 10
+                        }
+                        browseTable.reloadData()
+                        
+                    }else{
+                        print(ApiManager.shared.msg)
+                    }
+                }
+            }
+            
             drop.hide()
         }
     }

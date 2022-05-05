@@ -190,6 +190,7 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
                 print(data,"egwgwgrwtherthert")
                 let storeDetail = data[indexPath.row]["store"] as! NSDictionary
                 cell.storeName.text = storeDetail.object(forKey: "name") as! String
+                cell.productType.text = storeDetail.object(forKey: "description") as! String
                 if let image = storeDetail.object(forKey: "logo") as? String{
                     let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
                     if url != nil{

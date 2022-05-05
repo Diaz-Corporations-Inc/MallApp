@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AKSideMenu
 
 class ImageUploadVC: BaseClass {
 
@@ -36,8 +37,12 @@ class ImageUploadVC: BaseClass {
                       if percent == 1.0{
                           let vc = self?.storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
                           vc.key = "My"
-                          self?.navigationController?.pushViewController(vc, animated: true)
-                       }
+                          let navigationController = UINavigationController.init(rootViewController: vc)
+                          let leftMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                          let rightMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
+                          let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: navigationController, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+                          navigationController.isNavigationBarHidden = true
+                          self?.navigationController?.pushViewController(sideMenuViewController, animated: true)                       }
                      },
                      completion: { [weak self] result in
                        guard let _ = self else {
