@@ -34,16 +34,17 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     var productData : NSDictionary!
     let sizeArray = ["M","L","XL","XXL"]
     let color = ["Blue","Black","Green","Grey"]
+    var similarProductData = [AnyObject]()
     var storeId = ""
     var userId = ""
     var key = ""
+    var categoryId = ""
     var masterTotal = Int()
     var gallery = [AnyObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        ratingView.isHidden = false
-//        ratingView.frame = self.view.bounds
-//        self.view.addSubview(ratingView)
+
         if key == "My"{
             editProduct.isHidden = false
         }else if key == "cart"{
@@ -64,6 +65,8 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     func getData(){
         storeId = productData.object(forKey: "store") as! String
         masterTotal = productData.object(forKey: "masterPrice") as! Int
+        categoryId = productData.object(forKey: "categoryId") as! String
+        print("aseded",categoryId)
         if let gall = productData.object(forKey: "gallery") as? [AnyObject]{
             gallery = gall
         }
@@ -141,7 +144,7 @@ extension ProductDetailsVC{
                 productData = ApiManager.shared.dataDict
                 print(productData)
                 setData()
-               
+                getSimilarProduct()
             }else{
                 print("wrong url")
             }
@@ -151,6 +154,7 @@ extension ProductDetailsVC{
         productName.text = productData.object(forKey: "name") as! String
         detailLabel.text = productData.object(forKey: "description") as! String
         price.text = "$ \(productData.object(forKey: "masterPrice") as! Int)"
+        
         let rating = productData.object(forKey: "rating") as! [AnyObject]
         if rating.count != 0{
             print(rating)
@@ -177,7 +181,9 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == sizeCollection{
             return sizeArray.count
-        }else {
+        }else if collectionView == similarProduct{
+            return similarProductData.count
+        }else{
             pageControl.numberOfPages = gallery.count
                 pageControl.isHidden = !(gallery.count > 1)
             return gallery.count
@@ -227,6 +233,8 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
             cell.similarView.layer.cornerRadius = 20
             cell.similarPic.layer.cornerRadius = 20
             cell.similarPic.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
+            cell.productName.text = similarProductData[indexPath.item]["name"] as! String
+            cell.price.text = "$ \(similarProductData[indexPath.item]["masterPrice"] as! Int)"
             return cell
         }
     }
@@ -241,6 +249,14 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
         }else{
                 return CGSize(width: similarProduct.frame.width/2, height: similarProduct.frame.height)
             
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == similarProduct{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            print("hello")
         }
     }
 }
@@ -271,14 +287,26 @@ class ProductSize: UICollectionViewCell{
 
 class SimilarCollCell: UICollectionViewCell{
     
-    @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var similarPic: UIImageView!
     @IBOutlet weak var similarView: UIView!
-    @IBOutlet weak var starProduct: UIView!
+    @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var price: UILabel!
     
     override func awakeFromNib() {
-        
-        
-        
+    
+    }
+}
+
+
+extension ProductDetailsVC{
+    func getSimilarProduct(){
+        ApiManager.shared.getSimilarProucts(categoryid: self.categoryId) { isSuccess in
+            if isSuccess{
+                self.similarProductData = ApiManager.shared.data
+                self.similarProduct.reloadData()
+            }else{
+                print("bvcmcchg tyfy chd",ApiManager.shared.msg)
+            }
+        }
     }
 }

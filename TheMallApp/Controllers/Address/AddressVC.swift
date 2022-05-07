@@ -109,8 +109,7 @@ extension AddressVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if key == "cart"{
-            let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
-            vc.key = "Cart"
+            let vc = storyboard?.instantiateViewController(withIdentifier: "CheckoutVC") as! CheckoutVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

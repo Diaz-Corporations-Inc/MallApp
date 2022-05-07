@@ -31,12 +31,12 @@ public struct Api{
     public static var storeByCtegory             = baseUrl + "store/byCatId/"
     
    
-//MARK: - favourite api's
+//MARK: - favourite api's urls
     public static var favUnfav                   = baseUrl + "store/makeFavOrUnfav"
     public static var getFav                     = baseUrl + "store/favList/"
     public static var getProfile                 = baseUrl + "users/getUserById/"
     
-//MARK: - products api's
+//MARK: - products api's urls
     public static var getProduct                 = baseUrl + "products/getProducts"
     public static var getProductById             = baseUrl + "products/getProductById/"
     public static var myStoreProducts            = baseUrl + "products/byStoreId/"
@@ -44,20 +44,21 @@ public struct Api{
     public static var addProductImages           = baseUrl + "products/imageUpload/"
     public static var updateProduct              = baseUrl + "products/update/"
     public static var ratingReview               = baseUrl + "products/ratingReview"
-//
-        
-// MARK: - cart api's
+    public static var similarProducts            = baseUrl + "products/similarProduct"
+    public static var dealsOfTheday              = baseUrl + "products/dealOfTheDay"
+
+// MARK: - cart api's urls
     public static var addToCart                  = baseUrl + "carts/addToCart"
     public static var getCart                    = baseUrl + "carts/getCarts"
     public static var deleteCart                 = baseUrl + "carts/deleteItem/"
 
-//MARK: - address
+//MARK: - address api's urls
     public static var addAddress                 = baseUrl + "addresses/create"
     public static var getAddress                 = baseUrl + "addresses/byUser/"
     public static var updateAddress              = baseUrl + "addresses/update/"
     public static var addressById                = baseUrl + "addresses/byId/"
-//MARK: - Categories
-    public static var getCategories              = baseUrl + "categories/getCategories"
-//MARK: - SEARCH API
+//MARK: - Categories api's urls
+    public static var getCategories              = baseUrl + "categories/getCategories/"
+//MARK: - SEARCH api's urls
     public static var search                     = baseUrl + "store/search?name="
 }

@@ -1183,6 +1183,71 @@ import SwiftUI
              completion(false)
          }
      }
+//MARK: - GET SIMILAR PRODUCTS
+     func getSimilarProucts(categoryid: String,completion: @escaping (Bool) ->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             print(Api.similarProducts+categoryid)
+         AF.request(Api.similarProducts+"?categoryId="+categoryid,method: .get).responseJSON{
+             response in
+             switch(response.result){
+
+             case .success(let json):do{
+                 let status = response.response?.statusCode
+                 let respond = json as! NSDictionary
+                 if status == 200{
+                     print(respond)
+                     self.data = respond.object(forKey: "data") as! [AnyObject]
+                     completion(true)
+                 }else{
+                     self.msg = respond.object(forKey: "error") as! String
+                     completion(false)
+                 }
+             }
+                 
+             case .failure(let error):do{
+                 print("print",error)
+                 completion(false)
+             }
+             }
+         }
+     }else{
+         self.msg = "Please check network connection"
+         completion(false)
+     }
+     }
+///
+//MARK: - Get deals of the day
+     func getSimilarProucts(completion: @escaping (Bool) ->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             print(Api.dealsOfTheday)
+             AF.request(Api.dealsOfTheday,method: .get).responseJSON{
+             response in
+             switch(response.result){
+
+             case .success(let json):do{
+                 let status = response.response?.statusCode
+                 let respond = json as! NSDictionary
+                 if status == 200{
+                     print(respond)
+                     self.data = respond.object(forKey: "data") as! [AnyObject]
+                     completion(true)
+                 }else{
+                     self.msg = respond.object(forKey: "error") as! String
+                     completion(false)
+                 }
+             }
+                 
+             case .failure(let error):do{
+                 print("print",error)
+                 completion(false)
+             }
+             }
+         }
+     }else{
+         self.msg = "Please check network connection"
+         completion(false)
+     }
+     }
 }
 
 ///
