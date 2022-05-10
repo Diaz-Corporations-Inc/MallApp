@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class DealsOfDayVC: UIViewController {
 
@@ -16,29 +17,39 @@ class DealsOfDayVC: UIViewController {
     @IBOutlet weak var promoCollection: UICollectionView!
     @IBOutlet weak var oldDealsCollection: UICollectionView!
     var key = ""
+    var data = [AnyObject]()
+    var oldData = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        getDeals()
+        
+        
     }
-    
+    func set(){
+        print(data.count)
+        for i in 0...data.count-1{
+            print(i,"sadfdsfdasf")
+            if let halfcount = data.count/2 as? Int{
+                print(halfcount)
+                break
+            }
+            print(i,"sdsdsds")
+        }
+    }
     @IBAction func contactUsTapped(_ sender: Any) {
     }
     @IBAction func registerTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    @IBAction func mikeTapped(_ sender: Any) {
-    }
-    
-    
-
 }
 
 extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return data.count
         
     }
     
@@ -49,15 +60,18 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             cell.collView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.collView.layer.shadowRadius = 1
             cell.collView.layer.shadowOpacity = 5
-            return cell
-        }else if collectionView == promoCollection{
-            let cell = promoCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PromoCollCell
-            cell.promoView.layer.borderWidth = 1
-            cell.promoView.layer.borderColor = UIColor.gray.cgColor
-//            cell.promoView.layer.shadowColor = UIColor.gray.cgColor
-//            cell.promoView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//            cell.promoView.layer.shadowRadius = 1
-//            cell.promoView.layer.shadowOpacity = 5
+            cell.productName.text = self.data[indexPath.row]["name"] as! String
+            if let gallery = self.data[indexPath.row]["gallery"] as? [AnyObject]{
+                if let image = gallery[0]["name"] as? String{
+                    let url = URL(string: image)
+                    if url != nil{
+                        cell.productImage.af.setImage(withURL: url!)
+                    }else{
+                        print("hello")
+                    }
+                    
+                }
+            }
             return cell
         }else{
             let cell = oldDealsCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! OldDealCollCell
@@ -67,6 +81,18 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
             cell.oldDealView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.oldDealView.layer.shadowRadius = 1
             cell.oldDealView.layer.shadowOpacity = 5
+            cell.productname.text = self.data[indexPath.row]["name"] as! String
+            if let gallery = self.data[indexPath.row]["gallery"] as? [AnyObject]{
+                if let image = gallery[0]["name"] as? String{
+                    let url = URL(string: image)
+                    if url != nil{
+                        cell.imageOld.af.setImage(withURL: url!)
+                    }else{
+                        print("hello")
+                    }
+                    
+                }
+            }
             return cell
         }
     }
@@ -81,5 +107,31 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
         }
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+            let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+            vc.productId = self.data[indexPath.item]["id"] as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+       
+       
+    }
     
+}
+
+
+extension DealsOfDayVC{
+    func getDeals(){
+        ApiManager.shared.getAllProduct {[self] isSuccess in
+            if isSuccess{
+                
+                self.data = ApiManager.shared.data
+                dealsCollection.reloadData()
+                oldDealsCollection.reloadData()
+                set()
+                
+            }else{
+                self.alert(message: ApiManager.shared.msg)
+            }
+        }
+    }
 }

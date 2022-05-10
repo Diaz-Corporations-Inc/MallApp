@@ -155,6 +155,7 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == pickFavourite{
             let cell = pickFavourite.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PicFavouriteCell
+            
             cell.mainView.layer.cornerRadius = 10
             cell.cellImage.layer.cornerRadius = 10
             cell.mainView.layer.borderWidth = 1

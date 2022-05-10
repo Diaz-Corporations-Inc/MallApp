@@ -21,6 +21,12 @@ class MapTableCell: UITableViewCell {
         mapTabView.layer.cornerRadius = 20
     }
 
+    override func prepareForReuse() {
+        if shopImage.image != nil{
+            self.shopImage.image = nil
+        }
+        super.prepareForReuse()
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

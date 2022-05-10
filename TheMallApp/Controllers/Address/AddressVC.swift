@@ -110,6 +110,7 @@ extension AddressVC: UITableViewDelegate,UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         if key == "cart"{
             let vc = storyboard?.instantiateViewController(withIdentifier: "CheckoutVC") as! CheckoutVC
+            vc.addressId = addressData[indexPath.row]["_id"] as! String
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

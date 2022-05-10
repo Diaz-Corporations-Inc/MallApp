@@ -12,8 +12,8 @@ import Cosmos
 class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
 
     @IBOutlet weak var cosmosRating: CosmosView!
-    @IBOutlet var ratingView: UIView!
-    @IBOutlet weak var reviewStars: UIView!
+    @IBOutlet var ratingView: CosmosView!
+    @IBOutlet weak var reviewStars: CosmosView!
     @IBOutlet weak var picCollection: UICollectionView!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var reviewCount: UILabel!
@@ -24,30 +24,37 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     @IBOutlet weak var reviewerName: UILabel!
     @IBOutlet weak var reviewdate: UILabel!
     @IBOutlet weak var review: UILabel!
-    @IBOutlet weak var ratingStars: UIView!
+    @IBOutlet weak var ratingStars: CosmosView!
     @IBOutlet weak var similarProduct: UICollectionView!
     @IBOutlet weak var addFavourite: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var editProduct: UIButton!
+    @IBOutlet weak var discount: UILabel!
+    @IBOutlet weak var priceLast: UILabel!
     
     var productId = ""
     var productData : NSDictionary!
     let sizeArray = ["M","L","XL","XXL"]
     let color = ["Blue","Black","Green","Grey"]
+///
     var similarProductData = [AnyObject]()
     var storeId = ""
     var userId = ""
     var key = ""
     var categoryId = ""
-    var masterTotal = Int()
     var gallery = [AnyObject]()
-    
+///
+    var masterTotal = Double()
+    var total = Double()
+    var discoun = Double()
+///
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         if key == "My"{
             editProduct.isHidden = false
         }else if key == "cart"{
+        
             editProduct.isHidden = true
             addFavourite.setTitle("Buy now", for: .normal)
         }else{
@@ -64,7 +71,7 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
     }
     func getData(){
         storeId = productData.object(forKey: "store") as! String
-        masterTotal = productData.object(forKey: "masterPrice") as! Int
+        masterTotal = productData.object(forKey: "masterPrice") as! Double
         categoryId = productData.object(forKey: "categoryId") as! String
         print("aseded",categoryId)
         if let gall = productData.object(forKey: "gallery") as? [AnyObject]{
@@ -89,14 +96,8 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddReviewVC") as! AddReviewVC
         vc.productId = self.productId
         self.navigationController?.pushViewController(vc, animated: true)
-//        let date = Date()
-//        let dateFormet = DateFormatter()
-//        dateFormet.dateStyle = .full
-//        self.reviewdate.text = "\(dateFormet.string(from: date))"
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
-//        }
-     
     }
+    
     @IBAction func editTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
         vc.key = "Edit"
@@ -153,11 +154,21 @@ extension ProductDetailsVC{
     func setData(){
         productName.text = productData.object(forKey: "name") as! String
         detailLabel.text = productData.object(forKey: "description") as! String
-        price.text = "$ \(productData.object(forKey: "masterPrice") as! Int)"
+        masterTotal = productData.object(forKey: "masterPrice") as! Double
+        price.text = "$ \(masterTotal)"
+        discoun = Double("\(productData.object(forKey: "discount") as! String)") ?? 0.0
+        discount.text = "\(discoun) %"
         
+        total = masterTotal - masterTotal*discoun/100
+        print("tot",total)
+       
+        priceLast.text = "$ \(total)"
         let rating = productData.object(forKey: "rating") as! [AnyObject]
         if rating.count != 0{
             print(rating)
+            reviewCount.text = "\(rating.count) review"
+            ratingStars.rating = rating[0]["rating"] as! Double
+//            ratingView.rating = rating[0]["rating"] as! Double
             self.review.text = rating[0]["review"] as! String
             let date = rating[0]["postedOn"] as! String
             print(date)
@@ -234,7 +245,7 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
             cell.similarPic.layer.cornerRadius = 20
             cell.similarPic.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
             cell.productName.text = similarProductData[indexPath.item]["name"] as! String
-            cell.price.text = "$ \(similarProductData[indexPath.item]["masterPrice"] as! Int)"
+            cell.price.text = "$ \(similarProductData[indexPath.item]["masterPrice"] as! NSNumber)"
             return cell
         }
     }

@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Cosmos
 
 class ReviewCell: UITableViewCell {
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var starView: UIView!
+    @IBOutlet weak var starView: CosmosView!
     @IBOutlet weak var review: UILabel!
     @IBOutlet weak var dateTime: UILabel!
     

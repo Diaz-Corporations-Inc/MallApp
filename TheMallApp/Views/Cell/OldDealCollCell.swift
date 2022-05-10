@@ -10,6 +10,7 @@ import UIKit
 
 class OldDealCollCell: UICollectionViewCell{
     
+    @IBOutlet weak var productname: UILabel!
     @IBOutlet weak var oldDealView: UIView!
     @IBOutlet weak var imageOld: UIImageView!
     

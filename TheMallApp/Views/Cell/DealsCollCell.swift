@@ -9,6 +9,7 @@ import UIKit
 
 class DealsCollCell: UICollectionViewCell{
     @IBOutlet weak var collView: UIView!
+    @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     
     override  func awakeFromNib() {

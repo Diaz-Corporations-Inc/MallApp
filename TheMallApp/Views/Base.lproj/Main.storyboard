@@ -2825,7 +2825,7 @@ Apartment</string>
                                                                             <rect key="frame" x="2" y="2" width="234" height="102"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyIMAGE" translatesAutoresizingMaskIntoConstraints="NO" id="BV5-KE-YvN">
-                                                                                    <rect key="frame" x="89.5" y="10" width="55" height="55"/>
+                                                                                    <rect key="frame" x="89.5" y="5" width="55" height="55"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="55" id="6UI-tH-Krk"/>
                                                                                         <constraint firstAttribute="height" constant="55" id="gUv-ty-zYr"/>
@@ -2837,7 +2837,7 @@ Apartment</string>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat 30% off" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUK-Iu-d0t">
-                                                                                    <rect key="frame" x="5" y="75" width="224" height="17"/>
+                                                                                    <rect key="frame" x="5" y="70" width="224" height="22"/>
                                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -2848,7 +2848,7 @@ Apartment</string>
                                                                                 <constraint firstItem="zUK-Iu-d0t" firstAttribute="leading" secondItem="er9-jU-Z7T" secondAttribute="leading" constant="5" id="ITS-ma-4bs"/>
                                                                                 <constraint firstItem="BV5-KE-YvN" firstAttribute="centerX" secondItem="er9-jU-Z7T" secondAttribute="centerX" id="P2L-kH-mWp"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="zUK-Iu-d0t" secondAttribute="bottom" constant="10" id="fD8-1i-JW3"/>
-                                                                                <constraint firstItem="BV5-KE-YvN" firstAttribute="top" secondItem="er9-jU-Z7T" secondAttribute="top" constant="10" id="fsV-iu-mL3"/>
+                                                                                <constraint firstItem="BV5-KE-YvN" firstAttribute="top" secondItem="er9-jU-Z7T" secondAttribute="top" constant="5" id="fsV-iu-mL3"/>
                                                                                 <constraint firstItem="zUK-Iu-d0t" firstAttribute="top" secondItem="BV5-KE-YvN" secondAttribute="bottom" constant="10" id="kK2-71-3cE"/>
                                                                                 <constraint firstItem="zUK-Iu-d0t" firstAttribute="centerX" secondItem="er9-jU-Z7T" secondAttribute="centerX" id="lwB-iF-cVc"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="zUK-Iu-d0t" secondAttribute="trailing" constant="5" id="oKH-0l-R2C"/>
@@ -2877,6 +2877,7 @@ Apartment</string>
                                                         <connections>
                                                             <outlet property="collView" destination="fzv-cO-MVQ" id="cse-El-IUc"/>
                                                             <outlet property="productImage" destination="BV5-KE-YvN" id="W0f-DN-3eD"/>
+                                                            <outlet property="productName" destination="zUK-Iu-d0t" id="yhC-fs-Sc4"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -3106,6 +3107,7 @@ Apartment</string>
                                                         <connections>
                                                             <outlet property="imageOld" destination="IZB-tl-90H" id="eKE-or-RCH"/>
                                                             <outlet property="oldDealView" destination="LlZ-Ul-rnk" id="kCE-UK-WLk"/>
+                                                            <outlet property="productname" destination="MjR-xH-Tsu" id="ZMl-Bq-RJL"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -5864,11 +5866,11 @@ Apartment</string>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yc-91-FoJ">
                                                     <rect key="frame" x="30" y="21" width="354" height="198"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productImage" translatesAutoresizingMaskIntoConstraints="NO" id="7go-25-VSF">
-                                                            <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7go-25-VSF">
+                                                            <rect key="frame" x="5" y="5" width="10" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Hxj-0F-bGf"/>
-                                                                <constraint firstAttribute="width" constant="30" id="cdg-yA-p7o"/>
+                                                                <constraint firstAttribute="width" constant="10" id="cdg-yA-p7o"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -5877,26 +5879,17 @@ Apartment</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gge-ee-pal">
-                                                            <rect key="frame" x="43" y="11" width="38.5" height="18"/>
+                                                            <rect key="frame" x="23" y="11" width="38.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZd-yV-jMX">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZd-yV-jMX" customClass="CosmosView" customModule="Cosmos">
                                                             <rect key="frame" x="5" y="40" width="50" height="20"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="jaJ-50-CpT">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
-                                                                </imageView>
-                                                            </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="jaJ-50-CpT" secondAttribute="trailing" id="GOo-vd-xwu"/>
-                                                                <constraint firstAttribute="bottom" secondItem="jaJ-50-CpT" secondAttribute="bottom" id="c5L-SM-Gr9"/>
                                                                 <constraint firstAttribute="width" constant="50" id="cvS-4Z-Hui"/>
                                                                 <constraint firstAttribute="height" constant="20" id="rcU-2d-JOW"/>
-                                                                <constraint firstItem="jaJ-50-CpT" firstAttribute="top" secondItem="fZd-yV-jMX" secondAttribute="top" id="tPa-bm-fIM"/>
-                                                                <constraint firstItem="jaJ-50-CpT" firstAttribute="leading" secondItem="fZd-yV-jMX" secondAttribute="leading" id="vA3-fd-7ve"/>
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Product review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Rj-wR-Zd0">
@@ -7102,19 +7095,10 @@ Apartment</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLE-pr-6cQ">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLE-pr-6cQ" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="20" y="310" width="124" height="20"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="Eu5-iO-R9g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="20"/>
-                                                    </imageView>
-                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="Eu5-iO-R9g" secondAttribute="bottom" id="6th-T6-98s"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Eu5-iO-R9g" secondAttribute="trailing" id="AQo-RS-RvY"/>
-                                                    <constraint firstItem="Eu5-iO-R9g" firstAttribute="leading" secondItem="DLE-pr-6cQ" secondAttribute="leading" id="EkK-rV-yWj"/>
-                                                    <constraint firstItem="Eu5-iO-R9g" firstAttribute="top" secondItem="DLE-pr-6cQ" secondAttribute="top" id="HIa-vt-aea"/>
                                                     <constraint firstAttribute="height" constant="20" id="SHc-Xl-7yc"/>
                                                 </constraints>
                                             </view>
@@ -7127,7 +7111,7 @@ Apartment</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="250 $" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjs-xw-Ax1">
                                                 <rect key="frame" x="20" y="380" width="44" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" name="text"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Maj-Rh-n8M">
@@ -7320,20 +7304,12 @@ Apartment</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDA-8S-Wj5">
-                                                <rect key="frame" x="20" y="858.5" width="55.5" height="20"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="WPT-Do-4VY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="20"/>
-                                                    </imageView>
-                                                </subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDA-8S-Wj5" customClass="CosmosView" customModule="Cosmos">
+                                                <rect key="frame" x="20" y="858.5" width="70" height="20"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="WPT-Do-4VY" firstAttribute="leading" secondItem="IDA-8S-Wj5" secondAttribute="leading" id="3GW-8I-Ze6"/>
-                                                    <constraint firstAttribute="bottom" secondItem="WPT-Do-4VY" secondAttribute="bottom" id="ZsK-Mo-irc"/>
-                                                    <constraint firstItem="WPT-Do-4VY" firstAttribute="top" secondItem="IDA-8S-Wj5" secondAttribute="top" id="lV9-dF-cbl"/>
+                                                    <constraint firstAttribute="width" constant="70" id="Vhi-wo-UfI"/>
                                                     <constraint firstAttribute="height" constant="20" id="npu-yK-fIf"/>
-                                                    <constraint firstAttribute="trailing" secondItem="WPT-Do-4VY" secondAttribute="trailing" id="r1W-AC-MdA"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3I8-7z-dfn">
@@ -7476,6 +7452,18 @@ Apartment</string>
                                                     <constraint firstAttribute="bottom" secondItem="4YB-12-WHj" secondAttribute="bottom" id="oMC-1Y-xFM"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="discount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-P2-RAF">
+                                                <rect key="frame" x="84" y="379.5" width="66" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33D-Ya-jrR">
+                                                <rect key="frame" x="170" y="379.5" width="39" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -7484,15 +7472,18 @@ Apartment</string>
                                             <constraint firstItem="DLE-pr-6cQ" firstAttribute="top" secondItem="TxN-pY-HSi" secondAttribute="bottom" constant="10" id="3ce-7F-4KF"/>
                                             <constraint firstItem="kXO-gm-uIp" firstAttribute="top" secondItem="Z7c-c2-M7k" secondAttribute="bottom" constant="20" id="5ZG-GJ-UVf"/>
                                             <constraint firstItem="TxN-pY-HSi" firstAttribute="leading" secondItem="8f2-uB-viU" secondAttribute="leading" id="6DL-5P-bNy"/>
+                                            <constraint firstItem="33D-Ya-jrR" firstAttribute="leading" secondItem="jAy-P2-RAF" secondAttribute="trailing" constant="20" id="6wH-dy-wM2"/>
                                             <constraint firstItem="sgP-mu-ikm" firstAttribute="width" secondItem="8f2-uB-viU" secondAttribute="width" multiplier="0.4" id="8Eo-Ya-LaZ"/>
                                             <constraint firstItem="oh3-qL-que" firstAttribute="leading" secondItem="DLE-pr-6cQ" secondAttribute="trailing" constant="10" id="A9f-ga-0Lc"/>
                                             <constraint firstAttribute="trailing" secondItem="TxN-pY-HSi" secondAttribute="trailing" id="AxX-6s-Xmg"/>
                                             <constraint firstItem="kXO-gm-uIp" firstAttribute="leading" secondItem="Z7c-c2-M7k" secondAttribute="leading" id="BIt-Wq-VlY"/>
                                             <constraint firstAttribute="trailing" secondItem="IbQ-Sb-8gk" secondAttribute="trailing" id="D0P-0f-lCi"/>
+                                            <constraint firstItem="jAy-P2-RAF" firstAttribute="leading" secondItem="Tjs-xw-Ax1" secondAttribute="trailing" constant="20" id="FNn-Gf-HpN"/>
                                             <constraint firstItem="sgP-mu-ikm" firstAttribute="top" secondItem="kVG-7U-2Sj" secondAttribute="bottom" constant="20" id="FSH-Nc-cuI"/>
                                             <constraint firstItem="Maj-Rh-n8M" firstAttribute="top" secondItem="S5l-x5-CEd" secondAttribute="bottom" constant="15" id="KYp-QB-Fzp"/>
                                             <constraint firstAttribute="bottom" secondItem="IbQ-Sb-8gk" secondAttribute="bottom" constant="60" id="LU0-jl-eRP"/>
                                             <constraint firstItem="rdU-DX-xYV" firstAttribute="top" secondItem="aeL-xC-fhO" secondAttribute="bottom" constant="15" id="Ms1-wS-2i5"/>
+                                            <constraint firstItem="33D-Ya-jrR" firstAttribute="centerY" secondItem="jAy-P2-RAF" secondAttribute="centerY" id="NJy-tK-qpP"/>
                                             <constraint firstItem="kVG-7U-2Sj" firstAttribute="top" secondItem="IDA-8S-Wj5" secondAttribute="bottom" constant="20" id="OjZ-9d-01v"/>
                                             <constraint firstItem="kZ2-wz-kEa" firstAttribute="trailing" secondItem="Tt2-hr-fev" secondAttribute="trailing" id="Qbx-GW-ho8"/>
                                             <constraint firstItem="rdU-DX-xYV" firstAttribute="trailing" secondItem="Maj-Rh-n8M" secondAttribute="trailing" id="RwS-Nf-mx8"/>
@@ -7512,6 +7503,7 @@ Apartment</string>
                                             <constraint firstItem="IbQ-Sb-8gk" firstAttribute="top" secondItem="nSB-Ea-WkY" secondAttribute="bottom" constant="15" id="fl8-hs-nMv"/>
                                             <constraint firstItem="sgP-mu-ikm" firstAttribute="leading" secondItem="kVG-7U-2Sj" secondAttribute="leading" id="gmx-Ny-Y0e"/>
                                             <constraint firstItem="rdU-DX-xYV" firstAttribute="leading" secondItem="Maj-Rh-n8M" secondAttribute="leading" id="gyb-vl-oAn"/>
+                                            <constraint firstItem="jAy-P2-RAF" firstAttribute="centerY" secondItem="Tjs-xw-Ax1" secondAttribute="centerY" id="hbi-8n-hN1"/>
                                             <constraint firstItem="IbQ-Sb-8gk" firstAttribute="leading" secondItem="8f2-uB-viU" secondAttribute="leading" id="hhp-jX-Szn"/>
                                             <constraint firstItem="DLE-pr-6cQ" firstAttribute="leading" secondItem="8f2-uB-viU" secondAttribute="leading" constant="20" id="hmM-iv-Yro"/>
                                             <constraint firstItem="IDA-8S-Wj5" firstAttribute="top" secondItem="kXO-gm-uIp" secondAttribute="bottom" constant="20" id="iQJ-ba-rzr"/>
@@ -7627,10 +7619,12 @@ Apartment</string>
                         <outlet property="colorCollection" destination="Maj-Rh-n8M" id="98T-6E-ie3"/>
                         <outlet property="cosmosRating" destination="2Hs-ak-k2U" id="gwu-3I-vUh"/>
                         <outlet property="detailLabel" destination="Tt2-hr-fev" id="iMS-90-meN"/>
+                        <outlet property="discount" destination="jAy-P2-RAF" id="Z0C-HK-M3F"/>
                         <outlet property="editProduct" destination="chR-Xg-UCv" id="9fU-Dz-Lxt"/>
                         <outlet property="pageControl" destination="g4I-gb-Eu2" id="H9L-pw-zgr"/>
                         <outlet property="picCollection" destination="TxN-pY-HSi" id="XYJ-14-6X0"/>
                         <outlet property="price" destination="Tjs-xw-Ax1" id="BjX-3j-HNV"/>
+                        <outlet property="priceLast" destination="33D-Ya-jrR" id="lAp-cw-vuC"/>
                         <outlet property="productName" destination="d5Z-K6-fKS" id="sKg-QQ-TjC"/>
                         <outlet property="ratingStars" destination="IDA-8S-Wj5" id="7mm-7W-lHf"/>
                         <outlet property="ratingView" destination="IxV-RA-vOr" id="EI7-Zh-X4p"/>
@@ -8621,8 +8615,8 @@ Apartment</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="43 Bourke street, Newbridge NSW 837 Raffles Place, Boat Band M83, Times Square, New York P" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-lh-lNb">
-                                                        <rect key="frame" x="10" y="40.5" width="314" height="61"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="43 Bourke street, Newbridge NSW 837 Raffles Place, Boat Band M83, Times Square, New York P" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-lh-lNb">
+                                                        <rect key="frame" x="10" y="40.5" width="344" height="61"/>
                                                         <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
                                                         <color key="textColor" name="text"/>
                                                         <nil key="highlightedColor"/>
@@ -8636,7 +8630,7 @@ Apartment</string>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="lbh-lh-lNb" secondAttribute="trailing" constant="50" id="Bfl-sT-A1h"/>
+                                                    <constraint firstAttribute="trailing" secondItem="lbh-lh-lNb" secondAttribute="trailing" constant="20" id="Bfl-sT-A1h"/>
                                                     <constraint firstItem="lbh-lh-lNb" firstAttribute="top" secondItem="EaQ-Sz-jGz" secondAttribute="bottom" constant="10" id="DJv-gM-AEf"/>
                                                     <constraint firstItem="lbh-lh-lNb" firstAttribute="leading" secondItem="EaQ-Sz-jGz" secondAttribute="leading" id="G49-sT-3jE"/>
                                                     <constraint firstItem="EaQ-Sz-jGz" firstAttribute="top" secondItem="PbM-In-oMY" secondAttribute="top" constant="10" id="XpN-hQ-hHC"/>
@@ -8776,6 +8770,7 @@ Apartment</string>
                     </view>
                     <connections>
                         <outlet property="address" destination="lbh-lh-lNb" id="kMk-5t-YfO"/>
+                        <outlet property="addressView" destination="PbM-In-oMY" id="iRt-DS-Mfi"/>
                         <outlet property="customerName" destination="EaQ-Sz-jGz" id="IhF-j3-h0M"/>
                         <outlet property="deliveryCharge" destination="7HM-ki-YUC" id="c17-ry-AFY"/>
                         <outlet property="discount" destination="mlo-Bi-Fwc" id="YfK-Yu-iGC"/>
@@ -9215,7 +9210,7 @@ Apartment</string>
         <image name="addProduct" width="40" height="55"/>
         <image name="addProfile" width="22" height="22"/>
         <image name="addressSelected" width="22" height="22"/>
-        <image name="backBlack" width="10" height="18"/>
+        <image name="backBlack" width="10" height="16"/>
         <image name="backButtonWhite" width="10" height="18"/>
         <image name="background" width="414" height="896"/>
         <image name="cart" width="22" height="22"/>
@@ -9263,7 +9258,6 @@ Apartment</string>
         <image name="sideMenu" width="13" height="13"/>
         <image name="signup" width="250" height="250"/>
         <image name="splashBack" width="414" height="738"/>
-        <image name="stars" width="55.5" height="9"/>
         <image name="storeimage" width="165" height="51"/>
         <image name="timing" width="20" height="20"/>
         <image name="uploadImage" width="119.5" height="74"/>

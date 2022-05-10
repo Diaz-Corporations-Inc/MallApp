@@ -15,4 +15,11 @@ class Shopscell: UICollectionViewCell{
     @IBOutlet weak var shopOffer: UILabel!
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var cellImage: UIImageView!
+    
+    override func prepareForReuse() {
+        if cellImage.image != nil{
+            self.cellImage.image = nil
+        }
+        super.prepareForReuse()
+    }
 }
