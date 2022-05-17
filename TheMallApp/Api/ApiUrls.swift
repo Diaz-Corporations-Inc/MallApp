@@ -29,6 +29,7 @@ public struct Api{
     public static var myStore                    = baseUrl + "store/myStores/"
     public static var updateStore                = baseUrl + "store/update/"
     public static var storeByCtegory             = baseUrl + "store/byCatId/"
+    public static var recentBrowse               = baseUrl + "store/recentSearch"
     
    
 //MARK: - favourite api's urls
@@ -61,4 +62,7 @@ public struct Api{
     public static var getCategories              = baseUrl + "categories/getCategories/"
 //MARK: - SEARCH api's urls
     public static var search                     = baseUrl + "store/search?name="
+//MARK: - order api's url
+    public static var getOrder                   = baseUrl + "orders/getOrder?userId="
+    public static var placeOrder                 = baseUrl + "orders/placeOrder"
 }

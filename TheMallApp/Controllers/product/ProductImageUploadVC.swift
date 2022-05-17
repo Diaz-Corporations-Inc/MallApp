@@ -27,6 +27,11 @@ class ProductImageUploadVC: BaseClass {
         self.navigationController?.popViewController(animated: true)
     }
     ///
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    
+    ///
     @IBAction func selectImage1(_ sender: UIButton){
         openCameraAndPhotos(isEditImage: true) { [self] image, string in
             self.image1.image = image
@@ -82,7 +87,8 @@ extension ProductImageUploadVC{
             print("Status: \(percent)")
            if percent == 1.0{
                self?.showAlertWithOneAction(alertTitle: "", message: "Product images uploaded successfully", action1Title: "Ok") { ok in
-                   let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
+                   let vc = self?.storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+                   vc.key = "My"
                    let navigationController = UINavigationController.init(rootViewController: vc)
                    let leftMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
                    let rightMenuViewController = self?.storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu

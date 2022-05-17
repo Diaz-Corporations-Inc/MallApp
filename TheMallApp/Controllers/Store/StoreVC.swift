@@ -9,13 +9,16 @@ import UIKit
 import AVKit
 import AKSideMenu
 import ARSLineProgress
+import CoreLocation
+import MapKit
 
 import AlamofireImage
-class StoreVC: UIViewController {
+class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
 
     @IBOutlet weak var productbtn: UIView!
     @IBOutlet weak var addStoreImageBtn: UIView!
    
+    @IBOutlet weak var mapStoreView: MKMapView!
     @IBOutlet weak var registerView: UIView!
     @IBOutlet weak var scrollableView: UIView!
     @IBOutlet weak var storeDescription: UILabel!
@@ -29,20 +32,44 @@ class StoreVC: UIViewController {
     @IBOutlet weak var storeLocation: UILabel!
     @IBOutlet weak var contact: UILabel!
     @IBOutlet weak var priceRange: UILabel!
-    
+///
+    var locationManager = CLLocationManager()
     var key = ""
     var productData = [AnyObject]()
     var myData = [AnyObject]()
     var storeId = ""
     var storeData : NSDictionary!
     var gallery = [AnyObject]()
+ ///
+    var getLocation = NSDictionary()
+    var apiCoordinates = [AnyObject]()
+    var locationName = ""
+ ///
+    var lat = Double()
+    var long = Double()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        mapStoreView.delegate = self
+        mapStoreView.mapType = .standard
+        mapStoreView.isZoomEnabled = true
+        mapStoreView.isScrollEnabled = true
+        if let coordinate = mapStoreView.userLocation.location?.coordinate{
+            print(coordinate,"hello")
+            mapStoreView.setCenter(coordinate, animated: true)
+        }
+        
         }
 ///
     override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         if key == "My"{
             editBtn.isHidden = false
             addStoreImageBtn.isHidden = false
@@ -55,8 +82,30 @@ class StoreVC: UIViewController {
         setData()
     }
    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Swift.Error) {
+     print(error)
+     }
     
-    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
+        let locValue:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: long)
+
+        print("asdsds",lat,long)
+        mapStoreView.mapType = MKMapType.standard
+
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        let region = MKCoordinateRegion(center: locValue, span: span)
+        mapStoreView.setRegion(region, animated: true)
+
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = locValue
+        annotation.title = locationName
+        annotation.subtitle = "Store location"
+        mapStoreView.addAnnotation(annotation)
+
+        //centerMap(locValue)
+    }
 ///
     //MARK: - BUTTON ACTIONS
     @IBAction func editBtn(_ sender: Any) {
@@ -74,8 +123,11 @@ class StoreVC: UIViewController {
             let leftMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
             let rightMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenu") as! SideMenu
             let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: vc, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(sideMenuViewController, animated: true)
         }
+    }
+    @IBAction func malllogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
     }
     
     @IBAction func addStoreImagesTapped(_ sender: Any) {
@@ -159,7 +211,7 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             return cell
         }else{
             let cell = productCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! productCell
-            cell.productPrice.text = "$\(productData[indexPath.item]["masterPrice"] as! Int)"
+            cell.productPrice.text = "$\(productData[indexPath.item]["masterPrice"] as! Double)"
             cell.productName.text = productData[indexPath.item]["name"] as! String
             cell.brandName.text = productData[indexPath.item]["brand"] as! String
             if let gallery = productData[indexPath.item]["gallery"] as? [AnyObject]{
@@ -189,10 +241,18 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {[self]
-        if collectionView == productCollection{ 
-            let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
-            vc.productId = productData[indexPath.row]["_id"] as! String
-            self.navigationController?.pushViewController(vc, animated: true)
+        if collectionView == productCollection{
+            if key == "My"{
+                let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+                vc.productId = productData[indexPath.row]["_id"] as! String
+                vc.key = "My"
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = storyboard?.instantiateViewController(withIdentifier: "ProductDetailsVC") as! ProductDetailsVC
+                vc.productId = productData[indexPath.row]["_id"] as! String
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+         
         }else{
             print("hello")
         }
@@ -227,6 +287,14 @@ extension StoreVC{
                      myData = ApiManager.shared.data
                     print(self.myData.count,"abs")
                     if myData.count != 0{
+                        ///
+                        self.getLocation = myData[0]["location"] as! NSDictionary
+                        self.apiCoordinates = getLocation.object(forKey: "coordinates") as! [AnyObject]
+                        lat = self.apiCoordinates[0] as! Double
+                        long = self.apiCoordinates[1] as! Double
+                        print("asds",lat,long)
+                        locationName = myData[0]["name"] as! String
+                        ///
                         self.storeId = myData[0]["_id"] as! String
                         print("asdsa",self.storeId)
                         storeName.text = myData[0]["name"] as! String
@@ -234,7 +302,7 @@ extension StoreVC{
                         let timingDict = myData[0]["timing"] as! NSDictionary
                         storeTiming.text = "\(timingDict.object(forKey: "from") as? String ?? "") - \(timingDict.object(forKey: "to") as? String ?? "") "
                      let priceRangedict = myData[0]["priceRange"] as! NSDictionary
-                        priceRange.text = "\(priceRangedict.object(forKey: "from") as? Int ?? 0) - \(priceRangedict.object(forKey: "to") as? Int ?? 0) $"
+                        priceRange.text = "\(priceRangedict.object(forKey: "from") as? Double ?? 0.0) - \(priceRangedict.object(forKey: "to") as? Double ?? 0.0) $"
                         contact.text = myData[0]["contactNo"] as! String
                         storeLocation.text = "\(myData[0]["city"] as! String),\(myData[0]["state"] as! String),\(myData[0]["zipCode"] as! String),Near \(myData[0]["landmark"] as! String)"
                         gallery = myData[0]["gallery"] as! [AnyObject]
@@ -263,13 +331,22 @@ extension StoreVC{
 //                storeCollection.reloadData()
                 if isSuccess{
                     storeData = stordata
+                    ///
+                    self.getLocation = storeData.object(forKey: "location") as! NSDictionary
+                    self.apiCoordinates = getLocation.object(forKey: "coordinates") as! [AnyObject]
+                    lat = self.apiCoordinates[0] as! Double
+                    long = self.apiCoordinates[1] as! Double
+                    print("asds",lat,long)
+                    locationName = storeData.object(forKey: "name") as! String
+                    ///
+               
                     storeName.text = storeData.object(forKey: "name") as! String
                     storeDescription.text = storeData.object(forKey: "description") as! String
 
                     let timingDict = storeData.object(forKey: "timing") as! NSDictionary
                     storeTiming.text = "\(timingDict.object(forKey: "from") as? String ?? "") - \(timingDict.object(forKey: "to") as? String ?? "") "
                  let priceRangedict = storeData.object(forKey: "priceRange") as! NSDictionary
-                    priceRange.text = "\(priceRangedict.object(forKey: "from") as? Int ?? 0) - \(priceRangedict.object(forKey: "to") as? Int ?? 0) $"
+                    priceRange.text = "\(priceRangedict.object(forKey: "from") as? Double ?? 0) - \(priceRangedict.object(forKey: "to") as? Double ?? 0) $"
                     contact.text = storeData.object(forKey: "contactNo") as? String ?? "-"
                     storeLocation.text = "\(storeData.object(forKey: "city") as! String),\(storeData.object(forKey: "state") as! String),\(storeData.object(forKey: "zipCode") as! String),Near \(storeData.object(forKey: "landmark") as! String)"
                     gallery = storeData.object(forKey: "gallery") as! [AnyObject]

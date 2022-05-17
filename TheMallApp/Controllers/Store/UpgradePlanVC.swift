@@ -18,6 +18,9 @@ class UpgradePlanVC: UIViewController {
     @IBAction func backTapped(_ sender: Any) {
     }
     
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     @IBAction func skipTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
         self.navigationController?.pushViewController(vc, animated: true)

@@ -29,6 +29,8 @@ class ChangePasswordVC: UIViewController {
        
         for i in 0...textCollOutlet.count-1{
             textCollOutlet[i].layer.cornerRadius = 12
+            textCollOutlet[i].layer.borderColor = UIColor.lightGray.cgColor
+            textCollOutlet[i].layer.borderWidth = 1
         }
        
     }
@@ -66,6 +68,8 @@ class ChangePasswordVC: UIViewController {
         }
     }
     @IBAction func forgotTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 

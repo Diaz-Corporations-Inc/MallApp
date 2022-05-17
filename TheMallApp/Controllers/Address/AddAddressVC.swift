@@ -41,6 +41,9 @@ class AddAddressVC: UIViewController {
     @IBAction func backTapped(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func mallLogoTappped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     
     @IBAction func checkBox(_ sender: UIButton){
         if isDefault == true{

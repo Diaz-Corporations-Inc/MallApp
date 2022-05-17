@@ -13,7 +13,6 @@ target 'TheMallApp' do
     pod 'AKSideMenu'
     pod 'Stripe'
     pod 'ARSLineProgress', '~> 3.1'
-    pod 'GoogleAPIClientForREST/Drive'
     pod 'PlacesPicker'
     pod 'Firebase/Analytics'
     pod 'Firebase/Auth'

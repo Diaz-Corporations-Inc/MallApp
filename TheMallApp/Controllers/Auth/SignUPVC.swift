@@ -34,7 +34,9 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
     }
     
     @IBAction func signUpTapped(_ sender: UIButton){
-        if email.text != "" || password.text != "" || name.text != "" || dobCom.text != ""{
+        if email.text == "" || password.text == "" || name.text == "" || dobCom.text == ""{
+            self.alert(message: "Please enter all field")
+        }else{
             let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!,fcmToken: UserDefaults.standard.value(forKey: "devicetoken") as? String ?? "notoken")
            
             ARSLineProgress.show()
@@ -51,15 +53,8 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
                     print("CompletionFail")
                 }
             }
-            
-           
-        }else{
-            self.alert(message: "Please enter all field")
         }
         }
-        
-        
-
 }
 
 extension SignUPVC{

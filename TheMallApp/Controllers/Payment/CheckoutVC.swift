@@ -13,7 +13,6 @@ class CheckoutVC: UIViewController {
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var mobileNumber: UILabel!
     @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var discount: UILabel!
     @IBOutlet weak var deliveryCharge: UILabel!
     @IBOutlet weak var totalPayable: UILabel!
     @IBOutlet weak var addressView: UIView!
@@ -32,8 +31,18 @@ class CheckoutVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getAddress()
+        let mm = UserDefaults.standard.value(forKey: "price") as? Double ?? 0.0
+        price.text = "$ \(mm)"
+        
+        let del = UserDefaults.standard.value(forKey: "deliveryCharges") as? Double ?? 0.0
+        deliveryCharge.text = "$ \(del)"
+        
+        totalPayable.text = "$ \(mm + del)"
     }
     
+    @IBAction func mallHomeTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     @IBAction func backTapped(_ sender: UIButton){
         navigationController?.popViewController(animated: true)
     }
@@ -41,6 +50,7 @@ class CheckoutVC: UIViewController {
     @IBAction func checkout(_ sender: UIButton){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
         vc.key = "Checkout"
+        vc.addressId = self.addressId
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -55,20 +65,11 @@ extension CheckoutVC{
                 
                 customerName.text = addressData.object(forKey: "fullName") as! String
                 address.text = "\(addressData.object(forKey: "buildingNo") as! String),\(addressData.object(forKey: "street") as! String),\(addressData.object(forKey: "city") as! String),\(addressData.object(forKey: "state") as! String),\(addressData.object(forKey: "pinCode") as! String),Near \(addressData.object(forKey: "area") as! String)"
-                mobileNumber.text = addressData.object(forKey: "mobileNo") as! String
-                
-//                self.fullName.text = data?.object(forKey: "fullName") as! String
-//                self.mobileNumber.text = data?.object(forKey: "mobileNo") as! String
-//                self.flat.text = data?.object(forKey: "buildingNo") as! String
-//                self.street.text = data?.object(forKey: "street") as! String
-//                self.city.text = data?.object(forKey: "city") as! String
-//                self.state.text = data?.object(forKey: "state") as! String
-//                self.pincode.text = data?.object(forKey: "pinCode") as! String
-//                self.landmark.text = data?.object(forKey: "area") as! String
                 
             }else{
                 self.alert(message: ApiManager.shared.msg)
             }
         }
     }
+    
 }

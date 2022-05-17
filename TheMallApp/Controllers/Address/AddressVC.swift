@@ -10,7 +10,7 @@ import UIKit
 class AddressVC: UIViewController {
 
     @IBOutlet weak var addressTable: UITableView!
-    
+    @IBOutlet weak var mallHome: UIButton!
     
     var addressData = [AnyObject]()
     var count = 0
@@ -34,10 +34,16 @@ class AddressVC: UIViewController {
         }
     }
     
+    @IBAction func mallLogotapped(_ sender: UIButton){
+        
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    
     @IBAction func addAddress(_ sender: UIButton){
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddAddressVC") as! AddAddressVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func editAddress(_ sender: UIButton){
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddAddressVC") as! AddAddressVC
         vc.key = "Edit"

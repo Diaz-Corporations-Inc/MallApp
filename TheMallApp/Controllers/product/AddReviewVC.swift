@@ -25,6 +25,9 @@ class AddReviewVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
+    @IBAction func mallHomeTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     @IBAction func addReviewTapped(_ sender: UIButton){
         
         let name = UserDefaults.standard.value(forKey: "name") as? String ?? ""

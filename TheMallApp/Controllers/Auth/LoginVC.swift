@@ -30,7 +30,7 @@ class LoginVC: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func loginTapped(_ sender: UIButton){
-        if email.text != "" || password.text != ""{
+        if email.text != "" && password.text != ""{
             ARSLineProgress.show()
             let modeldata = loginModel(email: email.text!, password: password.text!)
             ApiManager.shared.login(model: modeldata) { (success) in

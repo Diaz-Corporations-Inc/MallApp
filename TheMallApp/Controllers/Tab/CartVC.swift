@@ -12,6 +12,7 @@ import ARSLineProgress
 
 class CartVC: UIViewController {
 
+    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var emptyCartView: UIView!
     @IBOutlet weak var cartTable: UITableView!{
         didSet{
@@ -25,21 +26,24 @@ class CartVC: UIViewController {
     var cartData = [AnyObject]()
     var backendCheckoutUrl = URL(string: "http://127.0.0.1:4242")
     var paymentIntentClientSecret: String?
+    var dicountTotal = Double()
+    var totalArray = [Double]()
+    var totalPrice = Double()
+    var cartIdArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         StripeAPI.defaultPublishableKey = "pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3"
         fetchPaymentIntent()
         // MARK: Fetch the PaymentIntent client secret, Ephemeral Key secret, Customer ID, and publishable key
-        
-       
       }
        
     override func viewWillAppear(_ animated: Bool) {
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         if userId != "" {
             getCart()
+            
         }else{
             self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
@@ -161,9 +165,12 @@ class CartVC: UIViewController {
 //        pay()
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
         vc.key = "cart"
+        print(totalPrice,totalLabel.text,totalArray,"ss",self.cartIdArray)
+        UserDefaults.standard.setValue(totalPrice, forKey: "price")
+        UserDefaults.standard.set(self.cartData[0]["deliveryCharges"] as? Double ?? 0.0, forKey: "Delivery")
+        UserDefaults.standard.set(self.cartIdArray, forKey: "cartIds")
+        print(self.cartIdArray)
         self.navigationController?.pushViewController(vc, animated: true)
-
-        
     }
     @IBAction func deleteTapped(_ sender:UIButton){
         
@@ -194,15 +201,37 @@ extension CartVC{
                     cartTable.isHidden = true
                     emptyCartView.isHidden = false
                     checkoutButton.isHidden = true
+                    totalLabel.text = "Total: $\(0.0)"
+                    
                 }else{
+                    self.totalArray.removeAll()
                     cartTable.isHidden = false
                     emptyCartView.isHidden = true
                     checkoutButton.isHidden = false
+                    totalLabel.text = "Total: $\(0.0)"
+                    cartIdArray.removeAll()
+                    for i in 0...cartData.count-1{
+                        self.cartIdArray.append(cartData[i]["_id"] as? String ?? "")
+                        guard let product = cartData[i]["product"] as? NSDictionary else {return}
+                        let discount = Double(product.object(forKey: "discount") as? String ?? "0.0")
+                        let pricee = product.object(forKey: "masterPrice") as? Double ?? 0.0
+                        self.dicountTotal = pricee - (pricee*(discount ?? 0.0)/100)
+                        print(self.dicountTotal)
+                        self.totalArray.append(self.dicountTotal)
+                        print(self.totalArray,"rfrf")
+                        self.totalPrice = totalArray.reduce(0,+)
+                        print(self.totalPrice,"sdn")
+                        totalLabel.text = "Total: $\((totalPrice*100).rounded()/100)"
+                       
+                    }
+                  
                 }
                 cartTable.reloadData()
+                
             }else{
                 print("hii")
             }
+          
         }
     }
 }
@@ -219,27 +248,37 @@ extension CartVC: UITableViewDelegate,UITableViewDataSource{
         cell.cartView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         cell.cartView.layer.shadowRadius = 2
         cell.cartView.layer.shadowOpacity = 5
-        let product = cartData[indexPath.row]["product"] as! NSDictionary
-        cell.quantity.text = "Quantity - \(cartData[indexPath.row]["quantity"] as! Int)"
-        cell.productName.text = product.object(forKey: "name") as! String
-        cell.color.text = "Color - Red"
-        cell.price.text = "Price - \(product.object(forKey: "masterPrice") as! Int) $"
-        if let gallery = product.object(forKey: "gallery") as? [AnyObject]{
-            if gallery.count != 0{
-                if let image = gallery[0]["name"] as? String{
-                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
-                    if url != nil{
-                        cell.cartImage.af.setImage(withURL: url!)
-                    }else{
-                        print("hello")
+        if cartData.count != 0{
+            guard let product = cartData[indexPath.row]["product"] as? NSDictionary else {return cell}
+            cell.quantity.text = ""
+            cell.productName.text = product.object(forKey: "name") as! String
+            cell.color.text = product.object(forKey: "description") as! String
+            let discount = Double(product.object(forKey: "discount") as? String ?? "0.0")
+            let pricee = product.object(forKey: "masterPrice") as? Double ?? 0.0
+            self.dicountTotal = pricee - (pricee*(discount ?? 0.0)/100)
+            print(self.dicountTotal)
+//            self.totalArray.append(self.dicountTotal)
+//            print(self.totalArray,"rfrf")
+//            self.totalPrice = totalArray.reduce(0,+)
+//            print(self.totalPrice,"sdn")
+//            totalLabel.text = "Total: $\(totalPrice)"
+            cell.price.text = "Price - $\(self.dicountTotal)"
+            if let gallery = product.object(forKey: "gallery") as? [AnyObject]{
+                if gallery.count != 0{
+                    if let image = gallery[0]["name"] as? String{
+                        let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                        if url != nil{
+                            cell.cartImage.af.setImage(withURL: url!)
+                        }else{
+                            print("hello")
+                        }
                     }
+                }else{
+                    print("hii")
                 }
-            }else{
-                print("hii")
             }
-          
-                
         }
+       
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -12,7 +12,6 @@ class DealsOfDayVC: UIViewController {
 
     @IBOutlet weak var storeImage: UIImageView!
     @IBOutlet weak var registerView: UIView!
-    @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var dealsCollection: UICollectionView!
     @IBOutlet weak var promoCollection: UICollectionView!
     @IBOutlet weak var oldDealsCollection: UICollectionView!
@@ -36,7 +35,12 @@ class DealsOfDayVC: UIViewController {
             print(i,"sdsdsds")
         }
     }
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     @IBAction func contactUsTapped(_ sender: Any) {
+        guard let url = URL(string: "https://mymallapp.co/support/.") else {return}
+        UIApplication.shared.openURL(url)
     }
     @IBAction func registerTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC

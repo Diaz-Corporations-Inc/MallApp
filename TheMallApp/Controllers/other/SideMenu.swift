@@ -126,9 +126,13 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
            self.present(navigationController, animated: true, completion: nil)
             
         case 5:
-            alert(message: "Functionality under development")
+            guard let url = URL(string: "https://mymallapp.co/wpautoterms/privacy-policy/") else {return}
+            UIApplication.shared.openURL(url)
+//        https://mymallapp.co/wpautoterms/privacy-policy/
         case 6:
-            alert(message: "Functionality under development")
+            guard let url = URL(string: "https://mymallapp.co/support/.") else {return}
+            UIApplication.shared.openURL(url)
+//        https://mymallapp.co/support/.
         default:
             print("sdbvus")
         }

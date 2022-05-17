@@ -53,11 +53,13 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
        
         if key == "My"{
             editProduct.isHidden = false
+            addFavourite.isHidden = true
         }else if key == "cart"{
-        
+            addFavourite.isHidden = false
             editProduct.isHidden = true
             addFavourite.setTitle("Buy now", for: .normal)
         }else{
+            addFavourite.isHidden = false
             editProduct.isHidden = true
             addFavourite.setTitle("Add to cart", for: .normal)
         }
@@ -69,15 +71,18 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         getProductDetail()
     }
+    
     func getData(){
-        storeId = productData.object(forKey: "store") as! String
+        if let storeDetail = productData.object(forKey: "store") as? NSDictionary {
+            self.storeId = storeDetail.object(forKey: "_id") as! String
+        }
+        print(storeId,"asdss")
         masterTotal = productData.object(forKey: "masterPrice") as! Double
         categoryId = productData.object(forKey: "categoryId") as! String
         print("aseded",categoryId)
         if let gall = productData.object(forKey: "gallery") as? [AnyObject]{
             gallery = gall
         }
-       
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -92,12 +97,16 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
         vc.productData = self.productData
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func addReviewTapped(_ sender: UIButton){
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddReviewVC") as! AddReviewVC
         vc.productId = self.productId
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     @IBAction func editTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
         vc.key = "Edit"
@@ -118,6 +127,8 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
             if key == "cart"{
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
                 vc.key = "cart"
+                UserDefaults.standard.set(self.productData.object(forKey:"deliveryCharges") as? Double ?? 0.0, forKey: "DeliveryCharges")
+                UserDefaults.standard.setValue(total, forKey: "price")
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
@@ -180,12 +191,12 @@ extension ProductDetailsVC{
             self.reviewdate.text = dateFormat.string(from: datt ?? Date())
             self.reviewerName.text = rating[0]["customerName"] as? String ?? "Anonymous"
         }
-       
+        getData()
 
         picCollection.reloadData()
         colorCollection.reloadData()
         similarProduct.reloadData()
-        getData()
+        
     }
 }
 extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -246,6 +257,17 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
             cell.similarPic.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
             cell.productName.text = similarProductData[indexPath.item]["name"] as! String
             cell.price.text = "$ \(similarProductData[indexPath.item]["masterPrice"] as! NSNumber)"
+            if let gallery = similarProductData[indexPath.item]["gallery"] as? [AnyObject]{
+                if let image = gallery[0]["name"] as? String{
+                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                    if url != nil{
+                        cell.similarPic.af.setImage(withURL: url!)
+                    }
+                    else{
+                        print("vd")
+                    }
+                }
+            }
             return cell
         }
     }

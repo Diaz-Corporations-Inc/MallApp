@@ -427,11 +427,6 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (~> 2.30908.0)
-  - GoogleAPIClientForREST/Core (1.6.0):
-    - GTMSessionFetcher (>= 1.6.1)
-  - GoogleAPIClientForREST/Drive (1.6.0):
-    - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher (>= 1.6.1)
   - GoogleAppMeasurement (8.12.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.12.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -506,11 +501,7 @@ PODS:
     - BoringSSL-GRPC (= 0.0.7)
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
-  - GTMSessionFetcher (1.7.0):
-    - GTMSessionFetcher/Full (= 1.7.0)
   - GTMSessionFetcher/Core (1.7.0)
-  - GTMSessionFetcher/Full (1.7.0):
-    - GTMSessionFetcher/Core (= 1.7.0)
   - IQKeyboardManagerSwift (6.5.9)
   - leveldb-library (1.22.1)
   - LocationPicker (1.4.2)
@@ -551,7 +542,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
   - Firebase/Messaging
-  - GoogleAPIClientForREST/Drive
   - IQKeyboardManagerSwift
   - LocationPicker
   - PlacesPicker
@@ -576,7 +566,6 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstallations
     - FirebaseMessaging
-    - GoogleAPIClientForREST
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleMaps
@@ -614,7 +603,6 @@ SPEC CHECKSUMS:
   FirebaseFirestore: dfeb58916ee3ae0ef2453d4849a683672705920c
   FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
   FirebaseMessaging: 23db8bf05585e929ada8af0f0968933c25252808
-  GoogleAPIClientForREST: 5183df28e7bcb7b7b41ebd558e16083cfed60d99
   GoogleAppMeasurement: ae033c3aad67e68294369373056b4d74cc8ae0d6
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
@@ -634,6 +622,6 @@ SPEC CHECKSUMS:
   StripeCore: 5e38cdea3dc176a32d8797ef312fe1ab41571272
   StripeUICore: c28e371b385f968388ae38bedb93a2723c078442
 
-PODFILE CHECKSUM: 507c7ff263f4778de3c541c35660f8761ae449b9
+PODFILE CHECKSUM: 102aca47e6f2457ba72af998ffc9296b33e0c9b0
 
 COCOAPODS: 1.11.2

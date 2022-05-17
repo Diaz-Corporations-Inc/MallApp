@@ -14,7 +14,7 @@ import FirebaseCore
 import FirebaseMessaging
 
 
-@main
+ @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
 var window: UIWindow?

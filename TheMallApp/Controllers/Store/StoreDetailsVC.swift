@@ -43,11 +43,13 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     @IBOutlet weak var storeColsingTime: UITextField!
     @IBOutlet weak var storeOpenTime: UITextField!
     @IBOutlet weak var storeContact: UITextField!
-
+///
+    @IBOutlet weak var shippingCharge: UITextField!
+///
     @IBOutlet weak var storeName: UITextField!
     @IBOutlet var viewCollOutlet: [UIView]!
     @IBOutlet weak var doneBtn: UIButton!
-    
+
     let datePick = UIDatePicker()
     var lat = 0.0
     var long = 0.0
@@ -73,6 +75,14 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestWhenInUseAuthorization()
         
+        if key != ""{
+            setData()
+        }else{
+            print("")
+            storeDescription.text = "Store detail..."
+            storeDescription.textColor = UIColor.lightGray
+        }
+
         for i in 0...viewCollOutlet.count-1{
             viewCollOutlet[i].layer.cornerRadius = 10
             viewCollOutlet[i].layer.shadowOpacity = 1
@@ -86,13 +96,6 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         getCategory()
-        if key != ""{
-            setData()
-        }else{
-            print("")
-            storeDescription.text = "Store detail..."
-            storeDescription.textColor = UIColor.lightGray
-        }
         
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -116,6 +119,9 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     @IBAction func backTapped(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     
     @IBAction func doneTapped(_ sender: Any) {
         let userId = UserDefaults.standard.value(forKey: "id") as! String
@@ -123,7 +129,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         let storeType = UserDefaults.standard.value(forKey: "storetype") as? String ?? ""
         let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType)
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
         print("sadfasdf")
         print(createStoreModel)
        
@@ -137,7 +143,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else{
-                    self.alert(message: ApiManager.shared.msg)
+                    self.alert(message: "Your store already exists")
                     print(ApiManager.shared.msg)
                 }
             }
@@ -160,10 +166,6 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 //        didTapCheckoutButton()
     }
     @IBAction func searchLocation(_ sender: Any) {
-//        let controller = PlacePicker.placePickerController()
-//        controller.delegate = self
-//        let navigation = UINavigationController(rootViewController: controller)
-//        self.show(navigation, sender: nil)
         addLocation()
         
     }
@@ -214,7 +216,6 @@ extension StoreDetailsVC{
  }
 
     @objc func done(){
-        
         if let datePicker = storeColsingTime.inputView as? UIDatePicker{
             datePicker.datePickerMode = .time
             let dateformatter  = DateFormatter()
@@ -226,9 +227,7 @@ extension StoreDetailsVC{
             let dateformatter  = DateFormatter()
             dateformatter.timeStyle = .short
             self.storeOpenTime.text = dateformatter.string(from: datePicker.date)
-            
             self.storeOpenTime.resignFirstResponder()
-
         }
     }
     @objc func cancel(){
@@ -251,8 +250,8 @@ extension StoreDetailsVC{
         self.storeOpenTime.text = storeTiming.object(forKey: "from") as? String ?? ""
         self.storeColsingTime.text = storeTiming.object(forKey: "to") as? String ?? ""
         let storePrices = storeData.object(forKey: "priceRange") as! NSDictionary
-        self.lowPrice.text = "\(storePrices.object(forKey: "from") as? Int ?? 0)"
-        self.higherPrice.text = "\(storePrices.object(forKey: "to") as? Int ?? 0)"
+        self.lowPrice.text = "\(storePrices.object(forKey: "from") as? Double ?? 0)"
+        self.higherPrice.text = "\(storePrices.object(forKey: "to") as? Double ?? 0)"
         self.webUrl.text = storeData.object(forKey: "webSiteUrl") as? String ?? ""
         self.scotNo.text = storeData.object(forKey: "scotNo") as? String ?? ""
         self.city.text = storeData.object(forKey: "city") as? String ?? ""
@@ -260,11 +259,18 @@ extension StoreDetailsVC{
         self.zipcode.text = storeData.object(forKey: "zipCode") as? String ?? ""
         self.landmark.text = storeData.object(forKey: "landmark") as? String ?? ""
         self.storeDescription.text = storeData.object(forKey: "description") as? String ?? ""
+        self.mapLocation.text = storeData.object(forKey: "address") as? String ?? ""
+        let location = storeData.object(forKey: "location") as? NSDictionary ?? nil
+        let coordinate = location?.object(forKey: "coordinates") as! [Double]
+        self.lat = coordinate[0]
+        self.long = coordinate[1]
+        self.shippingCharge.text = "\(storeData.object(forKey: "deliveryCharges") as? Double ?? 0.0)"
         print(storeData.object(forKey: "description") as? String ?? "")
     }
 }
 
 extension StoreDetailsVC{
+    
     func addLocation(){
         let locationPicker = LocationPickerViewController()
         

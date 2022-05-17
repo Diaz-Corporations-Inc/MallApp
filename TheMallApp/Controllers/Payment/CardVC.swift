@@ -20,6 +20,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
 
     @IBOutlet weak var continueBtn: UIButton!
     var key = ""
+    var addressId = ""
     let paymentTextField = STPPaymentCardTextField()
     override func viewDidLoad() {
         super.viewDidLoad()

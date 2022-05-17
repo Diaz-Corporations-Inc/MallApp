@@ -29,6 +29,7 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     var filterArray = [String]()
     var categoryId = [String]()
     var catIdtoSend = ""
+    var productid = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,17 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-   getCategory()
+        setData()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        productDescription.text = ""
-        productDescription.textColor = UIColor.black
+        if productDescription.textColor == UIColor.lightGray{
+            productDescription.text = ""
+            productDescription.textColor = UIColor.black
+        }else{
+            productDescription.textColor = UIColor.black
+        }
+        
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if productDescription.text == ""{
@@ -60,18 +66,30 @@ class AddProductVC: UIViewController,UITextViewDelegate{
     
     func setData(){
         if key == "Edit"{
+            print(productData,"rrr")
             productName.text = productData.object(forKey: "name") as! String
             productPrice.text = "\(productData.object(forKey: "masterPrice") as! Int)"
-            productDescription.text = productData.object(forKey: "description") as! String
+            productDescription.text = productData.object(forKey: "description") as? String ?? ""
+            brandName.text = productData.object(forKey: "brand") as? String ?? ""
+            discount.text = productData.object(forKey: "discount") as? String ?? ""
+            catIdtoSend = productData.object(forKey: "categoryId") as? String ?? ""
+            storeId = productData.object(forKey: "store") as? String ?? ""
+            productid = productData.object(forKey: "id") as? String ?? ""
+            print(productid,"rrrr")
 //            productType.text = productData.object(forKey: "name") as! String
         }else{
             print("hello")
         }
     }
-    
+ ///
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    ///
     @IBAction func backTaped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+ ///
     @IBAction func continueTapped(_ sender: Any) {
          if productName.text == ""{
             alert(message: "Please enter product name")
@@ -83,15 +101,14 @@ class AddProductVC: UIViewController,UITextViewDelegate{
             alert(message: "Please enter description")
         }
         else{
-            addProduct()
+                addProduct()
         }
         
     }
 
 }
 
-
-
+///
 extension AddProductVC{
     func addProduct(){
         let size = sizeA(value: "M", price: 0)
@@ -108,30 +125,33 @@ extension AddProductVC{
         let model = AddProductModel(description: self.productDescription.text!, name: self.productName.text!, masterPrice: price, productUrl: "Nike", storeId: self.storeId, size: size, colors: color, features: feature,discount:discount.text, categoryId: catIdtoSend, brand: brandName.text!,isOnDiscount:isDiscount)
         print(model)
         print("sdnvkabvbakvbabvkabv")
-        ApiManager.shared.addProduct(model:model) { isSuccess in
-            if isSuccess{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductImageUploadVC") as! ProductImageUploadVC
-                vc.productId = ApiManager.shared.dataDict.object(forKey: "_id") as! String
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else{
-                print("try again")
+        if key == "Edit"{
+            ApiManager.shared.updateProducts(productId: self.productid, model: model) {[self] isSuccess in
+                if isSuccess{
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductImageUploadVC") as! ProductImageUploadVC
+                    vc.productId = productid
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+//                    self.alert(message: ApiManager.shared.msg)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductImageUploadVC") as! ProductImageUploadVC
+                    vc.productId = productid
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }else{
+            ApiManager.shared.addProduct(model:model) { isSuccess in
+                if isSuccess{
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductImageUploadVC") as! ProductImageUploadVC
+                    vc.productId = ApiManager.shared.dataDict.object(forKey: "_id") as! String
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    self.alert(message: ApiManager.shared.msg)
+                }
             }
         }
+      
     }
+   
 }
 
-extension AddProductVC{
-    func getCategory(){
-        ApiManager.shared.getCategories { isSuccess in
-            if isSuccess{
-                let data = ApiManager.shared.data
-                for i in 0...data.count-1{
-                    self.filterArray.append(data[i]["name"] as! String)
-                    self.categoryId.append(data[i]["_id"] as! String)
-                }
-            }else{
-                print("scasdcasdc")
-            }
-        }
-    }
-}
+

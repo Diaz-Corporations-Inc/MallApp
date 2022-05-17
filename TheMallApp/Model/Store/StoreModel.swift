@@ -17,15 +17,15 @@ struct createStoreModel: Encodable{
     let priceRange :priceRangeModel?
     let location :locationM?
     let city: String?
-    let scotNo:  String?
-    let  state:  String?
-    let  landmark:  String?
+    let scotNo: String?
+    let state: String?
+    let landmark: String?
     let contactNo: String?
-    let zipCode:  String?
+    let zipCode: String?
     let categoryId: String?
     let address: String?
     let storeType: String?
-
+    let deliveryCharges: Double?
 }
 
 struct timingModel: Encodable{

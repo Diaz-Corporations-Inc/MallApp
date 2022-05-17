@@ -79,7 +79,11 @@ class BrowseAllVC: UIViewController {
         }
     }
     
-    
+   ///
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    ///
     @IBAction func selectCat(_ sender:UIButton){
         drop.dataSource = filterArray
         drop.anchorView = browseTable

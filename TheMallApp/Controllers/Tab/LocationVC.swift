@@ -64,6 +64,11 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
             navigationController?.popViewController(animated: true)
         }
     }
+///
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    
  ///
     @IBAction func likeTapped(_ sender: UIButton){
       

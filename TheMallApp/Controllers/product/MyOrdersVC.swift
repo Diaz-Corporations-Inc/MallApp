@@ -26,7 +26,10 @@ class MyOrdersVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
+    
 }
 
 
@@ -43,5 +46,9 @@ extension MyOrdersVC:UITableViewDelegate,UITableViewDataSource{
     
 }
 class OrderCell: UITableViewCell{
+    
+}
+
+extension MyOrdersVC{
     
 }

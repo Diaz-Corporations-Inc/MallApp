@@ -18,6 +18,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -26,6 +28,8 @@
 	<string>Need location access</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Need location permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow access to live location its needed</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App need to use photos access</string>
 	<key>UIApplicationSceneManifest</key>
@@ -74,7 +78,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 </dict>
 </plist>

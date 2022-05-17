@@ -28,6 +28,9 @@ print(storeId,"jghvhf")
     @IBAction func skipTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
+    }
     
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

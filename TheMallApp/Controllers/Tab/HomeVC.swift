@@ -78,6 +78,8 @@ class HomeVC: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func contactUsTapped(_ sender: Any) {
+        guard let url = URL(string: "https://mymallapp.co/support/.") else {return}
+        UIApplication.shared.openURL(url)
     }
     @IBAction func registerTAPPED(_ sender: Any) {
         if userId == "" {

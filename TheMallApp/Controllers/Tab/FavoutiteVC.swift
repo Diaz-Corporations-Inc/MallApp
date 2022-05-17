@@ -17,15 +17,15 @@ class FavoutiteVC: UIViewController {
     ///
     @IBOutlet weak var favouriteColl: UICollectionView!
     ///
-    @IBOutlet weak var mikebtn: UIButton!
-    ///
     @IBOutlet weak var browseColl: UICollectionView!
-    ///
-    @IBOutlet weak var searchText: UITextField!
     ///
     @IBOutlet weak var mallVideoView: UIView!
     ///
     @IBOutlet weak var favView: UIView!
+    ////
+    @IBOutlet weak var recentlyBrowsed: UICollectionView!
+    ///
+    @IBOutlet weak var recentViewHeight: NSLayoutConstraint!
     ///
     let player = AVPlayer()
 ///
@@ -34,6 +34,8 @@ class FavoutiteVC: UIViewController {
     var selectedRows:[IndexPath] = []
     ///
     var storeData = [AnyObject]()
+    ///
+    var recentlyData = [AnyObject]()
     ///
     @IBOutlet weak var viewheight: NSLayoutConstraint!
     var data = [AnyObject]()
@@ -67,9 +69,7 @@ class FavoutiteVC: UIViewController {
                 if isSuccess{
                     setupUI()
                     print("hello")
-                    favouriteColl.reloadData()
-
-                   
+                    favouriteColl.reloadData()                   
                 }else{
                     print("hii")
                 }
@@ -87,6 +87,7 @@ class FavoutiteVC: UIViewController {
     }
   
     func setData(){
+        ///
         ARSLineProgress.show()
         ApiManager.shared.storeList { [self] isSuccess in
             ARSLineProgress.hide()
@@ -96,6 +97,18 @@ class FavoutiteVC: UIViewController {
             }
             else{
                 print("sdbvjb")
+            }
+        }
+        ///
+        ARSLineProgress.show()
+        ApiManager.shared.storeList { [self] isSuccess in
+            ARSLineProgress.hide()
+            if isSuccess{
+                recentlyData = ApiManager.shared.data
+                recentlyBrowsed.reloadData()
+            }
+            else{
+                self.alert(message: ApiManager.shared.msg)
             }
         }
     }
@@ -137,31 +150,44 @@ class FavoutiteVC: UIViewController {
             
         }
     }
-    @IBAction func mikeTapped(_ sender: Any) {
+    
+    @IBAction func mallLogoTapped(_ sender: Any) {
+        NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
     }
+    
+    
     @IBAction func likeTapped(_ sender: UIButton) {[self]
        
         let store = data[sender.tag]["store"] as! NSDictionary
             storeId = store.object(forKey: "_id") as! String
     
         let favModel = favouriteModel(userId: userId, storeId: storeId)
-        ApiManager.shared.favUnFav(model: favModel) { isSuccess in
+        ARSLineProgress.show()
+        ApiManager.shared.favUnFav(model: favModel) {[self] isSuccess in
             if isSuccess{
+                ARSLineProgress.hide()
                 print("success")
+                self.getFav { isSuccess  in
+                    if isSuccess{
+                        setupUI()
+                        print("hello")
+                        favouriteColl.reloadData()
+                    }
+                }
             }else{
                 print("error")
             }
         }
-        let selectedIndexPath = IndexPath(item: sender.tag, section: 0)
-        if self.selectedRows.contains(selectedIndexPath)
-        {
-            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
-        }
-        else
-        {
-            self.selectedRows.append(selectedIndexPath)
-        }
-        self.favouriteColl.reloadData()
+//        let selectedIndexPath = IndexPath(item: sender.tag, section: 0)
+//        if self.selectedRows.contains(selectedIndexPath)
+//        {
+//            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
+//        }
+//        else
+//        {
+//            self.selectedRows.append(selectedIndexPath)
+//        }
+//        self.favouriteColl.reloadData()
     }
     
     
@@ -171,8 +197,10 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == favouriteColl{
             return data.count
-        }else{
+        }else if collectionView == browseColl{
             return storeData.count
+        }else{
+            return recentlyData.count
         }
     }
     
@@ -203,17 +231,17 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
             }
             if selectedRows.contains(indexPath)
             {
-                cell.likeBtn.setImage(UIImage(named: "likeActive"), for: .normal)
+                cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
             }
             else
             {
-                cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
+                cell.likeBtn.setImage(UIImage(named: "likeActive"), for: .normal)
             }
-            if storeData.count != 0{
-              
-            }
+//            if storeData.count != 0{
+//
+//            }
             return cell
-        }else{
+        }else if collectionView == browseColl{
             let cell = browseColl.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BrowseCollCell
             cell.browseCellView.layer.cornerRadius = 15
             cell.browseCellView.layer.shadowOpacity = 5
@@ -238,6 +266,24 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
            
             
             return cell
+        }else{
+            let cell = recentlyBrowsed.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! RecentlyBrowseCell
+            cell.storeName.text = recentlyData[indexPath.item]["name"] as! String
+            cell.storeCategory.text = recentlyData[indexPath.item]["description"] as! String
+            
+            if let gallery = recentlyData[indexPath.item]["gallery"] as? [AnyObject]{
+                if let image = gallery[0]["name"] as? String{
+                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                    if url != nil{
+                        cell.storeImage.af.setImage(withURL: url!)
+                    }
+                    else{
+                        print("vd")
+                    }
+                }
+            }
+                
+            return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -248,8 +294,10 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
                 return CGSize(width: favouriteColl.frame.width/1.2, height: favouriteColl.frame.height/2.1)
             }
          
-        }else{
+        }else if collectionView == browseColl{
             return CGSize(width: browseColl.frame.width/2.5, height: browseColl.frame.height)
+        }else{
+            return CGSize(width: browseColl.frame.width/1.3, height: browseColl.frame.height/2)
         }
         
     }
@@ -259,6 +307,10 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
             let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
             let store = data[indexPath.row]["store"] as! NSDictionary
             vc.storeId = store.object(forKey: "_id") as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if collectionView == browseColl{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+            vc.storeId = storeData[indexPath.row]["_id"] as! String
             self.navigationController?.pushViewController(vc, animated: true)
         }else{
             let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
