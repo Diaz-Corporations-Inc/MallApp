@@ -100,6 +100,9 @@ extension AddressVC: UITableViewDelegate,UITableViewDataSource{
         cell.setDefault.tag = indexPath.row
         cell.selectBtn.tag = indexPath.row
         ///
+        cell.setDefault.isHidden = true
+        cell.remove.isHidden = true
+        ///
         print(addressData)
         cell.name.text = addressData[indexPath.row]["fullName"] as? String ?? ""
         cell.mobile.text = addressData[indexPath.row]["mobileNo"] as? String ?? ""

@@ -18,6 +18,7 @@ struct signUpModel: Encodable {
 struct  loginModel: Encodable {
     let email: String?
     let password: String?
+//    let fcmToken: String?
 }
 
 struct  forgotPassword: Encodable {

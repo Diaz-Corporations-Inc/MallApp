@@ -577,7 +577,42 @@ import Alamofire
             completionHandler(false)
         }
     }
-    
+     
+    // MARK: - STORE LIST WITH TOKEN
+     
+     func storeListWithTOken(completionHandler: @escaping (Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             let token  = UserDefaults.standard.value(forKey: "token") as! String
+             let head : HTTPHeaders = ["x-access-token": token]
+             AF.request(Api.storeList,method: .get,headers: head).responseJSON{ [self]
+                 response in
+                 switch(response.result){
+                     
+                 case .success(let json):do{
+                     let success = response.response?.statusCode
+                     let respond = json as! NSDictionary
+                     if success == 200{
+                         print(respond,"success")
+                         data = respond.object(forKey: "data") as! [AnyObject]
+                         completionHandler(true)
+                     }else{
+                         print(respond,"fail")
+                         msg = respond.object(forKey: "error") as! String
+                         completionHandler(false)
+                     }
+                 }
+                 case .failure(let error):do{
+                     print("error",error)
+                     completionHandler(false)
+                     
+                 }
+                 }
+             }
+         }else{
+             msg = "Please cheeck internet connection"
+             completionHandler(false)
+         }
+     }
     //MARK: - STORE BY ID
     func storeById(storeid: String,completionHandler: @escaping (NSDictionary?,Bool)->()){
         if ReachabilityNetwork.isConnectedToNetwork(){

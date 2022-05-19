@@ -21,6 +21,7 @@ class HomeVC: UIViewController,UITextFieldDelegate {
     var productData = [AnyObject]()
     var userId = ""
     var searchdata = [AnyObject]()
+    var isFav = false
     override func viewDidLoad() {
         super.viewDidLoad()
         searchText.delegate = self
@@ -47,18 +48,36 @@ class HomeVC: UIViewController,UITextFieldDelegate {
        
     }
     func setdata(){
-        ARSLineProgress.show()
-        ApiManager.shared.storeList { [self] isSuccess in
-            ARSLineProgress.hide()
-            if isSuccess{
-                storeData = ApiManager.shared.data
-                print(storeData)
-                print(storeData.count)
-                shopsCollection.reloadData()
-                pickFavourite.reloadData()
-            }else{
-                print("hello")
+        if userId == ""{
+            ARSLineProgress.show()
+            ApiManager.shared.storeList { [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData = ApiManager.shared.data
+                    print(storeData)
+                    print(storeData.count)
+                    shopsCollection.reloadData()
+                    pickFavourite.reloadData()
+                }else{
+                    print("hello")
+                }
             }
+        }
+            else{
+            ARSLineProgress.show()
+            ApiManager.shared.storeListWithTOken { [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData = ApiManager.shared.data
+                    print(storeData)
+                    print(storeData.count)
+                    shopsCollection.reloadData()
+                    pickFavourite.reloadData()
+                }else{
+                    print("hello")
+                }
+            }
+
         }
     }
     func getProduct(){

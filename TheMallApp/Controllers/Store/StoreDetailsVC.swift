@@ -239,10 +239,7 @@ extension StoreDetailsVC{
 ///
 extension StoreDetailsVC{
     func setData(){
-        if UserDefaults.standard.value(forKey: "storetype") == nil{
-            self.storeType = storeData.object(forKey: "storeType") as? String ?? ""
-            print(storeType)
-        }
+       
         
         self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
         self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""
@@ -262,6 +259,8 @@ extension StoreDetailsVC{
         self.mapLocation.text = storeData.object(forKey: "address") as? String ?? ""
         let location = storeData.object(forKey: "location") as? NSDictionary ?? nil
         let coordinate = location?.object(forKey: "coordinates") as! [Double]
+        self.storeType = storeData.object(forKey: "storeType") as? String ?? ""
+        UserDefaults.standard.set(self.storeType, forKey: "storetype")
         self.lat = coordinate[0]
         self.long = coordinate[1]
         self.shippingCharge.text = "\(storeData.object(forKey: "deliveryCharges") as? Double ?? 0.0)"

@@ -42,18 +42,34 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     }
 ///
     func setdata(){
-        ARSLineProgress.show()
-        ApiManager.shared.storeList { [self] isSuccess in
-            ARSLineProgress.hide()
-            if isSuccess{
-                storeData = ApiManager.shared.data
-                print(storeData)
-                mapTable.reloadData()
+        if userId == ""{
+            ARSLineProgress.show()
+            ApiManager.shared.storeList { [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData = ApiManager.shared.data
+                    print(storeData)
+                    mapTable.reloadData()
+                }
+                else{
+                    print("api not working")
+                }
             }
-            else{
-                print("api not working")
+        }else{
+            ARSLineProgress.show()
+            ApiManager.shared.storeListWithTOken{ [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData = ApiManager.shared.data
+                    print(storeData)
+                    mapTable.reloadData()
+                }
+                else{
+                    print("api not working")
+                }
             }
         }
+      
     }
     //MARK: - BUTTON ACTIONS
 ///
@@ -74,26 +90,15 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
       
         if userId != ""{
             storeId = storeData[sender.tag]["_id"] as! String
-            
             let favModel = favouriteModel(userId: userId, storeId: storeId)
             ApiManager.shared.favUnFav(model: favModel) { isSuccess in
                 if isSuccess{
                     print("success")
+                    self.setdata()
                 }else{
                     print("success")
                 }
             }
-            
-            let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
-            if self.selectedRows.contains(selectedIndexPath)
-            {
-                self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
-            }
-            else
-            {
-                self.selectedRows.append(selectedIndexPath)
-            }
-            self.mapTable.reloadData()
         }else{
             self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
@@ -114,6 +119,7 @@ extension LocationVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mapTable.dequeueReusableCell(withIdentifier: "cell") as! MapTableCell
         cell.like.tag = indexPath.row
+        cell.like.setImage(UIImage(named: "likeInactive"), for: .normal)
         if storeData.count != 0{
             cell.shopName.text = storeData[indexPath.row]["name"] as! String
             cell.label.text = storeData[indexPath.row]["description"] as! String
@@ -126,8 +132,8 @@ extension LocationVC: UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }
-        
-        if selectedRows.contains(indexPath){
+        guard let isFavorite = storeData[indexPath.row]["isFav"] as? Bool else{ return cell}
+        if isFavorite == true{
             cell.like.setImage(UIImage(named: "likeActive"), for: .normal)
         }else{
             cell.like.setImage(UIImage(named: "likeInactive"), for: .normal)

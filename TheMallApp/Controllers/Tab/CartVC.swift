@@ -20,8 +20,10 @@ class CartVC: UIViewController {
         }
     }
     @IBOutlet weak var checkoutButton: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
+    ///
     var userId = ""
-    
+    var key = ""
     var paymentSheet : PaymentSheet?
     var cartData = [AnyObject]()
     var backendCheckoutUrl = URL(string: "http://127.0.0.1:4242")
@@ -43,6 +45,11 @@ class CartVC: UIViewController {
         userId = UserDefaults.standard.value(forKey: "id") as? String ?? ""
         if userId != "" {
             getCart()
+            if key == "s"{
+                backBtn.isHidden = false
+            }else{
+                backBtn.isHidden = true
+            }
             
         }else{
             self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in
@@ -128,6 +135,9 @@ class CartVC: UIViewController {
            }
        }
     
+    @IBAction func backTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func optionBtnTapped(_ sender: UIButton) {
         let id = cartData[sender.tag]["_id"] as! String
         print("sd",id)

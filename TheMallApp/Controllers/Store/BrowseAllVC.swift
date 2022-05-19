@@ -13,20 +13,24 @@ class BrowseAllVC: UIViewController {
     @IBOutlet weak var backbtn: UIButton!
     @IBOutlet weak var browseTable: UITableView!
     @IBOutlet weak var selectCategory: UILabel!
-    var drop = DropDown()
-    
-    var a = ""
-    
     @IBOutlet weak var nearYouTop: NSLayoutConstraint!
+    ///
+    var drop = DropDown()
+    ///
+    var a = ""
+    var storeId = ""
+    var userId = ""
+    ///
     var filterArray = ["All"]
     var categoryId = ["All"]
     var selectedRows:[IndexPath] = []
     var storeData = [AnyObject]()
-    var storeId = ""
-    var userId = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        browseTable.delegate = self
+        browseTable.dataSource = self
       
     }
     
@@ -44,22 +48,42 @@ class BrowseAllVC: UIViewController {
     }
     
     func setData(){
-        ARSLineProgress.show()
-        ApiManager.shared.storeList { [self] isSuccess in
-            ARSLineProgress.hide()
-            if isSuccess{
-                storeData.removeAll()
-                storeData = ApiManager.shared.data
-                if storeData.count == 0{
-                    nearYouTop.constant = -150
+        if userId == ""{
+            ARSLineProgress.show()
+            ApiManager.shared.storeList { [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData.removeAll()
+                    storeData = ApiManager.shared.data
+                    if storeData.count == 0{
+                        nearYouTop.constant = -150
+                    }else{
+                        nearYouTop.constant = 10
+                    }
+                    browseTable.reloadData()
                 }else{
-                    nearYouTop.constant = 10
+                    print("hello")
                 }
-                browseTable.reloadData()
-            }else{
-                print("hello")
+            }
+        }else{
+            ARSLineProgress.show()
+            ApiManager.shared.storeListWithTOken{ [self] isSuccess in
+                ARSLineProgress.hide()
+                if isSuccess{
+                    storeData.removeAll()
+                    storeData = ApiManager.shared.data
+                    if storeData.count == 0{
+                        nearYouTop.constant = -150
+                    }else{
+                        nearYouTop.constant = 10
+                    }
+                    browseTable.reloadData()
+                }else{
+                    print("hello")
+                }
             }
         }
+       
     }
     func getCategory(){
         ARSLineProgress.show()
@@ -124,31 +148,18 @@ class BrowseAllVC: UIViewController {
             }
         }else{
             storeId = storeData[sender.tag]["_id"] as! String
-            
             let favModel = favouriteModel(userId: userId, storeId: storeId)
             ApiManager.shared.favUnFav(model: favModel) { isSuccess in
                 if isSuccess{
                     print("success")
+                    self.setData()
                 }else{
                     print("success")
                 }
             }
-            let selectedIndexPath = IndexPath(row: sender.tag, section: 0)
-            if self.selectedRows.contains(selectedIndexPath)
-            {
-                self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
-            }
-            else
-            {
-                self.selectedRows.append(selectedIndexPath)
-            }
-            self.browseTable.reloadData()
-        }
-        
     }
-  
-    @IBAction func mikeTapped(_ sender: Any) {
     }
+   
     @IBAction func backTapped(_ sender: Any) {
         if a == "2"{
             self.dismiss(animated: true, completion: nil)
@@ -172,9 +183,9 @@ extension BrowseAllVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = browseTable.dequeueReusableCell(withIdentifier: "cell") as! BrowseCell
-        
+       
         cell.likeBtn.tag = indexPath.row
-        
+        cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
         cell.storeName.text = storeData[indexPath.row]["name"] as! String
         cell.available.text = storeData[indexPath.row]["description"] as! String
         
@@ -187,22 +198,20 @@ extension BrowseAllVC: UITableViewDelegate,UITableViewDataSource{
             }
         }
         
-        if selectedRows.contains(indexPath)
-        {
+        guard let isFav = storeData[indexPath.row]["isFav"] as? Bool else{return cell}
+        if isFav == true{
             cell.likeBtn.setImage(UIImage(named: "likeActive"), for: .normal)
-            
-        }
-        else
-        {
+        }else{
             cell.likeBtn.setImage(UIImage(named: "likeInactive"), for: .normal)
-            
         }
         return cell
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
-//        vc.storeId = storeData[indexPath.row]["_id"] as! String
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        print("jhcgfdxgfnchjvcgfndzngh")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
+        vc.storeId = storeData[indexPath.row]["_id"] as! String
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
 }

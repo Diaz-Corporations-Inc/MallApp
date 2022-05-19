@@ -16,7 +16,7 @@ struct AddAddressModel: Encodable{
     let buildingNo: String?
     let city: String?
     let state: String?
-    let pincode: String?
+    let pinCode: String?
     let street: String?
     let isdefault: Bool?
 }

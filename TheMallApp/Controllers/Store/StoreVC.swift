@@ -15,9 +15,10 @@ import MapKit
 import AlamofireImage
 class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
 
+///
+    //MARK: - outlets
     @IBOutlet weak var productbtn: UIView!
     @IBOutlet weak var addStoreImageBtn: UIView!
-   
     @IBOutlet weak var mapStoreView: MKMapView!
     @IBOutlet weak var registerView: UIView!
     @IBOutlet weak var scrollableView: UIView!
@@ -33,24 +34,25 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     @IBOutlet weak var contact: UILabel!
     @IBOutlet weak var priceRange: UILabel!
 ///
-    var locationManager = CLLocationManager()
-    var key = ""
+    //MARK: - VARIABLES AND PROPERTIES
+    var gallery = [AnyObject]()
     var productData = [AnyObject]()
     var myData = [AnyObject]()
-    var storeId = ""
     var storeData : NSDictionary!
-    var gallery = [AnyObject]()
+    var key = ""
+    var storeId = ""
+    var storeType = ""
+    
  ///
+    var locationManager = CLLocationManager()
     var getLocation = NSDictionary()
     var apiCoordinates = [AnyObject]()
     var locationName = ""
- ///
     var lat = Double()
     var long = Double()
-    
-    
-    
-    override func viewDidLoad() {
+ ///
+    //MARK: - VIEW DID LOAD
+ override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -68,6 +70,7 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
         
         }
 ///
+    //MARK: - VIEW WILL APPEAR
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         if key == "My"{
@@ -81,11 +84,11 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
         }
         setData()
     }
-   
+    //MARK: - didFailWithError
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Swift.Error) {
      print(error)
      }
-    
+    //MARK: - didUpdateLocations
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         
@@ -107,7 +110,7 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
         //centerMap(locValue)
     }
 ///
-    //MARK: - BUTTON ACTIONS
+//MARK: - BUTTON ACTIONS
     @IBAction func editBtn(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
         vc.key = "S"
@@ -137,11 +140,25 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     }
     
     @IBAction func producttapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
-        vc.key = "My"
-        vc.storeId = self.myData[0]["_id"] as! String
-        vc.catIdtoSend = self.myData[0]["category"] as! String
-        self.navigationController?.pushViewController(vc, animated: true)
+        if storeType == "store"{
+            self.showAlertWithTwoActions(alertTitle: "Alert", message: "You have registered for store listing only please continue to upgrade", action1Title: "Cancel", action1Style: .destructive, action2Title: "Continue") { ok in
+                print("Stay here")
+            } completion2: { cancel in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
+                vc.key = "Upgrade"
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+
+            
+           
+        }else{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductVC") as! AddProductVC
+            vc.key = "My"
+            vc.storeId = self.myData[0]["_id"] as! String
+            vc.catIdtoSend = self.myData[0]["category"] as! String
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+      
     }
     @IBAction func registoreStore(_ sender: UIButton){
         let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
@@ -152,10 +169,9 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     }
     
 }
-
+///
+///
 extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    ///
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == storeCollection{
             if key == "My"{
@@ -231,6 +247,7 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         }
        
     }
+///
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == storeCollection{
             return CGSize(width: storeCollection.frame.width/1.8, height: storeCollection.frame.height)
@@ -239,7 +256,7 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         }
         
     }
-    
+///
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {[self]
         if collectionView == productCollection{
             if key == "My"{
@@ -297,6 +314,7 @@ extension StoreVC{
                         ///
                         self.storeId = myData[0]["_id"] as! String
                         print("asdsa",self.storeId)
+                        storeType = myData[0]["storeType"] as! String
                         storeName.text = myData[0]["name"] as! String
                         storeDescription.text = myData[0]["description"] as! String
                         let timingDict = myData[0]["timing"] as! NSDictionary

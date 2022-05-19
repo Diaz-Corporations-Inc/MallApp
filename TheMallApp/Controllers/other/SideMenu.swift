@@ -18,11 +18,11 @@ class SideMenu: UIViewController {
         }
     }
 
-    var sideArray = ["Favourite","Deals","Near shop","My store","Shop by category","Privacy Policy","Contact Us"]
-    var userArray = ["Favourite","Deals","Near shop","Shop by category","Privacy Policy","Contact Us"]
+    var sideArray = ["Favourite","Cart","Deals","Near shop","My store","Shop by category","Privacy Policy","Contact Us"]
+    var userArray = ["Favourite","Cart","Deals","Near shop","Shop by category","Privacy Policy","Contact Us"]
 
 
-    let sideImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
+    let sideImage = [UIImage(named: "s1"),UIImage(named: "cartactive"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
     let userImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s4")]
     
     override func viewDidLoad() {
@@ -93,15 +93,21 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.isNavigationBarHidden = true
             self.present(navigationController, animated: true, completion: nil)
-
         case 1:
+               let vc = story.instantiateViewController(withIdentifier: "CartVC") as! CartVC
+               vc.key = "s"
+               let navigationController = UINavigationController.init(rootViewController: vc)
+               navigationController.modalPresentationStyle = .fullScreen
+               navigationController.isNavigationBarHidden = true
+               self.present(navigationController, animated: true, completion: nil)
+        case 2:
             let vc = story.instantiateViewController(withIdentifier: "DealsOfDayVC") as! DealsOfDayVC
             vc.key = "S"
              let navigationController = UINavigationController.init(rootViewController: vc)
              navigationController.modalPresentationStyle = .fullScreen
              navigationController.isNavigationBarHidden = true
             self.present(navigationController, animated: true, completion: nil)
-        case 2:
+        case 3:
             let vc = story.instantiateViewController(withIdentifier: "LocationVC") as! LocationVC
             vc.key = "S"
             let navigationController = UINavigationController.init(rootViewController: vc)
@@ -109,7 +115,7 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
             navigationController.isNavigationBarHidden = true
            self.present(navigationController, animated: true, completion: nil)
 
-        case 3:
+        case 4:
             let vc = story.instantiateViewController(withIdentifier: "StoreVC") as! StoreVC
             vc.key = "My"
             let navigationController = UINavigationController.init(rootViewController: vc)
@@ -117,7 +123,7 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
             navigationController.isNavigationBarHidden = true
            self.present(navigationController, animated: true, completion: nil)
 
-        case 4:
+        case 5:
             let vc = story.instantiateViewController(withIdentifier: "BrowseAllVC") as! BrowseAllVC
             vc.a = "2"
             let navigationController = UINavigationController.init(rootViewController: vc)
@@ -125,11 +131,11 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
             navigationController.isNavigationBarHidden = true
            self.present(navigationController, animated: true, completion: nil)
             
-        case 5:
+        case 6:
             guard let url = URL(string: "https://mymallapp.co/wpautoterms/privacy-policy/") else {return}
             UIApplication.shared.openURL(url)
 //        https://mymallapp.co/wpautoterms/privacy-policy/
-        case 6:
+        case 7:
             guard let url = URL(string: "https://mymallapp.co/support/.") else {return}
             UIApplication.shared.openURL(url)
 //        https://mymallapp.co/support/.

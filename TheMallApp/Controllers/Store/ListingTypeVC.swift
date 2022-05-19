@@ -9,17 +9,19 @@ import UIKit
 
 class ListingTypeVC: UIViewController {
 
+    @IBOutlet weak var storeListingBtn: UIButton!
     var key = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        if key == "Upgrade"{
+            storeListingBtn.isHidden = true
+        }else{
+            storeListingBtn.isHidden = false
+        }
     }
     
     @IBAction func backTapped(_ sender: UIButton){
-        if key == "S"{
-            self.dismiss(animated: true, completion: nil)
-        }else{
             self.navigationController?.popViewController(animated: true)
-        }
     }
     
     @IBAction func storeListing(_ sender: Any) {

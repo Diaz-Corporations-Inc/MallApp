@@ -2495,7 +2495,7 @@ Apartment</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-dH-y89">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-dH-y89">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="493"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
@@ -2707,7 +2707,7 @@ Apartment</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVf-Ru-N8P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7469.5652173913049" y="-321.42857142857139"/>
+            <point key="canvasLocation" x="7425" y="-321"/>
         </scene>
         <!--Deals Of DayVC-->
         <scene sceneID="0kf-s5-tbZ">
@@ -3447,7 +3447,7 @@ Apartment</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TCJ-m1-by8">
-                                <rect key="frame" x="0.0" y="125.5" width="414" height="687.5"/>
+                                <rect key="frame" x="0.0" y="135.5" width="414" height="677.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="181" id="92T-l6-gdU" customClass="CartTablecell" customModule="TheMallApp" customModuleProvider="target">
@@ -3549,7 +3549,7 @@ Apartment</string>
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbf-xa-cBJ">
-                                <rect key="frame" x="20" y="74" width="48.5" height="31.5"/>
+                                <rect key="frame" x="20" y="84" width="48.5" height="31.5"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3574,11 +3574,24 @@ Apartment</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xza-mk-D2g">
-                                <rect key="frame" x="344.5" y="75" width="49.5" height="30"/>
+                                <rect key="frame" x="344.5" y="85" width="49.5" height="30"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhB-VJ-otW">
+                                <rect key="frame" x="20" y="54" width="30" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="fKa-pw-S31"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="backBlack">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="backTapped:" destination="YDm-4c-BKb" eventType="touchUpInside" id="bOf-C4-f96"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FBo-D3-hvA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3589,7 +3602,9 @@ Apartment</string>
                             <constraint firstItem="Nbf-xa-cBJ" firstAttribute="leading" secondItem="FBo-D3-hvA" secondAttribute="leading" constant="20" id="E6L-Jd-iHF"/>
                             <constraint firstItem="FBo-D3-hvA" firstAttribute="trailing" secondItem="OTX-jr-ktv" secondAttribute="trailing" constant="20" id="ESL-ho-Zcr"/>
                             <constraint firstItem="TCJ-m1-by8" firstAttribute="leading" secondItem="FBo-D3-hvA" secondAttribute="leading" id="EwY-Ab-CRr"/>
-                            <constraint firstItem="Nbf-xa-cBJ" firstAttribute="top" secondItem="FBo-D3-hvA" secondAttribute="top" constant="30" id="TLE-ld-Fu3"/>
+                            <constraint firstItem="DhB-VJ-otW" firstAttribute="top" secondItem="FBo-D3-hvA" secondAttribute="top" constant="10" id="Phe-K5-Tm5"/>
+                            <constraint firstItem="DhB-VJ-otW" firstAttribute="leading" secondItem="FBo-D3-hvA" secondAttribute="leading" constant="20" id="RcU-cU-uDN"/>
+                            <constraint firstItem="Nbf-xa-cBJ" firstAttribute="top" secondItem="FBo-D3-hvA" secondAttribute="top" constant="40" id="TLE-ld-Fu3"/>
                             <constraint firstItem="FBo-D3-hvA" firstAttribute="bottom" secondItem="TCJ-m1-by8" secondAttribute="bottom" id="ae4-Jc-wCx"/>
                             <constraint firstItem="FBo-D3-hvA" firstAttribute="trailing" secondItem="TCJ-m1-by8" secondAttribute="trailing" id="c2t-i3-Hzh"/>
                             <constraint firstItem="OTX-jr-ktv" firstAttribute="width" secondItem="aY7-bz-Fj0" secondAttribute="width" multiplier="0.3" id="c4Y-G8-wHp"/>
@@ -3603,8 +3618,9 @@ Apartment</string>
                     <tabBarItem key="tabBarItem" title="" image="cart" selectedImage="cartactive" id="i2b-BB-Z4V"/>
                     <navigationItem key="navigationItem" id="DEo-vp-Gxk"/>
                     <connections>
+                        <outlet property="backBtn" destination="DhB-VJ-otW" id="2YU-sx-Udd"/>
                         <outlet property="cartTable" destination="TCJ-m1-by8" id="84c-VR-B4h"/>
-                        <outlet property="checkoutButton" destination="OTX-jr-ktv" id="rwL-sD-l0R"/>
+                        <outlet property="checkoutButton" destination="OTX-jr-ktv" id="tTZ-jY-TTp"/>
                         <outlet property="emptyCartView" destination="Yd2-Le-2LO" id="TBQ-QP-qaT"/>
                         <outlet property="totalLabel" destination="Xza-mk-D2g" id="7xp-Dt-HHa"/>
                     </connections>
@@ -4347,6 +4363,9 @@ Apartment</string>
                             <constraint firstItem="vz6-CA-SPU" firstAttribute="trailing" secondItem="DEX-Zf-JAr" secondAttribute="trailing" id="xPk-f0-Bxn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="storeListingBtn" destination="JyP-ar-kcF" id="lXg-9h-TSd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zrr-r7-t46" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -5800,7 +5819,7 @@ Apartment</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6AQ-KD-peX">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="615"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="616"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKH-Cg-8pb">
                                                 <rect key="frame" x="20" y="20" width="40" height="40"/>
@@ -5815,20 +5834,20 @@ Apartment</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJP-wq-P5U">
-                                                <rect key="frame" x="40" y="100" width="334" height="35"/>
+                                                <rect key="frame" x="40" y="100" width="334" height="36"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="30"/>
                                                 <color key="textColor" name="tabBarColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZU6-6h-Ozk" customClass="CreditCardFormView" customModule="CreditCardForm">
-                                                <rect key="frame" x="57" y="165" width="300" height="200"/>
+                                                <rect key="frame" x="57" y="166" width="300" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="300" id="XuP-Je-vYL"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xd-sx-3Jp">
-                                                <rect key="frame" x="20" y="445" width="374" height="50"/>
+                                                <rect key="frame" x="20" y="446" width="374" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name on card" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i2v-ch-Hau">
                                                         <rect key="frame" x="10" y="0.0" width="364" height="50"/>
@@ -5846,7 +5865,7 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MrX-ul-M6a">
-                                                <rect key="frame" x="30" y="525" width="354" height="50"/>
+                                                <rect key="frame" x="30" y="526" width="354" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TW9-sY-ELt">
                                                         <rect key="frame" x="0.0" y="0.0" width="354" height="50"/>
@@ -5995,7 +6014,7 @@ Apartment</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gge-ee-pal">
-                                                            <rect key="frame" x="23" y="11" width="40" height="18"/>
+                                                            <rect key="frame" x="23" y="11" width="38.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6015,7 +6034,7 @@ Apartment</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctx-c8-8n7">
-                                                            <rect key="frame" x="5" y="70" width="60.5" height="17"/>
+                                                            <rect key="frame" x="5" y="70" width="56.5" height="17"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6123,8 +6142,8 @@ Apartment</string>
                                     <constraint firstItem="k3S-5V-j3Y" firstAttribute="leading" secondItem="Acs-Ck-fCS" secondAttribute="leading" constant="20" id="sUv-mq-4z7"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My orders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyI-33-dPm">
-                                <rect key="frame" x="20" y="114" width="114" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order history" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyI-33-dPm">
+                                <rect key="frame" x="20" y="114" width="149.5" height="30"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="25"/>
                                 <color key="textColor" name="shopOwnerColor"/>
                                 <nil key="highlightedColor"/>
@@ -6164,21 +6183,14 @@ Apartment</string>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-ZX-LcS">
                                                     <rect key="frame" x="30" y="11" width="354" height="235"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="12" translatesAutoresizingMaskIntoConstraints="NO" id="WBr-CA-Xsw">
-                                                            <rect key="frame" x="10" y="85" width="80" height="80"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="80" id="G4H-Yw-CaE"/>
-                                                                <constraint firstAttribute="width" constant="80" id="XRU-OR-PiU"/>
-                                                            </constraints>
-                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H &amp; M" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0p0-tb-hl6">
-                                                            <rect key="frame" x="100" y="85" width="214" height="20.5"/>
+                                                            <rect key="frame" x="10" y="70" width="304" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nextRight" translatesAutoresizingMaskIntoConstraints="NO" id="Yqm-fq-4gh">
-                                                            <rect key="frame" x="324" y="117" width="10" height="18"/>
+                                                            <rect key="frame" x="324" y="129" width="10" height="18"/>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zdb-vf-DXc">
                                                             <rect key="frame" x="10" y="185" width="334" height="40"/>
@@ -6196,6 +6208,9 @@ Apartment</string>
                                                                             <integer key="value" value="20"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="helpTapped:" destination="WgL-Qp-BR7" eventType="touchUpInside" id="5d8-5x-OFE"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTu-Ab-pPD">
                                                                     <rect key="frame" x="177" y="0.0" width="157" height="40"/>
@@ -6210,6 +6225,9 @@ Apartment</string>
                                                                             <integer key="value" value="20"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="cancelTapped:" destination="WgL-Qp-BR7" eventType="touchUpInside" id="ORE-Gh-UxJ"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6225,20 +6243,20 @@ Apartment</string>
                                                                 <constraint firstItem="P1D-Xx-OK8" firstAttribute="leading" secondItem="Zdb-vf-DXc" secondAttribute="leading" id="zac-oI-UAu"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Order status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbZ-5l-hVS">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbZ-5l-hVS">
                                                             <rect key="frame" x="10" y="10" width="80.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="On Tuesday, 26 April" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-Mb-ifP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Tuesday, 26 April" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOx-Mb-ifP">
                                                             <rect key="frame" x="10" y="33" width="134" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" systemColor="systemGray3Color"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Suit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTw-vE-sYR">
-                                                            <rect key="frame" x="100" y="115.5" width="214" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Suit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTw-vE-sYR">
+                                                            <rect key="frame" x="10" y="100.5" width="304" height="74.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6250,19 +6268,17 @@ Apartment</string>
                                                         <constraint firstItem="kOx-Mb-ifP" firstAttribute="leading" secondItem="tbZ-5l-hVS" secondAttribute="leading" id="0n5-fr-ECQ"/>
                                                         <constraint firstAttribute="trailing" secondItem="0p0-tb-hl6" secondAttribute="trailing" constant="40" id="296-YG-0Ww"/>
                                                         <constraint firstAttribute="trailing" secondItem="Zdb-vf-DXc" secondAttribute="trailing" constant="10" id="2s6-RO-UTz"/>
-                                                        <constraint firstItem="WBr-CA-Xsw" firstAttribute="top" secondItem="kOx-Mb-ifP" secondAttribute="bottom" constant="10" id="AOV-bc-xAq"/>
                                                         <constraint firstItem="kOx-Mb-ifP" firstAttribute="top" secondItem="tbZ-5l-hVS" secondAttribute="bottom" constant="5" id="AlQ-fC-Gyf"/>
-                                                        <constraint firstItem="Zdb-vf-DXc" firstAttribute="top" secondItem="WBr-CA-Xsw" secondAttribute="bottom" constant="20" id="ELo-8X-5Ms"/>
+                                                        <constraint firstItem="0p0-tb-hl6" firstAttribute="top" secondItem="kOx-Mb-ifP" secondAttribute="bottom" constant="20" id="DRu-H1-CXo"/>
+                                                        <constraint firstItem="Zdb-vf-DXc" firstAttribute="top" secondItem="bTw-vE-sYR" secondAttribute="bottom" constant="10" id="MaI-03-lOE"/>
+                                                        <constraint firstItem="0p0-tb-hl6" firstAttribute="leading" secondItem="kOx-Mb-ifP" secondAttribute="leading" id="MjK-nU-FaS"/>
                                                         <constraint firstItem="tbZ-5l-hVS" firstAttribute="top" secondItem="6rL-ZX-LcS" secondAttribute="top" constant="10" id="Qnq-uD-1nb"/>
                                                         <constraint firstItem="bTw-vE-sYR" firstAttribute="top" secondItem="0p0-tb-hl6" secondAttribute="bottom" constant="10" id="SQC-Vc-LZG"/>
                                                         <constraint firstItem="Yqm-fq-4gh" firstAttribute="leading" secondItem="bTw-vE-sYR" secondAttribute="trailing" constant="10" id="Xvi-KQ-X5G"/>
-                                                        <constraint firstItem="0p0-tb-hl6" firstAttribute="top" secondItem="WBr-CA-Xsw" secondAttribute="top" id="haO-jC-RrJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="Yqm-fq-4gh" secondAttribute="trailing" constant="20" id="iUt-WX-iM8"/>
                                                         <constraint firstItem="Yqm-fq-4gh" firstAttribute="centerY" secondItem="bTw-vE-sYR" secondAttribute="centerY" id="jCx-lD-qHZ"/>
                                                         <constraint firstItem="tbZ-5l-hVS" firstAttribute="leading" secondItem="6rL-ZX-LcS" secondAttribute="leading" constant="10" id="ndd-W6-y5N"/>
-                                                        <constraint firstItem="0p0-tb-hl6" firstAttribute="leading" secondItem="WBr-CA-Xsw" secondAttribute="trailing" constant="10" id="veh-JY-tnG"/>
                                                         <constraint firstAttribute="bottom" secondItem="Zdb-vf-DXc" secondAttribute="bottom" constant="10" id="wcq-xX-ghN"/>
-                                                        <constraint firstItem="WBr-CA-Xsw" firstAttribute="leading" secondItem="kOx-Mb-ifP" secondAttribute="leading" id="xNU-Ic-bcu"/>
                                                         <constraint firstItem="Zdb-vf-DXc" firstAttribute="leading" secondItem="6rL-ZX-LcS" secondAttribute="leading" constant="10" id="zvH-OG-7xc"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -6279,6 +6295,14 @@ Apartment</string>
                                                 <constraint firstItem="6rL-ZX-LcS" firstAttribute="bottom" secondItem="vF9-Xz-F4v" secondAttribute="bottomMargin" id="xtw-Ve-kw2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cancelBtn" destination="dTu-Ab-pPD" id="Zwo-dI-Cre"/>
+                                            <outlet property="helpBtn" destination="P1D-Xx-OK8" id="MQy-0h-FNa"/>
+                                            <outlet property="orderDate" destination="kOx-Mb-ifP" id="4dP-tN-Ikw"/>
+                                            <outlet property="productBrand" destination="0p0-tb-hl6" id="9GS-3y-NUU"/>
+                                            <outlet property="productName" destination="bTw-vE-sYR" id="qbd-OD-pyr"/>
+                                            <outlet property="productStatus" destination="tbZ-5l-hVS" id="rR8-ni-SuX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -6433,8 +6457,8 @@ Apartment</string>
                                     <constraint firstItem="H3S-ve-E4W" firstAttribute="centerX" secondItem="F2b-Gz-dnU" secondAttribute="centerX" id="yez-MA-uN2"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Adresses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3F-Ts-HoG">
-                                <rect key="frame" x="20" y="114" width="131" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Addresses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3F-Ts-HoG">
+                                <rect key="frame" x="20" y="114" width="143" height="24"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="20"/>
                                 <color key="textColor" name="shopOwnerColor"/>
                                 <nil key="highlightedColor"/>
@@ -6720,7 +6744,7 @@ Apartment</string>
                                 <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ob6-j3-Cy8">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="795.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="796.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhh-rO-L3v">
                                                 <rect key="frame" x="20" y="20" width="157" height="24"/>
@@ -6800,14 +6824,14 @@ Apartment</string>
                                                     <constraint firstItem="PY2-Vw-SIn" firstAttribute="top" secondItem="fAU-8I-oVX" secondAttribute="top" id="xea-Ra-Xa8"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat, House no., Building, Company Appartment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-Mg-ZPs">
-                                                <rect key="frame" x="20" y="306" width="314.5" height="19"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat, House no., Building, Company Apartment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-Mg-ZPs">
+                                                <rect key="frame" x="20" y="306" width="305.5" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u7M-mH-rdz">
-                                                <rect key="frame" x="20" y="330" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="331" width="374" height="40"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osv-JR-wv2">
                                                         <rect key="frame" x="5" y="0.0" width="369" height="40"/>
@@ -6825,13 +6849,13 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Area, Street, Sector, Village" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jia-iA-EGl">
-                                                <rect key="frame" x="20" y="380" width="178.5" height="19"/>
+                                                <rect key="frame" x="20" y="381" width="178.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5S-R2-Bc7">
-                                                <rect key="frame" x="20" y="404" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="405" width="374" height="40"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cSv-y5-rGG">
                                                         <rect key="frame" x="5" y="0.0" width="369" height="40"/>
@@ -6849,13 +6873,13 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landmark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZf-Uc-Fto">
-                                                <rect key="frame" x="20" y="454" width="67.5" height="19"/>
+                                                <rect key="frame" x="20" y="455" width="67.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMd-Op-tUa">
-                                                <rect key="frame" x="20" y="478" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="479" width="374" height="40"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ktw-T4-HsL">
                                                         <rect key="frame" x="5" y="0.0" width="369" height="40"/>
@@ -6873,13 +6897,13 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Town / City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTf-Co-FwI">
-                                                <rect key="frame" x="20" y="528" width="74.5" height="19"/>
+                                                <rect key="frame" x="20" y="529" width="74.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jW-3n-WWO">
-                                                <rect key="frame" x="20" y="552" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="553" width="374" height="40"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lly-3j-Lhe">
                                                         <rect key="frame" x="5" y="0.0" width="369" height="40"/>
@@ -6897,13 +6921,13 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4c-fR-8T2">
-                                                <rect key="frame" x="20" y="602" width="35" height="19"/>
+                                                <rect key="frame" x="20" y="603" width="35" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMA-TY-WWy">
-                                                <rect key="frame" x="20" y="626" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="627" width="374" height="40"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SVf-4u-9pB">
                                                         <rect key="frame" x="5" y="0.0" width="369" height="40"/>
@@ -6921,7 +6945,7 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TY7-1v-fLb">
-                                                <rect key="frame" x="20" y="686" width="20" height="20"/>
+                                                <rect key="frame" x="20" y="687" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="GVc-gz-AID"/>
                                                     <constraint firstAttribute="height" constant="20" id="NBa-1w-i5E"/>
@@ -6933,13 +6957,13 @@ Apartment</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make this as my default address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nf-6z-yB3">
-                                                <rect key="frame" x="50" y="686.5" width="213" height="19"/>
+                                                <rect key="frame" x="50" y="687.5" width="213" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-Sq-94n">
-                                                <rect key="frame" x="20" y="735.5" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="736.5" width="374" height="40"/>
                                                 <color key="backgroundColor" name="userBtnColor"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -7045,6 +7069,7 @@ Apartment</string>
                         <outlet property="pincode" destination="PY2-Vw-SIn" id="Tc5-JE-TzL"/>
                         <outlet property="state" destination="SVf-4u-9pB" id="k0w-xK-M5F"/>
                         <outlet property="street" destination="cSv-y5-rGG" id="t31-gI-DF8"/>
+                        <outlet property="titleLabel" destination="qhh-rO-L3v" id="4rz-2I-mee"/>
                         <outletCollection property="roundView" destination="iqh-UW-m5y" collectionClass="NSMutableArray" id="8v2-0P-Dbg"/>
                         <outletCollection property="roundView" destination="xhZ-Vq-HCr" collectionClass="NSMutableArray" id="fYY-aJ-nKN"/>
                         <outletCollection property="roundView" destination="fAU-8I-oVX" collectionClass="NSMutableArray" id="jdt-tj-Nvo"/>
@@ -7458,7 +7483,7 @@ Apartment</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbQ-Sb-8gk">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IbQ-Sb-8gk">
                                                 <rect key="frame" x="0.0" y="1039.5" width="414" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -8566,13 +8591,13 @@ Apartment</string>
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="768"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uh-lA-BJS">
-                                                <rect key="frame" x="172.5" y="25" width="69.5" height="28"/>
+                                                <rect key="frame" x="173.5" y="25" width="67" height="29"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="24"/>
                                                 <color key="textColor" name="shopOwnerColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0U-c7-9a4" customClass="CosmosView" customModule="Cosmos">
-                                                <rect key="frame" x="83" y="83" width="248" height="70"/>
+                                                <rect key="frame" x="83" y="84" width="248" height="70"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="70" id="BHt-hQ-9gd"/>
@@ -8593,7 +8618,7 @@ Apartment</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVx-TF-Vez">
-                                                <rect key="frame" x="20" y="203" width="374" height="50"/>
+                                                <rect key="frame" x="20" y="204" width="374" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ix4-Xn-Kmh">
                                                         <rect key="frame" x="0.0" y="49" width="374" height="1"/>
@@ -8624,13 +8649,13 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your words make us better. You are the influence!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6K8-hf-ARF">
-                                                <rect key="frame" x="20" y="255" width="374" height="17"/>
+                                                <rect key="frame" x="20" y="256" width="374" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFY-WG-nI3">
-                                                <rect key="frame" x="20" y="322" width="374" height="45"/>
+                                                <rect key="frame" x="20" y="323" width="374" height="45"/>
                                                 <color key="backgroundColor" name="shopOwnerColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="rd4-QF-c4z"/>
@@ -8805,8 +8830,8 @@ Apartment</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery Charges" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8PI-kh-trV">
-                                                <rect key="frame" x="20" y="262" width="121" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Charges" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8PI-kh-trV">
+                                                <rect key="frame" x="20" y="262" width="127" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -9339,7 +9364,6 @@ Apartment</string>
         </scene>
     </scenes>
     <resources>
-        <image name="12" width="100" height="125.5"/>
         <image name="Star" width="14" height="14"/>
         <image name="addBtn" width="195" height="176"/>
         <image name="addProduct" width="40" height="55"/>

@@ -10,6 +10,7 @@ import ARSLineProgress
 
 class AddAddressVC: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet var roundView: [UIView]!
     @IBOutlet weak var fullName: UITextField!
     @IBOutlet weak var mobileNumber: UITextField!
@@ -36,6 +37,11 @@ class AddAddressVC: UIViewController {
         }
         getAddressData()
         print(addressId,key)
+        if key == ""{
+            titleLabel.text = "Add address"
+        }else{
+            titleLabel.text = "Edit your address"
+        }
     }
     
     @IBAction func backTapped(_ sender: UIButton){
@@ -60,7 +66,7 @@ class AddAddressVC: UIViewController {
        
             let user = UserDefaults.standard.value(forKey: "id") as! String
         print(isDefault)
-            let model = AddAddressModel(userId: user, fullName: fullName.text ?? "", mobileNo: mobileNumber.text ?? "", area: landmark.text ?? "", buildingNo: flat.text ?? "", city: city.text ?? "", state: state.text ?? "", pincode: pincode.text ?? "", street: street.text ?? "", isdefault: isDefault)
+            let model = AddAddressModel(userId: user, fullName: fullName.text ?? "", mobileNo: mobileNumber.text ?? "", area: landmark.text ?? "", buildingNo: flat.text ?? "", city: city.text ?? "", state: state.text ?? "", pinCode: pincode.text ?? "", street: street.text ?? "", isdefault: isDefault)
         if key == ""{
             ApiManager.shared.addAddress(model: model) { isSuccess in
                 if isSuccess{

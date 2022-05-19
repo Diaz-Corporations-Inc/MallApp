@@ -20,8 +20,7 @@ class LoginVC: UIViewController {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        email.text = "new@gmail.com"
-        password.text = "123456"
+        
         password.isSecureTextEntry = true
     }
     
