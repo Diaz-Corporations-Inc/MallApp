@@ -230,6 +230,7 @@ extension StoreVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             cell.productPrice.text = "$\(productData[indexPath.item]["masterPrice"] as! Double)"
             cell.productName.text = productData[indexPath.item]["name"] as! String
             cell.brandName.text = productData[indexPath.item]["brand"] as! String
+            cell.offOnProduct.text = "\(Double(productData[indexPath.item]["discount"] as? String ?? "0.0") ?? 0.0) %"
             if let gallery = productData[indexPath.item]["gallery"] as? [AnyObject]{
                 if gallery.count != 0{
                     if let image = gallery[0]["name"] as? String{

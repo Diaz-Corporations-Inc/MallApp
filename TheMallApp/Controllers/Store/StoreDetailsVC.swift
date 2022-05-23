@@ -132,19 +132,40 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
         print("sadfasdf")
         print(createStoreModel)
-       
         print("sdfsd")
+        
         ARSLineProgress.show()
         if key == "" {
-            ApiManager.shared.createStore(model: createStoreModel) { issuccess in
-                ARSLineProgress.hide()
-                if issuccess{
-                    print("created",ApiManager.shared.msg)
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }else{
-                    self.alert(message: "Your store already exists")
-                    print(ApiManager.shared.msg)
+            if shippingCharge.text == ""{
+                self.showAlertWithTwoActions(alertTitle: "My Mall", message: "You have't added shipping charges so app will calculate the charges based on location to continue press ok ", action1Title: "Cancel", action1Style: .destructive, action2Title: "OK") { cancel in
+                    ARSLineProgress.hide()
+                    print("Hello")
+                } completion2: { ok in
+                    ApiManager.shared.createStore(model: createStoreModel) { issuccess in
+                        ARSLineProgress.hide()
+                        if issuccess{
+                            print("created",ApiManager.shared.msg)
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }else{
+                            self.alert(message: "Your store already exists")
+                            print(ApiManager.shared.msg)
+                        }
+                    }
+
+                }
+
+            }else{
+                ApiManager.shared.createStore(model: createStoreModel) { issuccess in
+                    ARSLineProgress.hide()
+                    if issuccess{
+                        print("created",ApiManager.shared.msg)
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ImageUploadVC") as! ImageUploadVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{
+                        self.alert(message: "Your store already exists")
+                        print(ApiManager.shared.msg)
+                    }
                 }
             }
         }else{
@@ -161,8 +182,6 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
             }
         }
        
-      
-        
 //        didTapCheckoutButton()
     }
     @IBAction func searchLocation(_ sender: Any) {
@@ -197,11 +216,11 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
 //MARK: - date picker
 extension StoreDetailsVC{
     func datePicker(textField: UITextField){
-//        let datePicker = UIDatePicker()
-        datePick.datePickerMode = .time
-        datePick.preferredDatePickerStyle = .wheels
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
 
-        textField.inputView = datePick
+        textField.inputView = datePicker
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         
@@ -216,30 +235,33 @@ extension StoreDetailsVC{
  }
 
     @objc func done(){
+//        datePick.resignFirstResponder()
+        self.storeOpenTime.resignFirstResponder()
+        self.storeColsingTime.resignFirstResponder()
+        
         if let datePicker = storeColsingTime.inputView as? UIDatePicker{
             datePicker.datePickerMode = .time
             let dateformatter  = DateFormatter()
             dateformatter.timeStyle = .short
             self.storeColsingTime.text = dateformatter.string(from: datePicker.date)
-            self.storeColsingTime.resignFirstResponder()
-        }else if let datePicker = storeOpenTime.inputView as? UIDatePicker{
+        }
+         if let datePicker = storeOpenTime.inputView as? UIDatePicker{
             datePicker.datePickerMode = .time
             let dateformatter  = DateFormatter()
             dateformatter.timeStyle = .short
             self.storeOpenTime.text = dateformatter.string(from: datePicker.date)
-            self.storeOpenTime.resignFirstResponder()
         }
     }
     @objc func cancel(){
-        datePick.resignFirstResponder()
-
+//        datePick.resignFirstResponder()
+        self.storeOpenTime.resignFirstResponder()
+        self.storeColsingTime.resignFirstResponder()
     }
 
 }
 ///
 extension StoreDetailsVC{
     func setData(){
-       
         
         self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
         self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""

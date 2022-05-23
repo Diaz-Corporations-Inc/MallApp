@@ -1357,7 +1357,38 @@ import Alamofire
              completion(false)
          }
      }
-     
+    //MARK: - DEALS OF THE DAY
+     func dealsOfTheDay(completion: @escaping (Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             
+             print(Api.dealsOfTheday)
+             AF.request(Api.dealsOfTheday,method: .get).responseJSON { [self]
+                 
+                 response in
+                 switch(response.result){
+                 case .success(let json):do{
+                     let success = response.response?.statusCode
+                     let respond = json as! NSDictionary
+                     if success == 200{
+                         print(respond)
+                         data = respond.object(forKey: "data") as! [AnyObject]
+                         completion(true)
+                     }else{
+                         self.msg = respond.object(forKey: "error") as! String
+                         completion(false)
+                     }
+                 }
+                 case .failure(let error):do{
+                     print("error",error)
+                     completion(false)
+                 }
+                 }
+             }
+         }else{
+             self.msg = "Please check Internet connection"
+             completion(false)
+         }
+     }
 }
 
 ///

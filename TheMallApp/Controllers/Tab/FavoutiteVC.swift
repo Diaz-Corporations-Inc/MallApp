@@ -105,6 +105,7 @@ class FavoutiteVC: UIViewController {
             ARSLineProgress.hide()
             if isSuccess{
                 recentlyData = ApiManager.shared.data
+                print("recently",recentlyData,"data")
                 recentlyBrowsed.reloadData()
             }
             else{
@@ -272,16 +273,19 @@ extension FavoutiteVC: UICollectionViewDelegate,UICollectionViewDataSource,UICol
             cell.storeCategory.text = recentlyData[indexPath.item]["description"] as! String
             
             if let gallery = recentlyData[indexPath.item]["gallery"] as? [AnyObject]{
-                if let image = gallery[0]["name"] as? String{
-                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
-                    if url != nil{
-                        cell.storeImage.af.setImage(withURL: url!)
+                if gallery.count != 0{
+                    if let image = gallery[0]["name"] as? String{
+                        let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                        if url != nil{
+                            cell.storeImage.af.setImage(withURL: url!)
+                        }
+                        else{
+                            print("vd")
+                        }
                     }
-                    else{
-                        print("vd")
-                    }
+
                 }
-            }
+                            }
                 
             return cell
         }

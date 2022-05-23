@@ -51,7 +51,7 @@ extension ReviewVC: UITableViewDelegate,UITableViewDataSource{
             let date = rating[indexPath.row]["postedOn"] as! String
             print(date)
             let dateFormat = DateFormatter()
-            dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"
+            dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
            let datt = dateFormat.date(from: date)
             dateFormat.dateStyle = .medium
             print("dfnvjdfbvksdfkv",datt)

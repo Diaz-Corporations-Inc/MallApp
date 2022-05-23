@@ -1213,7 +1213,6 @@
                                         <state key="normal" image="backButtonWhite"/>
                                         <connections>
                                             <action selector="backTApped:" destination="XLy-r8-ygp" eventType="touchUpInside" id="RNl-J0-51Z"/>
-                                            <action selector="backTapped:" destination="p6B-DO-zpd" eventType="touchUpInside" id="6jN-Tb-aj0"/>
                                             <action selector="sideMenuTapped:" destination="tea-eH-5lm" eventType="touchUpInside" id="Ytp-d3-Kj5"/>
                                         </connections>
                                     </button>
@@ -2448,9 +2447,6 @@ Apartment</string>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="backButtonWhite"/>
-                                        <connections>
-                                            <action selector="backTapped:" destination="p6B-DO-zpd" eventType="touchUpInside" id="p9H-vc-Bh9"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJ4-eT-qEv">
                                         <rect key="frame" x="135" y="5" width="144" height="50"/>
@@ -2598,9 +2594,6 @@ Apartment</string>
                                                                 <integer key="value" value="15"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="browseNearYou:" destination="p6B-DO-zpd" eventType="touchUpInside" id="gIf-nI-oj4"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -2820,7 +2813,6 @@ Apartment</string>
                                                         <state key="normal" image="backButtonWhite"/>
                                                         <connections>
                                                             <action selector="backButton:" destination="Dsf-sL-RX5" eventType="touchUpInside" id="Swn-dd-Kda"/>
-                                                            <action selector="backTapped:" destination="p6B-DO-zpd" eventType="touchUpInside" id="Ian-Bh-Npb"/>
                                                             <action selector="sideMenuTapped:" destination="tea-eH-5lm" eventType="touchUpInside" id="oah-v0-irn"/>
                                                         </connections>
                                                     </button>
@@ -5454,7 +5446,7 @@ Apartment</string>
                                 <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdF-Eq-ne9">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="583"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="653"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4a-Fd-qmC">
                                                 <rect key="frame" x="20" y="103" width="374" height="50"/>
@@ -5515,7 +5507,7 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S38-Rc-hsS">
-                                                <rect key="frame" x="20" y="383" width="374" height="100"/>
+                                                <rect key="frame" x="20" y="453" width="374" height="100"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Product Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vt3-v4-q1u">
                                                         <rect key="frame" x="10" y="0.0" width="364" height="100"/>
@@ -5534,7 +5526,7 @@ Apartment</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I9O-TL-MYF">
-                                                <rect key="frame" x="20" y="513" width="374" height="50"/>
+                                                <rect key="frame" x="20" y="583" width="374" height="50"/>
                                                 <color key="backgroundColor" name="userBtnColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="XdF-hO-Why"/>
@@ -5570,6 +5562,23 @@ Apartment</string>
                                                     <constraint firstItem="GAX-04-3Bl" firstAttribute="leading" secondItem="VVR-tr-uMx" secondAttribute="leading" constant="10" id="jY4-xY-0N7"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBc-Ma-XuN">
+                                                <rect key="frame" x="20" y="383" width="374" height="50"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select offer days" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mz3-tq-zUD">
+                                                        <rect key="frame" x="10" y="0.0" width="364" height="50"/>
+                                                        <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Mz3-tq-zUD" firstAttribute="top" secondItem="KBc-Ma-XuN" secondAttribute="top" id="3K3-oY-5kA"/>
+                                                    <constraint firstItem="Mz3-tq-zUD" firstAttribute="leading" secondItem="KBc-Ma-XuN" secondAttribute="leading" constant="10" id="OxS-92-75O"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Mz3-tq-zUD" secondAttribute="trailing" id="RUV-cD-t33"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Mz3-tq-zUD" secondAttribute="bottom" id="zHo-sF-7BR"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -5585,19 +5594,23 @@ Apartment</string>
                                             <constraint firstItem="XtO-KO-lgh" firstAttribute="height" secondItem="n4a-Fd-qmC" secondAttribute="height" id="WPJ-fj-9Bo"/>
                                             <constraint firstItem="XtO-KO-lgh" firstAttribute="top" secondItem="n4a-Fd-qmC" secondAttribute="bottom" constant="20" id="Xcr-01-EO3"/>
                                             <constraint firstItem="XtO-KO-lgh" firstAttribute="leading" secondItem="n4a-Fd-qmC" secondAttribute="leading" id="b8L-SI-qHO"/>
+                                            <constraint firstItem="KBc-Ma-XuN" firstAttribute="trailing" secondItem="VVR-tr-uMx" secondAttribute="trailing" id="bI3-K6-h4F"/>
                                             <constraint firstItem="S38-Rc-hsS" firstAttribute="trailing" secondItem="gg7-f7-sJ1" secondAttribute="trailing" id="bWq-e2-DvD"/>
                                             <constraint firstItem="gg7-f7-sJ1" firstAttribute="height" secondItem="XtO-KO-lgh" secondAttribute="height" id="cWj-Kg-CRd"/>
                                             <constraint firstItem="muf-Eo-1zi" firstAttribute="leading" secondItem="HdF-Eq-ne9" secondAttribute="leading" constant="30" id="cXu-1f-Jcx"/>
                                             <constraint firstItem="I9O-TL-MYF" firstAttribute="trailing" secondItem="S38-Rc-hsS" secondAttribute="trailing" id="dbu-7w-dLy"/>
                                             <constraint firstItem="S38-Rc-hsS" firstAttribute="leading" secondItem="gg7-f7-sJ1" secondAttribute="leading" id="e3d-o9-wEw"/>
+                                            <constraint firstItem="KBc-Ma-XuN" firstAttribute="height" secondItem="VVR-tr-uMx" secondAttribute="height" id="gCK-Tp-70R"/>
                                             <constraint firstItem="VVR-tr-uMx" firstAttribute="leading" secondItem="XtO-KO-lgh" secondAttribute="leading" id="hZF-pX-oDi"/>
                                             <constraint firstItem="n4a-Fd-qmC" firstAttribute="top" secondItem="muf-Eo-1zi" secondAttribute="bottom" constant="40" id="hwF-hN-ZqG"/>
+                                            <constraint firstItem="KBc-Ma-XuN" firstAttribute="top" secondItem="VVR-tr-uMx" secondAttribute="bottom" constant="20" id="iaf-l9-E89"/>
                                             <constraint firstItem="gg7-f7-sJ1" firstAttribute="top" secondItem="XtO-KO-lgh" secondAttribute="bottom" constant="20" id="ijI-e6-Z83"/>
                                             <constraint firstItem="VVR-tr-uMx" firstAttribute="height" secondItem="XtO-KO-lgh" secondAttribute="height" id="jRw-7I-jaS"/>
                                             <constraint firstAttribute="trailing" secondItem="muf-Eo-1zi" secondAttribute="trailing" constant="30" id="nOM-Bj-ba7"/>
                                             <constraint firstItem="gg7-f7-sJ1" firstAttribute="leading" secondItem="XtO-KO-lgh" secondAttribute="leading" id="oLk-fQ-LvM"/>
+                                            <constraint firstItem="S38-Rc-hsS" firstAttribute="top" secondItem="KBc-Ma-XuN" secondAttribute="bottom" constant="20" id="pPS-lO-9u0"/>
                                             <constraint firstItem="VVR-tr-uMx" firstAttribute="top" secondItem="gg7-f7-sJ1" secondAttribute="bottom" constant="20" id="pql-H4-kho"/>
-                                            <constraint firstItem="S38-Rc-hsS" firstAttribute="top" secondItem="VVR-tr-uMx" secondAttribute="bottom" constant="20" id="rnp-jE-PGc"/>
+                                            <constraint firstItem="KBc-Ma-XuN" firstAttribute="leading" secondItem="VVR-tr-uMx" secondAttribute="leading" id="woc-25-sjq"/>
                                             <constraint firstItem="gg7-f7-sJ1" firstAttribute="trailing" secondItem="XtO-KO-lgh" secondAttribute="trailing" id="z0a-7P-FBK"/>
                                         </constraints>
                                     </view>
@@ -5663,6 +5676,7 @@ Apartment</string>
                     <connections>
                         <outlet property="brandName" destination="kvc-bp-Z6q" id="SRu-Tn-lel"/>
                         <outlet property="discount" destination="GAX-04-3Bl" id="CQS-jm-8Id"/>
+                        <outlet property="offerValid" destination="Mz3-tq-zUD" id="Wzx-F5-f3k"/>
                         <outlet property="productDescription" destination="vt3-v4-q1u" id="aOU-nR-pW7"/>
                         <outlet property="productName" destination="O8r-Wh-Rjq" id="m56-iF-l7e"/>
                         <outlet property="productPrice" destination="Vvf-Ls-k46" id="rgr-NJ-DTg"/>
@@ -5671,6 +5685,7 @@ Apartment</string>
                         <outletCollection property="viewsCollection" destination="gg7-f7-sJ1" collectionClass="NSMutableArray" id="oTS-5R-fC8"/>
                         <outletCollection property="viewsCollection" destination="S38-Rc-hsS" collectionClass="NSMutableArray" id="GBY-JD-0Z4"/>
                         <outletCollection property="viewsCollection" destination="VVR-tr-uMx" collectionClass="NSMutableArray" id="K3S-2P-Fg9"/>
+                        <outletCollection property="viewsCollection" destination="KBc-Ma-XuN" collectionClass="NSMutableArray" id="rot-80-4LL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JhZ-TN-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

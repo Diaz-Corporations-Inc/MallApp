@@ -34,7 +34,7 @@ class CheckoutVC: UIViewController {
         let mm = UserDefaults.standard.value(forKey: "price") as? Double ?? 0.0
         price.text = "$ \(mm)"
         
-        let del = UserDefaults.standard.value(forKey: "deliveryCharges") as? Double ?? 0.0
+        let del = UserDefaults.standard.value(forKey: "DeliveryCharges") as? Double ?? 10.0
         deliveryCharge.text = "$ \(del)"
         
         totalPayable.text = "$ \(mm + del)"
@@ -44,11 +44,13 @@ class CheckoutVC: UIViewController {
         NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
     }
     @IBAction func backTapped(_ sender: UIButton){
+        UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func checkout(_ sender: UIButton){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
+        UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
         vc.key = "Checkout"
         vc.addressId = self.addressId
         self.navigationController?.pushViewController(vc, animated: true)
@@ -62,8 +64,7 @@ extension CheckoutVC{
         ApiManager.shared.addressById(addressId: self.addressId) { [self] isSuccess in
             if isSuccess{
                 self.addressData = ApiManager.shared.dataDict
-                
-                customerName.text = addressData.object(forKey: "fullName") as! String
+                customerName.text = addressData.object(forKey: "fullName") as? String ?? ""
                 address.text = "\(addressData.object(forKey: "buildingNo") as! String),\(addressData.object(forKey: "street") as! String),\(addressData.object(forKey: "city") as! String),\(addressData.object(forKey: "state") as! String),\(addressData.object(forKey: "pinCode") as! String),Near \(addressData.object(forKey: "area") as! String)"
                 
             }else{

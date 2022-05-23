@@ -177,17 +177,30 @@ extension ProductDetailsVC{
         let rating = productData.object(forKey: "rating") as! [AnyObject]
         if rating.count != 0{
             print(rating)
+            //var ratingArray = [Double]()
+//            for i in 0...rating.count-1{
+//                ratingArray.append(rating[0]["rating"] as! Double)
+//            }
+            //print(ratingArray,"array")
+            let averageRatingArray = rating.map{$0.value(forKey: "rating")} as? [Double]
+            let totalOfRatingArray = averageRatingArray?.reduce(0,+)
+            let totalcount = Double(averageRatingArray!.count)
+            print(totalcount,"abcbb")
+            let sdd = totalOfRatingArray!/totalcount
+            print(sdd,"gfgf")
+            self.reviewStars.rating = Double(totalOfRatingArray!/totalcount)
+            print(self.reviewStars.rating,"abcdd")
             reviewCount.text = "\(rating.count) review"
             ratingStars.rating = rating[0]["rating"] as! Double
+            ratingStars.isUserInteractionEnabled = false
 //            ratingView.rating = rating[0]["rating"] as! Double
-            self.review.text = rating[0]["review"] as! String
+            self.review.text = rating[0]["review"] as? String
             let date = rating[0]["postedOn"] as! String
             print(date)
             let dateFormat = DateFormatter()
-            dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS'Z'"
-           let datt = dateFormat.date(from: date)
+            dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+             let datt = dateFormat.date(from: date)
             dateFormat.dateStyle = .medium
-            print("dfnvjdfbvksdfkv",datt)
             self.reviewdate.text = dateFormat.string(from: datt ?? Date())
             self.reviewerName.text = rating[0]["customerName"] as? String ?? "Anonymous"
         }

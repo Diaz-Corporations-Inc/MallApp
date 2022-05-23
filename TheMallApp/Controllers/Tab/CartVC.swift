@@ -177,7 +177,7 @@ class CartVC: UIViewController {
         vc.key = "cart"
         print(totalPrice,totalLabel.text,totalArray,"ss",self.cartIdArray)
         UserDefaults.standard.setValue(totalPrice, forKey: "price")
-        UserDefaults.standard.set(self.cartData[0]["deliveryCharges"] as? Double ?? 0.0, forKey: "Delivery")
+        UserDefaults.standard.set(self.cartData[0]["deliveryCharges"] as? Double ?? 10.0, forKey: "DeliveryCharges")
         UserDefaults.standard.set(self.cartIdArray, forKey: "cartIds")
         print(self.cartIdArray)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -196,6 +196,7 @@ class CartTablecell: UITableViewCell{
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var color: UILabel!
     @IBOutlet weak var quantity: UILabel!
+    
 }
 
 extension CartVC{
