@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        STPPaymentConfiguration.shared.publishableKey = "pk_test_51HCYjQIyUd4AmPmvtzu4NPXWWlx6KoU6XIkm2H3z2wChgIlfLhbp6AYKPUxL408dyTqzkycn2QfntyGrk45ZxKdA00uXeiG9D3"
+        STPPaymentConfiguration.shared.publishableKey = "pk_test_51KngJVBiDeUCfD4ORTbtSjnKHz70xFjFSmViJDKXwXPu6P0dikWzf5ZbUQw8QOZLmn4wYZXFnDrJr7NcFuC0shXn00u0XzJ9x1"
         IQKeyboardManager.shared.enable = true
         ////
         ///
