@@ -58,11 +58,17 @@ public struct Api{
     public static var getAddress                 = baseUrl + "addresses/byUser/"
     public static var updateAddress              = baseUrl + "addresses/update/"
     public static var addressById                = baseUrl + "addresses/byId/"
+    
 //MARK: - Categories api's urls
     public static var getCategories              = baseUrl + "categories/getCategories/"
+    
 //MARK: - SEARCH api's urls
     public static var search                     = baseUrl + "store/search?name="
+    
 //MARK: - order api's url
     public static var getOrder                   = baseUrl + "orders/getOrder?userId="
     public static var placeOrder                 = baseUrl + "orders/placeOrder"
+    
+//MARK: - payment api's url
+    public static var createTransaction          = baseUrl + "transactions/create"
 }

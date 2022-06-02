@@ -10,7 +10,7 @@ import Stripe
 
 class TransactionViewModel{
     
-    func proceedPayment(cardNumber: String , cardholdername: String, expiryMonth : UInt , expiryYear : UInt, cardCVC : String , completion : @escaping(Bool)->()){
+    func proceedPayment(cardNumber: String , cardholdername: String, expiryMonth : UInt , expiryYear : UInt, cardCVC : String , completion : @escaping(String,Bool)->()){
         
         if cardholdername == "" || cardNumber == "" || expiryMonth == nil  || expiryYear == nil || cardCVC == ""{
             print("Please enter all fields")
@@ -33,12 +33,12 @@ class TransactionViewModel{
                 
                 DispatchQueue.main.async {
                     print(token!.tokenId)
-                    completion(true)
-                    //                            self.Createtransactions(productid: "60a38d6a42d36a73c69f8eae", amount: "2000", source: token!.tokenId)
+                    completion(String(token!.tokenId),true)
+
                 }
                 
             } else {
-                completion(false)
+                completion("",false)
                 //failed
                 //self.alert(message: "\(error)")
                 print(error)

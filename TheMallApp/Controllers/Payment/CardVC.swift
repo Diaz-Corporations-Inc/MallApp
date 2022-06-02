@@ -21,6 +21,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
     @IBOutlet weak var continueBtn: UIButton!
     var key = ""
     var addressId = ""
+    var amount = 0.0
     let paymentTextField = STPPaymentCardTextField()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,28 +90,49 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
         if cardholdername_Field.text == "" || paymentTextField.cardNumber == "" || "\(paymentTextField.expirationMonth)" == "" || "\(paymentTextField.expirationYear)" == "" || "\(paymentTextField.cvc)" == "" {
             self.alert(message: "Please enter card details")
         }else{
-            self.viewModel.proceedPayment(cardNumber: paymentTextField.cardNumber!, cardholdername: cardholdername_Field.text!, expiryMonth: UInt(paymentTextField.expirationMonth), expiryYear: UInt(paymentTextField.expirationYear), cardCVC: paymentTextField.cvc!) { [self] isSuccess in
+            self.viewModel.proceedPayment(cardNumber: paymentTextField.cardNumber!, cardholdername: cardholdername_Field.text!, expiryMonth: UInt(paymentTextField.expirationMonth), expiryYear: UInt(paymentTextField.expirationYear), cardCVC: paymentTextField.cvc!) { [self] token, isSuccess in
                 if isSuccess{
-                    if key == ""{
-                        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }else{
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
+                    payment(stripeToken: "tok_visa")
                 }else{
-                    self.alert(message: "Payment failed")
+                    self.alert(message: "Payment failed please try again after some time")
                 }
             }
         }
         
     }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-  
+}
 
+extension CardVC{
+    func payment(stripeToken: String){
+        let user = UserDefaults.standard.value(forKey: "id") as! String
+        let model = PaymentModel(userId: user, amount: self.amount*100,currency:"USD", source: stripeToken)
+        print(model,"model")
+        print("hello")
+        ApiManager.shared.createTransaction(model: model) {[self] isSuccess in
+            if isSuccess{
+                if key == ""{
+                    self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { ok in
+                        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                   
+                }else{
+                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }else{
+                self.alert(message: ApiManager.shared.msg)
+            }
+        }
+            
+        
+    }
+    
 }
 
 //extension CardVC{

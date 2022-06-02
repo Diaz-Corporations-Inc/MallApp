@@ -21,10 +21,8 @@ var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         STPPaymentConfiguration.shared.publishableKey = "pk_test_51KngJVBiDeUCfD4ORTbtSjnKHz70xFjFSmViJDKXwXPu6P0dikWzf5ZbUQw8QOZLmn4wYZXFnDrJr7NcFuC0shXn00u0XzJ9x1"
+        
         IQKeyboardManager.shared.enable = true
-        ////
-        ///
-        ///
         ///
         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound]
                 let pushNotificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)

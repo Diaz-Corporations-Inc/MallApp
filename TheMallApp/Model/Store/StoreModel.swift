@@ -25,6 +25,7 @@ struct createStoreModel: Encodable{
     let categoryId: String?
     let address: String?
     let storeType: String?
+    let tax: Double?
     let deliveryCharges: Double?
 }
 

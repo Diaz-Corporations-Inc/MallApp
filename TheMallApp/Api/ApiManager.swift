@@ -1389,6 +1389,41 @@ import Alamofire
              completion(false)
          }
      }
+//MARK: - PaymentApi
+     func createTransaction(model: PaymentModel,completion: @escaping (Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             let token = UserDefaults.standard.value(forKey: "token") as! String
+             let head : HTTPHeaders = ["x-access-token":token]
+             print(Api.createTransaction)
+             AF.request(Api.createTransaction,method: .post,parameters: model,encoder: JSONParameterEncoder.default,headers: head).response{
+                 response in
+                 switch(response.result){
+                 case .success(let data): do{
+                     let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                     let respond = json as! NSDictionary
+                     if response.response?.statusCode == 200{
+                         print(respond)
+                         completion(true)
+                     }else{
+                         print(respond)
+                         self.msg = respond.object(forKey: "error") as! String
+                         completion(false)
+                     }
+                 }catch{
+                     print(error.localizedDescription)
+                     completion(false)
+                 }
+                 case .failure(let error): do{
+                     print(error.localizedDescription)
+                     completion(false)
+                 }
+                 }
+             }
+         }else{
+             self.msg = "Please check internet connection and try again"
+             completion(false)
+         }
+     }
 }
 
 ///

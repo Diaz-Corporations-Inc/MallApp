@@ -26,10 +26,8 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
        dismiss(animated: true, completion: nil)
     }
     
-  
-    
     @IBOutlet weak var categorySelect: UITextField!
-    
+    @IBOutlet weak var taxes: UITextField!
     @IBOutlet weak var mapLocation: UITextField!
     @IBOutlet weak var scotNo: UITextField!
     @IBOutlet weak var storeDescription: UITextView!

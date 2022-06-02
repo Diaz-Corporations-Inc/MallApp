@@ -9,6 +9,7 @@ import UIKit
 
 class CheckoutVC: UIViewController {
 
+    @IBOutlet weak var taxes: UILabel!
     @IBOutlet weak var customerName: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var mobileNumber: UILabel!
@@ -21,6 +22,7 @@ class CheckoutVC: UIViewController {
     var key = ""
     var addressId = ""
     var addressData = NSDictionary()
+    var amount = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,7 @@ class CheckoutVC: UIViewController {
         let del = UserDefaults.standard.value(forKey: "DeliveryCharges") as? Double ?? 10.0
         deliveryCharge.text = "$ \(del)"
         
+        amount = mm + del
         totalPayable.text = "$ \(mm + del)"
     }
     
@@ -53,6 +56,7 @@ class CheckoutVC: UIViewController {
         UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
         vc.key = "Checkout"
         vc.addressId = self.addressId
+        vc.amount = Double(round(100*self.amount))/100
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
