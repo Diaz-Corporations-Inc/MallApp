@@ -1325,6 +1325,44 @@ import Alamofire
              completion(false)
          }
      }
+     
+//MARK: - PLACE ORDER
+     func placeOrder(userId: String,AddressId: String,amount: String,cart: [NSDictionary],completion: @escaping (Bool)-> ()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             
+             let para: [String:Any] = [
+                "userId": userId,
+                  "addressId": AddressId,
+                  "totalAmount": amount,
+                  "cart": cart
+             ]
+          
+             AF.request(Api.placeOrder,method: .post,parameters: para,encoding: JSONEncoding.default).responseJSON{ [self]
+                 response in
+                 switch(response.result){
+                 case .success(let json): do{
+                     let status = response.response?.statusCode
+                     let respond = json as! NSDictionary
+                     print(respond)
+                     if status == 200{
+                         completion(true)
+                     }else{
+                         msg = respond.object(forKey: "error") as! String
+                         completion(false)
+                     }
+                 }
+                 case .failure(let error):do{
+                     print(error.localizedDescription)
+                     completion(false)
+                 }
+                 }
+             }
+         }else{
+             msg = "Please check internet connection"
+             completion(false)
+         }
+     }
+     
 //MARK: - GET ORDERS
      func getOrders(completion: @escaping (Bool)->()){
          if ReachabilityNetwork.isConnectedToNetwork(){

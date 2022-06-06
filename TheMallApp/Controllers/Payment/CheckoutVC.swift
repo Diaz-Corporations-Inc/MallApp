@@ -39,15 +39,15 @@ class CheckoutVC: UIViewController {
         let del = UserDefaults.standard.value(forKey: "DeliveryCharges") as? Double ?? 10.0
         deliveryCharge.text = "$ \(del)"
         
-        amount = mm + del
-        totalPayable.text = "$ \(mm + del)"
+        amount = mm + del + 5.0
+        totalPayable.text = "$ \(mm + del + 5.0)"
     }
     
     @IBAction func mallHomeTapped(_ sender: Any) {
         NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
     }
     @IBAction func backTapped(_ sender: UIButton){
-        UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
+//        UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
         navigationController?.popViewController(animated: true)
     }
     

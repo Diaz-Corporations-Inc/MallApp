@@ -22,6 +22,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
     var key = ""
     var addressId = ""
     var amount = 0.0
+    var storeType = ""
     let paymentTextField = STPPaymentCardTextField()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,19 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
         ])
         paymentTextField.delegate = self
         
+        if key == ""{
+            if UserDefaults.standard.value(forKey: "storetype") as? String == "store"{
+                amount = 305.00
+            }else{
+                amount = 655.00
+            }
+            
+        }
+        
     }
+    
+    
+    
     
 //    func textFieldDidBeginEditing(_ textField: UITextField) {
 //        CreditCard.cardHolderString = date.text!
@@ -108,11 +121,13 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
 
 extension CardVC{
     func payment(stripeToken: String){
+        ARSLineProgress.show()
         let user = UserDefaults.standard.value(forKey: "id") as! String
         let model = PaymentModel(userId: user, amount: self.amount*100,currency:"USD", source: stripeToken)
         print(model,"model")
         print("hello")
         ApiManager.shared.createTransaction(model: model) {[self] isSuccess in
+            ARSLineProgress.hide()
             if isSuccess{
                 if key == ""{
                     self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { ok in
@@ -121,9 +136,8 @@ extension CardVC{
                     }
                    
                 }else{
+                    getOrder()
                     
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
-                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }else{
                 self.alert(message: ApiManager.shared.msg)
@@ -135,52 +149,20 @@ extension CardVC{
     
 }
 
-//extension CardVC{
-//    func Createtransactions(productid: String, amount: String, source : String)
-//        {
-//            if ReachabilityNetwork.isConnectedToNetwork(){
-//                self.view.isUserInteractionEnabled = false
-//                let token = UserDefaults.standard.value(forKey: "token") as! String
-//                let headers : HTTPHeaders = ["x-access-token":token]
-//                let parms : [String: Any] = ["productId":"624d27cfda80f62f639fe812","amount":200,"source":"nkb"]
-//                AF.request(Api.updateStore, method: .post, parameters: parms, encoding: JSONEncoding.default, headers: headers).responseJSON
-//                { [self]
-//                    response in
-//                    //ARSLineProgress.hide()
-//                    print(parms)
-//                    switch(response.result)
-//                    {
-//                    case.success(let json):
-//                        do {
-//                            print("success===",json)
-//                            let statusCode = response.response?.statusCode
-//                            let response = json as! NSDictionary
-//                            if(statusCode == 200)
-//                            {
-//                                ARSLineProgress.hide()
-//                                print(response)
-//                                let message = response.object(forKey: "message") as! String
-//                                alert(message: "payment Successfull")
-//                                OrderPlace()
-//                                self.view.isUserInteractionEnabled = true
-//                            }else{
-//                                self.view.isUserInteractionEnabled = true
-//                                //                            let message = response.object(forKey: "error") as! String
-//                                //                            self.alert(message: message)
-//                                ARSLineProgress.hide()
-//                            }
-//                        }
-//                    case .failure(let error):
-//                        print("not sucess",error)
-//                        ARSLineProgress.hide()
-//                        self.view.isUserInteractionEnabled = true
-//                    }
-//                }
-//            }else{
-//                //            let saveddata = UserDefaults.standard.value(forKey: "savedarray")! as! [AnyObject]
-//                //            ProductArray = saveddata
-//                alert(message: "No inernet connection")
-//                ARSLineProgress.hide()
-//            }
-//        }
-//}
+extension CardVC{
+    func getOrder(){
+        ARSLineProgress.show()
+        let user = UserDefaults.standard.value(forKey: "id") as! String
+        let cart = UserDefaults.standard.value(forKey: "cartIds") as! [NSDictionary]
+        ApiManager.shared.placeOrder(userId: user, AddressId: addressId, amount: "\(amount)", cart: cart) { isSuccess in
+            ARSLineProgress.hide()
+            if isSuccess{
+                print("hello order placed")
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self.alert(message: ApiManager.shared.msg)
+            }
+        }
+    }
+}

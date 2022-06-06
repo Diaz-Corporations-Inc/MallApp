@@ -127,7 +127,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         let storeType = UserDefaults.standard.value(forKey: "storetype") as? String ?? ""
         let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType, tax: Double("\(taxes.text)"),deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
         print("sadfasdf")
         print(createStoreModel)
         print("sdfsd")
@@ -135,10 +135,12 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         ARSLineProgress.show()
         if key == "" {
             if shippingCharge.text == ""{
+                ARSLineProgress.hide()
                 self.showAlertWithTwoActions(alertTitle: "My Mall", message: "You have't added shipping charges so app will calculate the charges based on location to continue press ok ", action1Title: "Cancel", action1Style: .destructive, action2Title: "OK") { cancel in
-                    ARSLineProgress.hide()
+                    
                     print("Hello")
                 } completion2: { ok in
+                    ARSLineProgress.show()
                     ApiManager.shared.createStore(model: createStoreModel) { issuccess in
                         ARSLineProgress.hide()
                         if issuccess{

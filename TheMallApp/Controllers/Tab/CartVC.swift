@@ -31,7 +31,7 @@ class CartVC: UIViewController {
     var dicountTotal = Double()
     var totalArray = [Double]()
     var totalPrice = Double()
-    var cartIdArray = [String]()
+    var cartIdArray = [NSDictionary]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,8 +177,8 @@ class CartVC: UIViewController {
         vc.key = "cart"
         print(totalPrice,totalLabel.text,totalArray,"ss",self.cartIdArray)
         UserDefaults.standard.setValue(totalPrice, forKey: "price")
-        UserDefaults.standard.set(self.cartData[0]["deliveryCharges"] as? Double ?? 10.0, forKey: "DeliveryCharges")
-        UserDefaults.standard.set(self.cartIdArray, forKey: "cartIds")
+        UserDefaults.standard.setValue(self.cartData[0]["deliveryCharges"] as? Double ?? 10.0, forKey: "DeliveryCharges")
+        UserDefaults.standard.setValue(self.cartIdArray, forKey: "cartIds")
         print(self.cartIdArray)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -222,7 +222,12 @@ extension CartVC{
                     totalLabel.text = "Total: $\(0.0)"
                     cartIdArray.removeAll()
                     for i in 0...cartData.count-1{
-                        self.cartIdArray.append(cartData[i]["_id"] as? String ?? "")
+                        let cartid = cartData[i]["_id"] as? String ?? ""
+                        let material: [String: String] = [
+                                           "cartId": cartid,
+                            ]
+                        let m = material as NSDictionary
+                        self.cartIdArray.append(m)
                         guard let product = cartData[i]["product"] as? NSDictionary else {return}
                         let discount = Double(product.object(forKey: "discount") as? String ?? "0.0")
                         let pricee = product.object(forKey: "masterPrice") as? Double ?? 0.0

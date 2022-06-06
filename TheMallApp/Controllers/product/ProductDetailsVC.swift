@@ -127,7 +127,7 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
             if key == "cart"{
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
                 vc.key = "cart"
-                UserDefaults.standard.set(self.productData.object(forKey:"deliveryCharges") as? Double ?? 0.0, forKey: "DeliveryCharges")
+                UserDefaults.standard.setValue(self.productData.object(forKey:"deliveryCharges") as? Double ?? 0.0, forKey: "DeliveryCharges")
                 UserDefaults.standard.setValue(total, forKey: "price")
                 self.navigationController?.pushViewController(vc, animated: true)
             }
