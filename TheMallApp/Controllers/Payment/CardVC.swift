@@ -23,6 +23,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
     var addressId = ""
     var amount = 0.0
     var storeType = ""
+    var storeData = NSDictionary()
     let paymentTextField = STPPaymentCardTextField()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +59,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
         ])
         paymentTextField.delegate = self
         
-        if key == ""{
+        if key == "" || key == "Upgrade"{
             if UserDefaults.standard.value(forKey: "storetype") as? String == "store"{
                 amount = 305.00
             }else{
@@ -66,7 +67,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
             }
             
         }
-        
+        print("storedata",storeData)
     }
     
     
@@ -129,10 +130,21 @@ extension CardVC{
         ApiManager.shared.createTransaction(model: model) {[self] isSuccess in
             ARSLineProgress.hide()
             if isSuccess{
-                if key == ""{
+                if key == "" || key == "Upgrade"{
                     self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { ok in
-                        let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        if key == "Upgrade"{
+                            let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+                            vc.key = "Upgrade"
+                            if storeData != nil{
+                                vc.storeData = self.storeData
+                            }
+                           
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }else{
+                            let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        
                     }
                    
                 }else{

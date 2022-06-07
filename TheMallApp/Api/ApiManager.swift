@@ -1462,6 +1462,44 @@ import Alamofire
              completion(false)
          }
      }
+     
+  //MARK: - check if user have store api
+     func checkStoreApi(userId: String,completion: @escaping (Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+            
+             AF.request(Api.checkUserHaveStore+userId,method: .get).responseJSON { response in
+                 switch(response.result){
+                     
+                 case .success(let json):do{
+                     let respond = json as! NSDictionary
+                     print("response",respond)
+                     if response.response?.statusCode == 200{
+                        self.msg = "You Already have a store"
+                        completion(false)
+                                
+                     }else{
+                         let error = respond.object(forKey: "error") as! String
+                         if error == "store not found"{
+                             completion(true)
+                         }else{
+                             self.msg = respond.object(forKey: "error") as! String
+                             completion(false)
+                         }
+                     }
+                 }
+                    
+                 case .failure(let error): do{
+                     print(error)
+                     completion(false)
+                 }
+                    
+                 }
+             }
+         }else{
+             self.msg = "Please check internet connection"
+             completion(false)
+         }
+     }
 }
 
 ///

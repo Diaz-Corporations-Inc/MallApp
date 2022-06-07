@@ -146,6 +146,8 @@ class StoreVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
             } completion2: { cancel in
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
                 vc.key = "Upgrade"
+                vc.storeData = self.myData[0] as! NSDictionary
+                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
 

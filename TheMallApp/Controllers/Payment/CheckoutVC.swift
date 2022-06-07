@@ -38,9 +38,10 @@ class CheckoutVC: UIViewController {
         
         let del = UserDefaults.standard.value(forKey: "DeliveryCharges") as? Double ?? 10.0
         deliveryCharge.text = "$ \(del)"
-        
-        amount = mm + del + 5.0
-        totalPayable.text = "$ \(mm + del + 5.0)"
+        let tax = UserDefaults.standard.value(forKey: "taxx") as? Double ?? 10.0
+        taxes.text = "$ \(tax)"
+        amount = mm + del + tax
+        totalPayable.text = "$ \(mm + del + tax)"
     }
     
     @IBAction func mallHomeTapped(_ sender: Any) {

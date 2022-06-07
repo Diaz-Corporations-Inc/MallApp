@@ -30,6 +30,7 @@ public struct Api{
     public static var updateStore                = baseUrl + "store/update/"
     public static var storeByCtegory             = baseUrl + "store/byCatId/"
     public static var recentBrowse               = baseUrl + "store/recentSearch"
+    public static var checkUserHaveStore         = baseUrl + "store/checkUserHaveStore/"
     
    
 //MARK: - favourite api's urls

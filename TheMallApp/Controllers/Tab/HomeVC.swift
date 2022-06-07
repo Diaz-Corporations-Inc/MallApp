@@ -107,9 +107,8 @@ class HomeVC: UIViewController,UITextFieldDelegate {
                 self.navigationController?.pushViewController(vc, animated: false)
             }
         }else{
-            let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
+            self.checkStore()
             
-            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     @IBAction func shopsNear(_ sender: Any) {
@@ -255,5 +254,21 @@ extension HomeVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+    }
+}
+
+extension HomeVC{
+    func checkStore(){
+        ApiManager.shared.checkStoreApi(userId: self.userId) {[self] isSuccess in
+            if isSuccess{
+//                registerView.isHidden = true
+                let vc = storyboard?.instantiateViewController(withIdentifier: "ListingTypeVC") as! ListingTypeVC
+                self.navigationController?.pushViewController(vc, animated: true)
+               
+            }else{
+//                registerView.isHidden = false
+                alert(message: ApiManager.shared.msg)
+            }
+        }
     }
 }

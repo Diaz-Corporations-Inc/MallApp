@@ -11,6 +11,7 @@ class ListingTypeVC: UIViewController {
 
     @IBOutlet weak var storeListingBtn: UIButton!
     var key = ""
+    var storeData = NSDictionary()
     override func viewDidLoad() {
         super.viewDidLoad()
         if key == "Upgrade"{
@@ -18,7 +19,9 @@ class ListingTypeVC: UIViewController {
         }else{
             storeListingBtn.isHidden = false
         }
+        print("storedata",storeData)
     }
+    
     
     @IBAction func backTapped(_ sender: UIButton){
             self.navigationController?.popViewController(animated: true)
@@ -32,6 +35,8 @@ class ListingTypeVC: UIViewController {
     
     @IBAction func storeListingWithItem(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
+        vc.key = "Upgrade"
+        vc.storeData = self.storeData
         UserDefaults.standard.setValue("storePro", forKey: "storetype")
         self.navigationController?.pushViewController(vc, animated: true)
     }

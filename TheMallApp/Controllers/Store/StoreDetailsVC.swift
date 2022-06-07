@@ -124,10 +124,15 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     @IBAction func doneTapped(_ sender: Any) {
         let userId = UserDefaults.standard.value(forKey: "id") as! String
         let timing = timingModel(to: storeColsingTime.text!, from: storeOpenTime.text!)
-        let storeType = UserDefaults.standard.value(forKey: "storetype") as? String ?? ""
+        
+        var storeType = UserDefaults.standard.value(forKey: "storetype") as? String ?? ""
+        if key == "Upgrade"{
+            storeType = "storePro"
+        }
+        print(storeType,"storetype")
         let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType, tax: Double("\(taxes.text)"),deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType, tax: Double(taxes.text!) ?? 10.0,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
         print("sadfasdf")
         print(createStoreModel)
         print("sdfsd")
@@ -262,31 +267,36 @@ extension StoreDetailsVC{
 ///
 extension StoreDetailsVC{
     func setData(){
+        if self.storeData != nil{
+            print("storeData",storeData)
+            self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
+            self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""
+            let storeTiming = storeData.object(forKey: "timing") as! NSDictionary
+            self.storeOpenTime.text = storeTiming.object(forKey: "from") as? String ?? ""
+            self.storeColsingTime.text = storeTiming.object(forKey: "to") as? String ?? ""
+            let storePrices = storeData.object(forKey: "priceRange") as! NSDictionary
+            self.lowPrice.text = "\(storePrices.object(forKey: "from") as? Double ?? 0)"
+            self.higherPrice.text = "\(storePrices.object(forKey: "to") as? Double ?? 0)"
+            self.webUrl.text = storeData.object(forKey: "webSiteUrl") as? String ?? ""
+            self.scotNo.text = storeData.object(forKey: "scotNo") as? String ?? ""
+            self.city.text = storeData.object(forKey: "city") as? String ?? ""
+            self.state.text = storeData.object(forKey: "state") as? String ?? ""
+            self.zipcode.text = storeData.object(forKey: "zipCode") as? String ?? ""
+            self.landmark.text = storeData.object(forKey: "landmark") as? String ?? ""
+            self.storeDescription.text = storeData.object(forKey: "description") as? String ?? ""
+            self.mapLocation.text = storeData.object(forKey: "address") as? String ?? ""
+            let location = storeData.object(forKey: "location") as? NSDictionary ?? nil
+            let coordinate = location?.object(forKey: "coordinates") as! [Double]
+            self.storeType = storeData.object(forKey: "storeType") as? String ?? ""
+            UserDefaults.standard.set(self.storeType, forKey: "storetype")
+            self.lat = coordinate[0]
+            self.long = coordinate[1]
+            self.shippingCharge.text = "\(storeData.object(forKey: "deliveryCharges") as? Double ?? 0.0)"
+            print(storeData.object(forKey: "description") as? String ?? "")
+            guard let tax = storeData.object(forKey: "tax") as? Double else {return}
+            self.taxes.text = "\(tax)"
+        }
         
-        self.storeName.text = storeData.object(forKey: "name") as? String ?? ""
-        self.storeContact.text = storeData.object(forKey: "contactNo") as? String ?? ""
-        let storeTiming = storeData.object(forKey: "timing") as! NSDictionary
-        self.storeOpenTime.text = storeTiming.object(forKey: "from") as? String ?? ""
-        self.storeColsingTime.text = storeTiming.object(forKey: "to") as? String ?? ""
-        let storePrices = storeData.object(forKey: "priceRange") as! NSDictionary
-        self.lowPrice.text = "\(storePrices.object(forKey: "from") as? Double ?? 0)"
-        self.higherPrice.text = "\(storePrices.object(forKey: "to") as? Double ?? 0)"
-        self.webUrl.text = storeData.object(forKey: "webSiteUrl") as? String ?? ""
-        self.scotNo.text = storeData.object(forKey: "scotNo") as? String ?? ""
-        self.city.text = storeData.object(forKey: "city") as? String ?? ""
-        self.state.text = storeData.object(forKey: "state") as? String ?? ""
-        self.zipcode.text = storeData.object(forKey: "zipCode") as? String ?? ""
-        self.landmark.text = storeData.object(forKey: "landmark") as? String ?? ""
-        self.storeDescription.text = storeData.object(forKey: "description") as? String ?? ""
-        self.mapLocation.text = storeData.object(forKey: "address") as? String ?? ""
-        let location = storeData.object(forKey: "location") as? NSDictionary ?? nil
-        let coordinate = location?.object(forKey: "coordinates") as! [Double]
-        self.storeType = storeData.object(forKey: "storeType") as? String ?? ""
-        UserDefaults.standard.set(self.storeType, forKey: "storetype")
-        self.lat = coordinate[0]
-        self.long = coordinate[1]
-        self.shippingCharge.text = "\(storeData.object(forKey: "deliveryCharges") as? Double ?? 0.0)"
-        print(storeData.object(forKey: "description") as? String ?? "")
     }
 }
 

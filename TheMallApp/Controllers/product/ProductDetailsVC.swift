@@ -128,6 +128,9 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
                 vc.key = "cart"
                 UserDefaults.standard.setValue(self.productData.object(forKey:"deliveryCharges") as? Double ?? 0.0, forKey: "DeliveryCharges")
+                let store = self.productData.object(forKey: "store") as? NSDictionary
+                let tax = store?.object(forKey: "tax") as? Double ?? 10.0
+                UserDefaults.standard.setValue(tax, forKey: "taxx")
                 UserDefaults.standard.setValue(total, forKey: "price")
                 self.navigationController?.pushViewController(vc, animated: true)
             }
