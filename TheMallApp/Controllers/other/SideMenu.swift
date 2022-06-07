@@ -18,11 +18,11 @@ class SideMenu: UIViewController {
         }
     }
 
-    var sideArray = ["Favourite","Cart","Deals","Near shop","My store","Shop by category","Privacy Policy","Contact Us"]
-    var userArray = ["Favourite","Cart","Deals","Near shop","Shop by category","Privacy Policy","Contact Us"]
+    var sideArray = ["Cart","Favorite","Deals","Near shop","My store","Shop by category","Privacy Policy","Contact Us"]
+    var userArray = ["Cart","Favorite","Deals","Near shop","Shop by category","Privacy Policy","Contact Us"]
 
 
-    let sideImage = [UIImage(named: "s1"),UIImage(named: "cartactive"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
+    let sideImage = [UIImage(named: "cartactive"),UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s3"),UIImage(named: "s4")]
     let userImage = [UIImage(named: "s1"),UIImage(named: "s5"),UIImage(named: "s2"),UIImage(named: "s3"),UIImage(named: "s4")]
     
     override func viewDidLoad() {
@@ -87,19 +87,21 @@ extension SideMenu: UITableViewDelegate,UITableViewDataSource{
         switch indexPath.row{
             
         case 0:
+            
+            let vc = story.instantiateViewController(withIdentifier: "CartVC") as! CartVC
+            vc.key = "s"
+            let navigationController = UINavigationController.init(rootViewController: vc)
+            navigationController.modalPresentationStyle = .fullScreen
+            navigationController.isNavigationBarHidden = true
+            self.present(navigationController, animated: true, completion: nil)
+            
+        case 1:
             let vc = story.instantiateViewController(withIdentifier: "FavoutiteVC") as! FavoutiteVC
             vc.a = "s"
             let navigationController = UINavigationController.init(rootViewController: vc)
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.isNavigationBarHidden = true
             self.present(navigationController, animated: true, completion: nil)
-        case 1:
-               let vc = story.instantiateViewController(withIdentifier: "CartVC") as! CartVC
-               vc.key = "s"
-               let navigationController = UINavigationController.init(rootViewController: vc)
-               navigationController.modalPresentationStyle = .fullScreen
-               navigationController.isNavigationBarHidden = true
-               self.present(navigationController, animated: true, completion: nil)
         case 2:
             let vc = story.instantiateViewController(withIdentifier: "DealsOfDayVC") as! DealsOfDayVC
             vc.key = "S"
