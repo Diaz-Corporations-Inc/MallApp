@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARSLineProgress
 
 class AddressVC: UIViewController {
 
@@ -24,11 +25,15 @@ class AddressVC: UIViewController {
         getAddress()
     }
     func getAddress(){
+        ARSLineProgress.show()
         ApiManager.shared.getAddress {[self]  isSuccess in
+            ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 self.addressData = ApiManager.shared.data
                 addressTable.reloadData()
             }else{
+                ARSLineProgress.hide()
                 self.alert(message: ApiManager.shared.msg)
             }
         }

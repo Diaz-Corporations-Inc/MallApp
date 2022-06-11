@@ -207,6 +207,7 @@ extension CartVC{
             print(userId)
             ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 self.cartData = ApiManager.shared.data
                 if cartData.count == 0{
                     cartTable.isHidden = true
@@ -245,6 +246,7 @@ extension CartVC{
                 cartTable.reloadData()
                 
             }else{
+                ARSLineProgress.hide()
                 print("hii")
             }
             

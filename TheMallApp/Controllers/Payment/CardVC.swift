@@ -130,6 +130,7 @@ extension CardVC{
         ApiManager.shared.createTransaction(model: model) {[self] isSuccess in
             ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 if key == "" || key == "Upgrade"{
                     self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { ok in
                         if key == "Upgrade"{
@@ -152,6 +153,7 @@ extension CardVC{
                     
                 }
             }else{
+                ARSLineProgress.hide()
                 self.alert(message: ApiManager.shared.msg)
             }
         }
@@ -169,10 +171,12 @@ extension CardVC{
         ApiManager.shared.placeOrder(userId: user, AddressId: addressId, amount: "\(amount)", cart: cart) { isSuccess in
             ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 print("hello order placed")
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "DoneVC") as! DoneVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }else{
+                ARSLineProgress.hide()
                 self.alert(message: ApiManager.shared.msg)
             }
         }

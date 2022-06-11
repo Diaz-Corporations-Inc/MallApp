@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARSLineProgress
 
 class CheckoutVC: UIViewController {
 
@@ -65,14 +66,19 @@ class CheckoutVC: UIViewController {
 
 
 extension CheckoutVC{
+    
     func getAddress(){
+        ARSLineProgress.show()
         ApiManager.shared.addressById(addressId: self.addressId) { [self] isSuccess in
+            ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 self.addressData = ApiManager.shared.dataDict
                 customerName.text = addressData.object(forKey: "fullName") as? String ?? ""
                 address.text = "\(addressData.object(forKey: "buildingNo") as! String),\(addressData.object(forKey: "street") as! String),\(addressData.object(forKey: "city") as! String),\(addressData.object(forKey: "state") as! String),\(addressData.object(forKey: "pinCode") as! String),Near \(addressData.object(forKey: "area") as! String)"
                 
             }else{
+                ARSLineProgress.hide()
                 self.alert(message: ApiManager.shared.msg)
             }
         }

@@ -270,12 +270,13 @@ extension ProductDetailsVC: UICollectionViewDelegate,UICollectionViewDataSource,
             cell.similarView.layer.shadowOpacity = 10
             cell.similarView.layer.cornerRadius = 20
             cell.similarPic.layer.cornerRadius = 20
+            cell.isUserInteractionEnabled = true
             cell.similarPic.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
             cell.productName.text = similarProductData[indexPath.item]["name"] as! String
             cell.price.text = "$ \(similarProductData[indexPath.item]["masterPrice"] as! NSNumber)"
             if let gallery = similarProductData[indexPath.item]["gallery"] as? [AnyObject]{
                 if let image = gallery[0]["name"] as? String{
-                    let url = URL(string: "http://93.188.167.68/projects/mymall_nodejs/assets/images/\(image)")
+                    let url = URL(string: image)
                     if url != nil{
                         cell.similarPic.af.setImage(withURL: url!)
                     }

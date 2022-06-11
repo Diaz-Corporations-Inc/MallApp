@@ -66,25 +66,33 @@ class AddAddressVC: UIViewController {
        
             let user = UserDefaults.standard.value(forKey: "id") as! String
         print(isDefault)
+        ARSLineProgress.show()
             let model = AddAddressModel(userId: user, fullName: fullName.text ?? "", mobileNo: mobileNumber.text ?? "", area: landmark.text ?? "", buildingNo: flat.text ?? "", city: city.text ?? "", state: state.text ?? "", pinCode: pincode.text ?? "", street: street.text ?? "", isdefault: isDefault)
         if key == ""{
+            
             ApiManager.shared.addAddress(model: model) { isSuccess in
+                ARSLineProgress.hide()
                 if isSuccess{
+                    ARSLineProgress.hide()
                     self.showAlertWithOneAction(alertTitle: "My Mall", message: ApiManager.shared.msg, action1Title: "Ok") { isSuccess in
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
+                    ARSLineProgress.hide()
                     self.alert(message: ApiManager.shared.msg)
                 }
             }
     }else{
         ApiManager.shared.updateAddress(model: model, AddressId: self.addressId){
             isSuccess in
+            ARSLineProgress.hide()
             if isSuccess {
+                ARSLineProgress.hide()
                 self.showAlertWithOneAction(alertTitle: "My Mall", message: "Address updated", action1Title: "Ok") { ok in
                     self.navigationController?.popViewController(animated: true)
                 }
             }else{
+                ARSLineProgress.hide()
                 self.alert(message: ApiManager.shared.msg)
             }
         }
@@ -100,6 +108,7 @@ extension AddAddressVC{
             isSuccess in
             ARSLineProgress.hide()
             if isSuccess{
+                ARSLineProgress.hide()
                 let data = ApiManager.shared.dataDict
                 self.fullName.text = data?.object(forKey: "fullName") as! String
                 self.mobileNumber.text = data?.object(forKey: "mobileNo") as! String
@@ -111,6 +120,7 @@ extension AddAddressVC{
                 self.landmark.text = data?.object(forKey: "area") as! String
                 
             }else{
+                ARSLineProgress.hide()
                 print("checkAddressId")
             }
         }
