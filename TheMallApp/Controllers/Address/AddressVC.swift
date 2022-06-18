@@ -19,7 +19,6 @@ class AddressVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         count = 0
-       
     }
     override func viewWillAppear(_ animated: Bool) {
         getAddress()
