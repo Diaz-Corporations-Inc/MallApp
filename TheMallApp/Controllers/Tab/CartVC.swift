@@ -172,12 +172,13 @@ class CartVC: UIViewController {
     
     @IBAction func buyTapped(_ sender:UIButton){
         
-        //        pay()
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddressVC") as! AddressVC
         vc.key = "cart"
+        let storedata = self.cartData[0]["store"] as! NSDictionary
         print(totalPrice,totalLabel.text,totalArray,"ss",self.cartIdArray)
         UserDefaults.standard.setValue(totalPrice, forKey: "price")
-        UserDefaults.standard.setValue(self.cartData[0]["deliveryCharges"] as? Double ?? 10.0, forKey: "DeliveryCharges")
+        UserDefaults.standard.setValue(storedata.object(forKey: "deliveryCharges") as? Double ?? 10.0, forKey: "DeliveryCharges")
+        print(self.cartData[0]["store"],"gyghjbkj",cartData[0],"asdfas")
         UserDefaults.standard.setValue(self.cartIdArray, forKey: "cartIds")
         print(self.cartIdArray)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -247,7 +248,7 @@ extension CartVC{
                 
             }else{
                 ARSLineProgress.hide()
-                print("hii")
+                self.alert(message: ApiManager.shared.msg)
             }
             
         }

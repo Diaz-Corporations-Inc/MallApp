@@ -23,15 +23,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>App need the camera access</string>
+	<string>App need the camera access to upload profile pic, store images and product images</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Need location access</string>
+	<string>Please allow access of  location to show nearby stores</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Need location permission</string>
+	<string>Please allow access of location to show nearby stores</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow access to live location its needed</string>
+	<string>Please allow access of location to show nearby stores</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App need to use photos access</string>
+	<string>App need the photo library access to upload profile pic, store images and product images</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -51,7 +51,9 @@ class ChangePasswordVC: UIViewController {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.alert(message: "Please check password",title: "Change Password")
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)
+                    
                 }
             }
         }

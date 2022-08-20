@@ -30,8 +30,8 @@ class ForgotPasswordVC: UIViewController {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "OTPVC") as! OTPVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else{
-                    self.alert(message: "Please enter valid email")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
             
             

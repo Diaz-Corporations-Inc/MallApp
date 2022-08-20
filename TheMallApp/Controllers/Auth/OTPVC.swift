@@ -34,8 +34,8 @@ class OTPVC: UIViewController {
                 }
             }
         }else{
-            self.alert(message: "Please enter OTP")
-        }
+            ARSLineProgress.hide()
+            self.alert(message: ApiManager.shared.msg)        }
         
         
     }

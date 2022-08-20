@@ -132,7 +132,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         print(storeType,"storetype")
         let location = locationM(coordinates: [lat,long])
         let price = priceRangeModel(to: higherPrice.text!, from: lowPrice.text!)
-        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend,address: mapLocation.text!,storeType: storeType, tax: Double(taxes.text!) ?? 10.0,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
+        let createStoreModel = createStoreModel(description: storeDescription.text!,userId: userId, name: storeName.text!, slogan: "", webSiteUrl: webUrl.text!, timing: timing, priceRange: price, location:location, city: city.text!, scotNo: scotNo.text!, state: state.text!, landmark: landmark.text!,contactNo: storeContact.text!, zipCode: zipcode.text!, categoryId: catIdtoSend ?? "",address: mapLocation.text!,storeType: storeType, tax: Double(taxes.text!) ?? 10.0,deliveryCharges: Double(shippingCharge.text!) ?? 0.0)
         print("sadfasdf")
         print(createStoreModel)
         print("sdfsd")
@@ -191,7 +191,6 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
     }
     @IBAction func searchLocation(_ sender: Any) {
         addLocation()
-        
     }
     
     @IBAction func selectCatgory(_ sender: Any) {
@@ -201,6 +200,7 @@ class StoreDetailsVC: UIViewController,CLLocationManagerDelegate, PlacesPickerDe
         drop.selectionAction = { [unowned self] (index,item) in
             categorySelect.text = item
             catIdtoSend = categoryId[index]
+            print(catIdtoSend,"sdfsadfsadfsdkn vjsdavjhdasv")
             drop.hide()
         }
     }

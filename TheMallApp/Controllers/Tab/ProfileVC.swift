@@ -24,7 +24,7 @@ class ProfileVC: BaseClass {
         }
     }
     
-    let tabData = ["Change password","My orders","Address","Log out", "Logout from all devices"]
+    let tabData = ["Change password","My orders","Address","Log out", "Delete Account"]
     var data : NSDictionary!
     var userId = ""
     override func viewDidLoad() {
@@ -131,10 +131,26 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
             let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             self.navigationController?.pushViewController(vc, animated: true)
         case 4:
-            UserDefaults.standard.removeObject(forKey: "id")
-            UserDefaults.standard.removeObject(forKey: "token")
-            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.showAlertWithTwoActions(alertTitle: "Delete Account", message: "Your account will be permanantly removed from app you have to register again are you sure you want to delete account?", action1Title: "Yes", action1Style: .destructive, action2Title: "Cancel") { yes in
+                
+                let userid = UserDefaults.standard.value(forKey: "id") as! String
+                let token = UserDefaults.standard.value(forKey: "token") as! String
+                ApiManager.shared.deleteUser(userid: userid, token: token) { isSuccess in
+                    if isSuccess{
+                        UserDefaults.standard.removeObject(forKey: "id")
+                        UserDefaults.standard.removeObject(forKey: "token")
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{
+                        self.alert(message: ApiManager.shared.msg)
+                    }
+                }
+                
+            } completion2: { cancel in
+                print("Hello")
+            }
+
+            
         default:
             print("Functionality under developement")
         }

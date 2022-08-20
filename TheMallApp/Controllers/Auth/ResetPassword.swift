@@ -29,8 +29,8 @@ class ResetPassword: UIViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }else{
-                print("Not Changed completion false")
-            }
+                ARSLineProgress.hide()
+                self.alert(message: ApiManager.shared.msg)            }
         }
        
     }

@@ -26,7 +26,7 @@ class TransactionViewModel{
         stripeCardParams.cvc = cardCVC
         
         let config = STPPaymentConfiguration.shared
-        let stpApiClient = STPAPIClient(publishableKey: "pk_test_51HCYjQIyUd4AmPmvtzu4NPXWWlx6KoU6XIkm2H3z2wChgIlfLhbp6AYKPUxL408dyTqzkycn2QfntyGrk45ZxKdA00uXeiG9D3")
+        let stpApiClient = STPAPIClient(publishableKey: "pk_live_51KKTEbE5La7Ypz9fVbzwQaWNeL6lUCXUBRxC0qrhjAyfBbxPIvBIxZwUBsUvU4ttH0ftz0Vant4Xv6zknVeuco4G00bSKnwVUG")
         stpApiClient.createToken(withCard: stripeCardParams) { (token, error) in
             
             if error == nil {

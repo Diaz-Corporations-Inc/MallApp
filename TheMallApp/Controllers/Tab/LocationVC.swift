@@ -52,8 +52,8 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
                     mapTable.reloadData()
                 }
                 else{
-                    print("api not working")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }else{
             ARSLineProgress.show()
@@ -65,8 +65,8 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
                     mapTable.reloadData()
                 }
                 else{
-                    print("api not working")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }
       
@@ -96,8 +96,8 @@ class LocationVC: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
                     print("success")
                     self.setdata()
                 }else{
-                    print("success")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }else{
             self.showAlertWithOneAction(alertTitle: "Oops!", message: "You are not logged in please login to continue", action1Title: "OK") { isSuccess in

@@ -63,8 +63,7 @@ class ProductDetailsVC: UIViewController,UIPageViewControllerDelegate {
             editProduct.isHidden = true
             addFavourite.setTitle("Add to cart", for: .normal)
         }
-        self.similarProduct.delegate = self
-        self.similarProduct.dataSource = self
+   
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -355,7 +354,7 @@ extension ProductDetailsVC{
                 self.similarProductData = ApiManager.shared.data
                 self.similarProduct.reloadData()
             }else{
-                print("bvcmcchg tyfy chd",ApiManager.shared.msg)
+                self.alert(message: ApiManager.shared.msg)
             }
         }
     }

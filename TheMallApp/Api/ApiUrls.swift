@@ -7,7 +7,7 @@
 
 import Foundation
 
-public var baseUrl = "http://93.188.167.68:8004/api/"
+public var baseUrl = "https://admin.mymallapp.co:8004/api/"
     
 public struct Api{
     
@@ -20,6 +20,8 @@ public struct Api{
     public static var reset                      = baseUrl + "users/changePassword"
     public static var changePass                 = baseUrl + "users/resetPassword/"
     public static var profileImage               = baseUrl + "users/profileImageUpload/"
+    public static var deleteUser                 = baseUrl + "users/delete/"
+//    /users/delete/
     
 //MARK: - STORE api urls
     public static var createStore                = baseUrl + "store/create"

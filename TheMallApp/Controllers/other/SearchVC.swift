@@ -37,8 +37,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
                     self.serachTable.isHidden = false
                 }
             }else{
-                print("hello")
-            }
+                self.alert(message: ApiManager.shared.msg)            }
         }
     }
     @IBAction func SearchTapped(_ sender: UIButton){
@@ -52,8 +51,7 @@ class SearchVC: UIViewController,UITextFieldDelegate {
                     self.serachTable.isHidden = false
                 }
             }else{
-                print("hello")
-            }
+                self.alert(message: ApiManager.shared.msg)            }
         }
     }
     @IBAction func backTapped(_ sender: UIButton){

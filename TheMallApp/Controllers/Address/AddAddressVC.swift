@@ -121,7 +121,7 @@ extension AddAddressVC{
                 
             }else{
                 ARSLineProgress.hide()
-                print("checkAddressId")
+                self.alert(message: ApiManager.shared.msg)
             }
         }
     }

@@ -7,6 +7,7 @@
 
 import UIKit
 import AlamofireImage
+import ARSLineProgress
 
 class DealsOfDayVC: UIViewController {
 
@@ -129,17 +130,19 @@ extension DealsOfDayVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
 extension DealsOfDayVC{
     func getDeals(){
+        ARSLineProgress.show()
         ApiManager.shared.dealsOfTheDay {[self] isSuccess in
+            ARSLineProgress.hide()
             if isSuccess{
-                
+                ARSLineProgress.hide()
                 self.data = ApiManager.shared.data
                 dealsCollection.reloadData()
                 oldDealsCollection.reloadData()
 //                set()
                 
             }else{
-                self.alert(message: ApiManager.shared.msg)
-            }
+                ARSLineProgress.hide()
+                self.alert(message: ApiManager.shared.msg)            }
         }
     }
 }

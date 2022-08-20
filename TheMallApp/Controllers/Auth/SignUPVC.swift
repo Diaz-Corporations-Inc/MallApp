@@ -50,6 +50,7 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
                     }))
                     self.present(alert, animated: true, completion: nil)
                 }else{
+                    self.alert(message: ApiManager.shared.msg)
                     print("CompletionFail")
                 }
             }

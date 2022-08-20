@@ -40,6 +40,7 @@ class CheckoutVC: UIViewController {
         let del = UserDefaults.standard.value(forKey: "DeliveryCharges") as? Double ?? 10.0
         deliveryCharge.text = "$ \(del)"
         let tax = UserDefaults.standard.value(forKey: "taxx") as? Double ?? 10.0
+//        print(UserDefaults.standard.value(forKey: "taxx") as! Double)
         taxes.text = "$ \(tax)"
         amount = mm + del + tax
         totalPayable.text = "$ \(mm + del + tax)"
@@ -55,7 +56,6 @@ class CheckoutVC: UIViewController {
     
     @IBAction func checkout(_ sender: UIButton){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CardVC") as! CardVC
-        UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
         vc.key = "Checkout"
         vc.addressId = self.addressId
         vc.amount = Double(round(100*self.amount))/100

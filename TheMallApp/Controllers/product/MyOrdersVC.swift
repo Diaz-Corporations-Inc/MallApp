@@ -1,10 +1,8 @@
-//
 //  MyOrdersVC.swift
 //  TheMallApp
 //
 //  Created by Macbook Air (ios) on 26/04/22.
 //
-
 import UIKit
 
 class MyOrdersVC: UIViewController {
@@ -33,7 +31,8 @@ class MyOrdersVC: UIViewController {
         NavigateToHome.sharedd.navigate(naviagtionC: self.navigationController!)
     }
     @IBAction func helpTapped(_ sender: UIButton) {
-        
+        guard let url = URL(string: "https://mymallapp.co/support/.") else {return}
+        UIApplication.shared.openURL(url)
     }
     @IBAction func cancelTapped(_ sender: UIButton) {
         

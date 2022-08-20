@@ -75,8 +75,7 @@ extension ProductsVC{
                 self.data = ApiManager.shared.data
                 self.productCollection.reloadData()
             }else{
-                print("please check store id")
-            }
+                self.alert(message: ApiManager.shared.msg)            }
         }
     }
     

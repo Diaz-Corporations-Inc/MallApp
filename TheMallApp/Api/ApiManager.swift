@@ -1146,8 +1146,10 @@ import Alamofire
                         dataDict = respond.object(forKey: "data") as! NSDictionary
                         completion(true)
                     }else{
-                        completion(false)
-                    }
+                        print("fail",respond)
+                        self.msg = respond.object(forKey: "error") as! String
+                        print("errorrrrr",msg)
+                        completion(false)                    }
                 }
                 case .failure(let error):do{
                     print("error",error)
@@ -1493,6 +1495,40 @@ import Alamofire
                      completion(false)
                  }
                     
+                 }
+             }
+         }else{
+             self.msg = "Please check internet connection"
+             completion(false)
+         }
+     }
+//MARK: - delete user api
+     func deleteUser(userid: String,token:String,completion: @escaping(Bool)->()){
+         if ReachabilityNetwork.isConnectedToNetwork(){
+             let header: HTTPHeaders = ["x-access-token":token]
+             print(Api.deleteUser+userid,"sdfg")
+             AF.request(Api.deleteUser+userid,method: .delete,headers: header).response{
+                 response in
+                 switch (response.result){
+                 case .success(let data): do{
+                     let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                     let respond = json as! NSDictionary
+                     print(respond)
+                     if response.response?.statusCode == 200{
+                         completion(true)
+                     }else{
+                         self.msg = respond.object(forKey: "error") as! String
+                         completion(false)
+                     }
+                 }catch{
+                     print(error.localizedDescription)
+                     completion(false)
+                 }
+                 case .failure(let error):do{
+                     print(error)
+                     completion(false)
+                 }
+                     
                  }
              }
          }else{

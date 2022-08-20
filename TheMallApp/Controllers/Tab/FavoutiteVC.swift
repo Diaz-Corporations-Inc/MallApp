@@ -96,8 +96,8 @@ class FavoutiteVC: UIViewController {
                 browseColl.reloadData()
             }
             else{
-                print("sdbvjb")
-            }
+                ARSLineProgress.hide()
+                self.alert(message: ApiManager.shared.msg)            }
         }
         ///
         ARSLineProgress.show()
@@ -176,8 +176,8 @@ class FavoutiteVC: UIViewController {
                     }
                 }
             }else{
-                print("error")
-            }
+                ARSLineProgress.hide()
+                self.alert(message: ApiManager.shared.msg)            }
         }
 //        let selectedIndexPath = IndexPath(item: sender.tag, section: 0)
 //        if self.selectedRows.contains(selectedIndexPath)

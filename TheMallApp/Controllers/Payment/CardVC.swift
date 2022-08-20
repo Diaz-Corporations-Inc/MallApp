@@ -63,7 +63,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
             if UserDefaults.standard.value(forKey: "storetype") as? String == "store"{
                 amount = 305.00
             }else{
-                amount = 655.00
+                amount = 655.50
             }
             
         }
@@ -106,7 +106,7 @@ class CardVC: UIViewController, STPPaymentCardTextFieldDelegate, UITextFieldDele
         }else{
             self.viewModel.proceedPayment(cardNumber: paymentTextField.cardNumber!, cardholdername: cardholdername_Field.text!, expiryMonth: UInt(paymentTextField.expirationMonth), expiryYear: UInt(paymentTextField.expirationYear), cardCVC: paymentTextField.cvc!) { [self] token, isSuccess in
                 if isSuccess{
-                    payment(stripeToken: "tok_visa")
+                    payment(stripeToken: token)
                 }else{
                     self.alert(message: "Payment failed please try again after some time")
                 }
@@ -131,8 +131,9 @@ extension CardVC{
             ARSLineProgress.hide()
             if isSuccess{
                 ARSLineProgress.hide()
+                UserDefaults.standard.removeObject(forKey: "DeliveryCharges")
                 if key == "" || key == "Upgrade"{
-                    self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { ok in
+                    self.showAlertWithOneAction(alertTitle: "My Mall", message: "Payment successful", action1Title: "Ok") { [self] ok in
                         if key == "Upgrade"{
                             let vc = storyboard?.instantiateViewController(withIdentifier: "StoreDetailsVC") as! StoreDetailsVC
                             vc.key = "Upgrade"

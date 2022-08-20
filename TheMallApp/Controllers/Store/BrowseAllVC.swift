@@ -62,14 +62,15 @@ class BrowseAllVC: UIViewController {
                     }
                     browseTable.reloadData()
                 }else{
-                    print("hello")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }else{
             ARSLineProgress.show()
             ApiManager.shared.storeListWithTOken{ [self] isSuccess in
                 ARSLineProgress.hide()
                 if isSuccess{
+                    ARSLineProgress.hide()
                     storeData.removeAll()
                     storeData = ApiManager.shared.data
                     if storeData.count == 0{
@@ -79,8 +80,8 @@ class BrowseAllVC: UIViewController {
                     }
                     browseTable.reloadData()
                 }else{
-                    print("hello")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }
        
@@ -132,8 +133,8 @@ class BrowseAllVC: UIViewController {
                         browseTable.reloadData()
                         
                     }else{
-                        print(ApiManager.shared.msg)
-                    }
+                        ARSLineProgress.hide()
+                        self.alert(message: ApiManager.shared.msg)                    }
                 }
             }
             
@@ -154,8 +155,8 @@ class BrowseAllVC: UIViewController {
                     print("success")
                     self.setData()
                 }else{
-                    print("success")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
     }
     }

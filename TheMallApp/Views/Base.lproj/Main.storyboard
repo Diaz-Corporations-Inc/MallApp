@@ -799,7 +799,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NP6-Ld-ivS">
-                                <rect key="frame" x="110" y="95" width="304" height="224"/>
+                                <rect key="frame" x="110" y="96" width="304" height="224"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forgot" translatesAutoresizingMaskIntoConstraints="NO" id="UjO-lc-C0a">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="224"/>
@@ -814,13 +814,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1T0-Ch-m9D">
-                                <rect key="frame" x="154.5" y="339" width="229.5" height="36"/>
+                                <rect key="frame" x="154.5" y="340" width="229.5" height="36"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="30"/>
                                 <color key="textColor" name="shopOwnerColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fd-CK-yCr">
-                                <rect key="frame" x="30" y="505" width="354" height="60"/>
+                                <rect key="frame" x="30" y="506" width="354" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Wj-nE-WdY">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="60"/>
@@ -849,7 +849,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFF-EE-e2N">
-                                <rect key="frame" x="30" y="410" width="354" height="60"/>
+                                <rect key="frame" x="30" y="411" width="354" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mail" translatesAutoresizingMaskIntoConstraints="NO" id="OhI-z8-jV4">
                                         <rect key="frame" x="10" y="23.5" width="25" height="13.5"/>
@@ -6187,27 +6187,6 @@ Apartment</string>
                                 <color key="textColor" name="shopOwnerColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Szu-Aj-6LK">
-                                <rect key="frame" x="290.5" y="114" width="103.5" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ra-Qb-vgX">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.5" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="     Filter" image="filter">
-                                            <color key="titleColor" name="shopOwnerColor"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="9ra-Qb-vgX" secondAttribute="trailing" id="6eZ-lE-R33"/>
-                                    <constraint firstAttribute="bottom" secondItem="9ra-Qb-vgX" secondAttribute="bottom" id="BrI-v5-0QZ"/>
-                                    <constraint firstItem="9ra-Qb-vgX" firstAttribute="top" secondItem="Szu-Aj-6LK" secondAttribute="top" id="Zku-7G-Dl6"/>
-                                    <constraint firstAttribute="height" constant="30" id="apR-Gb-Jwd"/>
-                                    <constraint firstItem="9ra-Qb-vgX" firstAttribute="leading" secondItem="Szu-Aj-6LK" secondAttribute="leading" id="b4I-Dp-5wn"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GVo-Wb-q11">
                                 <rect key="frame" x="0.0" y="164" width="414" height="698"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -6235,7 +6214,7 @@ Apartment</string>
                                                             <rect key="frame" x="10" y="185" width="334" height="40"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1D-Xx-OK8">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="157" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
                                                                     <color key="backgroundColor" name="shopOwnerColor"/>
                                                                     <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -6251,34 +6230,13 @@ Apartment</string>
                                                                         <action selector="helpTapped:" destination="WgL-Qp-BR7" eventType="touchUpInside" id="5d8-5x-OFE"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTu-Ab-pPD">
-                                                                    <rect key="frame" x="177" y="0.0" width="157" height="40"/>
-                                                                    <color key="backgroundColor" name="userBtnColor"/>
-                                                                    <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="Cancel">
-                                                                        <color key="titleColor" name="shopOwnerColor"/>
-                                                                    </state>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                            <integer key="value" value="20"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <action selector="cancelTapped:" destination="WgL-Qp-BR7" eventType="touchUpInside" id="ORE-Gh-UxJ"/>
-                                                                    </connections>
-                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="dTu-Ab-pPD" firstAttribute="top" secondItem="Zdb-vf-DXc" secondAttribute="top" id="2nl-w7-tZP"/>
                                                                 <constraint firstAttribute="height" constant="40" id="Ddw-Of-KTz"/>
-                                                                <constraint firstItem="P1D-Xx-OK8" firstAttribute="width" secondItem="Zdb-vf-DXc" secondAttribute="width" multiplier="0.47" id="HkS-LC-c3K"/>
+                                                                <constraint firstItem="P1D-Xx-OK8" firstAttribute="width" secondItem="Zdb-vf-DXc" secondAttribute="width" id="HkS-LC-c3K"/>
                                                                 <constraint firstAttribute="bottom" secondItem="P1D-Xx-OK8" secondAttribute="bottom" id="SPt-GW-Zzv"/>
-                                                                <constraint firstAttribute="trailing" secondItem="dTu-Ab-pPD" secondAttribute="trailing" id="aPY-Cy-78o"/>
-                                                                <constraint firstItem="dTu-Ab-pPD" firstAttribute="width" secondItem="Zdb-vf-DXc" secondAttribute="width" multiplier="0.47" id="cjV-1M-b1s"/>
                                                                 <constraint firstItem="P1D-Xx-OK8" firstAttribute="top" secondItem="Zdb-vf-DXc" secondAttribute="top" id="hPW-7Y-DQZ"/>
-                                                                <constraint firstAttribute="bottom" secondItem="dTu-Ab-pPD" secondAttribute="bottom" id="vJd-a7-f6b"/>
                                                                 <constraint firstItem="P1D-Xx-OK8" firstAttribute="leading" secondItem="Zdb-vf-DXc" secondAttribute="leading" id="zac-oI-UAu"/>
                                                             </constraints>
                                                         </view>
@@ -6335,7 +6293,6 @@ Apartment</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cancelBtn" destination="dTu-Ab-pPD" id="Zwo-dI-Cre"/>
                                             <outlet property="helpBtn" destination="P1D-Xx-OK8" id="MQy-0h-FNa"/>
                                             <outlet property="orderDate" destination="kOx-Mb-ifP" id="4dP-tN-Ikw"/>
                                             <outlet property="productBrand" destination="0p0-tb-hl6" id="9GS-3y-NUU"/>
@@ -6354,7 +6311,6 @@ Apartment</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Acs-Ck-fCS" firstAttribute="top" secondItem="brO-2O-jbF" secondAttribute="top" id="1Hd-Aq-VwZ"/>
-                            <constraint firstItem="Szu-Aj-6LK" firstAttribute="centerY" secondItem="DyI-33-dPm" secondAttribute="centerY" id="1fV-EJ-RZw"/>
                             <constraint firstItem="brO-2O-jbF" firstAttribute="bottom" secondItem="GVo-Wb-q11" secondAttribute="bottom" id="2fV-nL-bru"/>
                             <constraint firstItem="DyI-33-dPm" firstAttribute="top" secondItem="Acs-Ck-fCS" secondAttribute="bottom" constant="20" id="65l-RS-DMG"/>
                             <constraint firstItem="GVo-Wb-q11" firstAttribute="leading" secondItem="brO-2O-jbF" secondAttribute="leading" id="Dsk-uD-XCY"/>
@@ -6362,13 +6318,10 @@ Apartment</string>
                             <constraint firstItem="Acs-Ck-fCS" firstAttribute="leading" secondItem="mFb-kK-LCb" secondAttribute="leading" id="NkP-2f-HJb"/>
                             <constraint firstItem="brO-2O-jbF" firstAttribute="trailing" secondItem="GVo-Wb-q11" secondAttribute="trailing" id="TsT-L1-6XE"/>
                             <constraint firstItem="GVo-Wb-q11" firstAttribute="top" secondItem="DyI-33-dPm" secondAttribute="bottom" constant="20" id="UsT-jL-t9N"/>
-                            <constraint firstItem="Szu-Aj-6LK" firstAttribute="width" secondItem="mFb-kK-LCb" secondAttribute="width" multiplier="0.25" id="gxZ-eN-tId"/>
-                            <constraint firstItem="brO-2O-jbF" firstAttribute="trailing" secondItem="Szu-Aj-6LK" secondAttribute="trailing" constant="20" id="kzM-3j-eCh"/>
                             <constraint firstItem="DyI-33-dPm" firstAttribute="leading" secondItem="brO-2O-jbF" secondAttribute="leading" constant="20" id="xNd-v9-Gld"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="filterView" destination="Szu-Aj-6LK" id="Caz-lh-utX"/>
                         <outlet property="orderTable" destination="GVo-Wb-q11" id="IUy-Vs-d05"/>
                     </connections>
                 </viewController>
@@ -9425,7 +9378,7 @@ Apartment</string>
         <image name="addProduct" width="40" height="55"/>
         <image name="addProfile" width="22" height="22"/>
         <image name="addressSelected" width="22" height="22"/>
-        <image name="backBlack" width="10" height="18"/>
+        <image name="backBlack" width="10" height="16"/>
         <image name="backButtonWhite" width="10" height="18"/>
         <image name="background" width="414" height="896"/>
         <image name="cart" width="22" height="22"/>

@@ -59,8 +59,8 @@ class HomeVC: UIViewController,UITextFieldDelegate {
                     shopsCollection.reloadData()
                     pickFavourite.reloadData()
                 }else{
-                    print("hello")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
         }
             else{
@@ -74,8 +74,8 @@ class HomeVC: UIViewController,UITextFieldDelegate {
                     shopsCollection.reloadData()
                     pickFavourite.reloadData()
                 }else{
-                    print("hello")
-                }
+                    ARSLineProgress.hide()
+                    self.alert(message: ApiManager.shared.msg)                }
             }
 
         }
