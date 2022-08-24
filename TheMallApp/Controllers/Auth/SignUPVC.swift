@@ -19,6 +19,8 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
         super.viewDidLoad()
         password.isSecureTextEntry = true
         dobCom.delegate = self
+        dobCom.placeholder = "Date of birth (optional)"
+       
     }
     
     @IBAction func loginTapped(_ sender: UIButton){
@@ -34,7 +36,7 @@ class SignUPVC: UIViewController,UITextFieldDelegate{
     }
     
     @IBAction func signUpTapped(_ sender: UIButton){
-        if email.text == "" || password.text == "" || name.text == "" || dobCom.text == ""{
+        if email.text == "" || password.text == "" || name.text == ""{
             self.alert(message: "Please enter all field")
         }else{
             let modelData = signUpModel(email: email.text!, password: password.text!, name: name.text!, dob: dobCom.text!,fcmToken: UserDefaults.standard.value(forKey: "devicetoken") as? String ?? "notoken")
